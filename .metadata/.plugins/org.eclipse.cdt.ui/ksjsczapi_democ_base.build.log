@@ -1,1 +1,14 @@
-Info: Nothing to build for ksjsczapi_democ_base
+15:15:53 **** Incremental Build of configuration Debug for project ksjsczapi_democ_base ****
+Info: Internal Builder is used for build
+arm-linux-gnueabihf-gcc "-IK:\\github\\git.ksjscz_demo\\ksjsczapi_include" -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+..\main.c: In function 'main':
+..\main.c:223:9: warning: unused variable 'nShowY' [-Wunused-variable]
+     int nShowY = ( nScreenH - nShowH ) >> 1;
+         ^
+..\main.c:222:9: warning: unused variable 'nShowX' [-Wunused-variable]
+     int nShowX = ( nScreenW - nShowW ) >> 1;
+         ^
+arm-linux-gnueabihf-gcc "-LK:\\github\\git.ksjscz_demo\\ksjsczapi_lib" -o ksjsczapi_democ_base thread_control.o main.o KSJImageThreshold.o KSJImageHistgram.o KSJImageAoi.o -lksjscz -lQtGui -lQtScriptTools -lQtSql -lQtSvg -lQtTest -lQtXml -lQtMultimedia -lQtNetwork -lQtScript -lQtDeclarative -lQtCore -lksjQtReceiver -lpthread -lstdc++ -lksjqt 
+
+15:15:54 Build Finished (took 1s.411ms)
+

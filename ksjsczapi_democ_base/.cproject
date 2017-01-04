@@ -23,7 +23,7 @@
 								<option defaultValue="gnu.c.optimization.level.none" id="gnu.c.compiler.option.optimization.level.1673528200" name="Optimization Level" superClass="gnu.c.compiler.option.optimization.level" valueType="enumerated"/>
 								<option id="gnu.c.compiler.option.debugging.level.1261804515" name="Debug Level" superClass="gnu.c.compiler.option.debugging.level" value="gnu.c.debugging.level.max" valueType="enumerated"/>
 								<option id="gnu.c.compiler.option.include.paths.127049703" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;C:\ksjsczapi_demo\ksjsczapi_include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;K:\github\git.ksjscz_demo\ksjsczapi_include&quot;"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.337113242" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 							</tool>
@@ -34,12 +34,24 @@
 							<tool id="cdt.managedbuild.tool.gnu.cross.c.linker.2072723074" name="Cross GCC Linker" superClass="cdt.managedbuild.tool.gnu.cross.c.linker">
 								<option id="gnu.c.link.option.libs.1162930326" name="Libraries (-l)" superClass="gnu.c.link.option.libs" valueType="libs">
 									<listOptionValue builtIn="false" value="ksjscz"/>
+									<listOptionValue builtIn="false" value="QtGui"/>
+									<listOptionValue builtIn="false" value="QtScriptTools"/>
+									<listOptionValue builtIn="false" value="QtSql"/>
+									<listOptionValue builtIn="false" value="QtSvg"/>
+									<listOptionValue builtIn="false" value="QtTest"/>
+									<listOptionValue builtIn="false" value="QtXml"/>
+									<listOptionValue builtIn="false" value="QtMultimedia"/>
+									<listOptionValue builtIn="false" value="QtNetwork"/>
+									<listOptionValue builtIn="false" value="QtScript"/>
+									<listOptionValue builtIn="false" value="QtDeclarative"/>
+									<listOptionValue builtIn="false" value="QtCore"/>
+									<listOptionValue builtIn="false" value="ksjQtReceiver"/>
 									<listOptionValue builtIn="false" value="pthread"/>
 									<listOptionValue builtIn="false" value="stdc++"/>
 									<listOptionValue builtIn="false" value="ksjqt"/>
 								</option>
 								<option id="gnu.c.link.option.paths.1261624724" name="Library search path (-L)" superClass="gnu.c.link.option.paths" valueType="libPaths">
-									<listOptionValue builtIn="false" value="&quot;C:\ksjsczapi_demo\ksjsczapi_lib&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;K:\github\git.ksjscz_demo\ksjsczapi_lib&quot;"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.c.linker.input.1952034809" superClass="cdt.managedbuild.tool.gnu.c.linker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
@@ -87,6 +99,21 @@
 								<option id="gnu.cpp.compiler.option.debugging.level.1056308243" name="Debug Level" superClass="gnu.cpp.compiler.option.debugging.level" value="gnu.cpp.compiler.debugging.level.none" valueType="enumerated"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.cross.c.linker.2121283087" name="Cross GCC Linker" superClass="cdt.managedbuild.tool.gnu.cross.c.linker">
+								<option id="gnu.c.link.option.libs.1966919345" superClass="gnu.c.link.option.libs" valueType="libs">
+									<listOptionValue builtIn="false" value="ksjqt"/>
+									<listOptionValue builtIn="false" value="ksjscz"/>
+									<listOptionValue builtIn="false" value="ksjQtReceiver.so"/>
+									<listOptionValue builtIn="false" value="QtCore"/>
+									<listOptionValue builtIn="false" value="QtGui"/>
+									<listOptionValue builtIn="false" value="QtMultimedia"/>
+									<listOptionValue builtIn="false" value="QtNetwork"/>
+									<listOptionValue builtIn="false" value="QtScript"/>
+									<listOptionValue builtIn="false" value="QtScriptTools"/>
+									<listOptionValue builtIn="false" value="QtSql"/>
+									<listOptionValue builtIn="false" value="QtSvg"/>
+									<listOptionValue builtIn="false" value="QtTest"/>
+									<listOptionValue builtIn="false" value="QtXml"/>
+								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.c.linker.input.2060782877" superClass="cdt.managedbuild.tool.gnu.c.linker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
@@ -145,4 +172,5 @@
 			<resource resourceType="PROJECT" workspacePath="/ksjsczapi_democ_base"/>
 		</configuration>
 	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
 </cproject>

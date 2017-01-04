@@ -20,7 +20,7 @@ enum KSJSCZ_TRIGGER_MODE
 };
 
 // Set Trigger Mode
-KSJSCZ_API  KSJSCZ_TriggerModeSet(int nSensorIndex, unsigned long TriggerMode, bool bCreate);// bCreate: 1(自动创建线程); 0(用户自行创建线程)
+KSJSCZ_API  KSJSCZ_TriggerModeSet(int nSensorIndex, unsigned long TriggerMode);
 KSJSCZ_API  KSJSCZ_TriggerModeGet(int nSensorIndex, unsigned long *pTriggerMode);
 
 

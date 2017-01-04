@@ -1,6 +1,16 @@
 #ifndef __KSJ_SCZ_API_H___
 #define __KSJ_SCZ_API_H___
 
+#include <sys/mman.h>  
+#include <sys/types.h>  
+#include <sys/stat.h>  
+#include <fcntl.h>  
+#include <unistd.h>
+#include <stdio.h>
+#include <sys/vfs.h>
+#include <sys/file.h>
+#include <stdlib.h>
+
 #if defined (_WIN32)
 #  ifdef KSJSCZDLL
 #    define KSJSCZ_IMPORT_EXPORT __declspec(dllexport)
@@ -31,6 +41,7 @@
 #  error Unknown platform, file needs adaption
 #endif
 
+
 #define KSJSCZ_API KSJSCZ_IMPORT_EXPORT int KSJSCZ_CALLTYPE
 
 #ifdef __cplusplus
@@ -54,6 +65,17 @@ enum KSJSCZ_SENSOR_TYPE
 	KSJSCZ_ST_E130M,
 	KSJSCZ_ST_UNKNOWN = -1
 };
+
+enum KSJ_ADDRESSMODE 
+{ 
+	KSJ_SKIPNONE = 0, 
+	KSJ_SKIP2, 
+	KSJ_SKIP3, 
+	KSJ_SKIP4,
+	KSJ_SKIP8 
+};
+
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // KSJSCZAPIº¯Êý·µ»Ø´úÂë
 enum KSJSCZ_ERROR_LIST
@@ -124,6 +146,8 @@ KSJSCZ_API  KSJSCZ_GetLibVersion(int *pnMaj1, int *pnMaj2, int *pnMin1, int *pnM
 KSJSCZ_API KSJSCZ_CaptureSetTimeOut(int nSensorIndex, unsigned long ulTimeOut); // unit is second
 KSJSCZ_API  KSJSCZ_TriggerCallbackSet(int nSensorIndex, KSJSCZ_TRIGGER_CALLBACK pfTriggerCallback, void *lpContext);
 KSJSCZ_API  KSJSCZ_HelperSaveToBmp( unsigned char *pData, int nWidth, int nHeight, int nBitCount, const char *pszFileName );
+KSJSCZ_API KSJSCZ_SetAddressMode(int nSensorIndex, enum KSJ_ADDRESSMODE AddressMode);
+KSJSCZ_API KSJSCZ_GetAddressMode(int nSensorIndex, enum KSJ_ADDRESSMODE *pAddressMode);
 
 #ifdef __cplusplus
 }

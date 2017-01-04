@@ -58,6 +58,55 @@ void *ThreadOfUser(void *arg)
 	return NULL;
 }
 
+
+static void OnTrackBar_Gain(int nPos)
+{
+	KSJSCZ_SetGain(0, nPos);
+}
+
+//static void OnTrackBar_ExposureLine(int nPos)
+//{
+//	KSJSCZ_SetExposureLines(0, nPos);
+//}
+
+static void OnSpin_ExposureLine(int nPos)
+{
+	KSJSCZ_SetExposureLines(0, nPos);
+}
+
+static void OnSpin_ColStart(int nPos)
+{
+	unsigned long ulColStart,ulRowStart,ulColSize, ulRowSize;
+	KSJSCZ_GetCaptureFieldOfView(0,&ulColStart,&ulRowStart,&ulColSize,&ulRowSize);
+	KSJSCZ_SetCaptureFieldOfView(0, nPos, ulRowStart, ulColSize, ulRowSize);
+}
+
+static void OnSpin_ColSize(int nPos)
+{
+	unsigned long ulColStart,ulRowStart,ulColSize, ulRowSize;
+	KSJSCZ_GetCaptureFieldOfView(0,&ulColStart,&ulRowStart,&ulColSize,&ulRowSize);
+	KSJSCZ_SetCaptureFieldOfView(0, ulColStart, ulRowStart, nPos, ulRowSize);
+}
+
+static void OnSpin_RowStart(int nPos)
+{
+	unsigned long ulColStart,ulRowStart,ulColSize, ulRowSize;
+	KSJSCZ_GetCaptureFieldOfView(0,&ulColStart,&ulRowStart,&ulColSize,&ulRowSize);
+	KSJSCZ_SetCaptureFieldOfView(0, ulColStart, nPos, ulColSize, ulRowSize);
+}
+
+static void OnSpin_RowSize(int nPos)
+{
+	unsigned long ulColStart,ulRowStart,ulColSize, ulRowSize;
+	KSJSCZ_GetCaptureFieldOfView(0,&ulColStart,&ulRowStart,&ulColSize,&ulRowSize);
+	KSJSCZ_SetCaptureFieldOfView(0, ulColStart, ulRowStart, ulColSize, nPos);
+}
+
+static void OnComboBox_TriggerMode(int pos)
+{
+	KSJSCZ_TriggerModeSet(0, pos);
+}
+
 int main()
 {
 	int nRet;
@@ -75,20 +124,12 @@ int main()
 	KSJSCZ_GetDeviceInformation(&DeviceType, &ulPLVersion);
 	printf("DeviceType %d,PLVersion %lu\n",DeviceType,ulPLVersion);
 
-	KSJSCZ_TriggerModeSet(0, KSJSCZ_TM_CMD_SINGLE, true);
-	// KSJSCZ_TriggerModeSet(0, KSJSCZ_TM_CMD_CONTINUE, true);
+	enum KSJSCZ_TRIGGER_MODE  TriggerMode = KSJSCZ_TM_CMD_SINGLE;
+	KSJSCZ_TriggerModeSet(0, TriggerMode );
+	// KSJSCZ_TriggerModeSet(0, KSJSCZ_TM_CMD_CONTINUE );
 
 
 	unsigned long ulValue,ulMin,ulMax;
-	KSJSCZ_GetGainRange(0,&ulMin,&ulMax);
-	printf("KSJSCZ_GetGainRange Min %lu,Max %lu\n",ulMin,ulMax);
-	KSJSCZ_GetGain(0,&ulValue);
-	printf("KSJSCZ_GetGain %lu\n",ulValue);
-
-	KSJSCZ_GetExposureLinesRange(0,&ulMin,&ulMax);
-	printf("KSJSCZ_GetExposureLinesRange Min %lu,Max %lu\n",ulMin,ulMax);
-	KSJSCZ_GetExposureLines(0,&ulValue);
-	printf("KSJSCZ_GetExposureLines %lu\n",ulValue);
 
 	float fExposureTime,fExposureMin,fExposureMax;
 	KSJSCZ_GetExposureTimeRange(0,&fExposureMin,&fExposureMax);
@@ -128,6 +169,50 @@ int main()
 	nRet = KSJQT_Open();
     printf("KSJQT_Open %d\n", nRet);
 
+	KSJQT_SetVideoWidgetPos(0, 0, 640, 480);
+
+	// Gain Trackbar
+	KSJSCZ_GetGainRange(0,&ulMin,&ulMax);
+	printf("KSJSCZ_GetGainRange Min %lu,Max %lu\n",ulMin,ulMax);
+	KSJSCZ_GetGain(0,&ulValue);
+	printf("KSJSCZ_GetGain %lu\n",ulValue);
+	KSJQT_CreateTrackBar("Gain:", (int*)(&ulValue), ulMax, OnTrackBar_Gain, NULL);
+
+    // Exposure Lines
+	KSJSCZ_GetExposureLinesRange(0,&ulMin,&ulMax);
+	printf("KSJSCZ_GetExposureLinesRange Min %lu,Max %lu\n",ulMin,ulMax);
+	KSJSCZ_GetExposureLines(0,&ulValue);
+	printf("KSJSCZ_GetExposureLines %lu\n",ulValue);
+	KSJQT_CreateSpinBox("Exposure Lines:", (int*)(&ulValue), (int)ulMax, OnSpin_ExposureLine, NULL);
+	// Exposure Lines Trackbar
+	// KSJQT_CreateTrackBar("Exposure Lines:", (int*)(&ulValue), ulMax, OnTrackBar_ExposureLine, NULL);
+
+	KSJSCZ_GetCaptureFieldOfViewRange(0,&ulColSizeMin,&ulRowSizeMin,&ulColSizeMax,&ulRowSizeMax);
+	printf("KSJSCZ_GetCaptureFieldOfViewRange ColSizeMin %lu,RowSizeMin %lu,ColSizeMax %lu,RowSizeMax %lu\n",
+			ulColSizeMin,ulRowSizeMin,ulColSizeMax,ulRowSizeMax);
+
+	KSJSCZ_GetCaptureFieldOfView(0,&ulColStart,&ulRowStart,&ulColSize,&ulRowSize);
+	printf("KSJSCZ_GetCaptureFieldOfView ulColStart %lu,ulRowStart %lu,ulColSize %lu,ulRowSize %lu\n",
+			ulColStart,ulRowStart,ulColSize, ulRowSize);
+	KSJQT_CreateSpinBox("ColStart", (int*)(&ulColStart), ulColSizeMax,   OnSpin_ColStart, NULL);
+	KSJQT_CreateSpinBox("ColSize",  (int*)(&ulColSize),  ulColSizeMax,   OnSpin_ColSize,  NULL);
+	KSJQT_CreateSpinBox("RowStart", (int*)(&ulRowStart), ulRowSizeMax,   OnSpin_RowStart, NULL);
+	KSJQT_CreateSpinBox("RowSize",  (int*)(&ulRowSize),  ulRowSizeMax,   OnSpin_RowSize,  NULL);
+
+
+	// Trigger Mode ComboBox
+	const char *ComboItem_TriggerMode[] =
+	{
+	    "command continue",
+	    "command single",
+	    "level high",
+	    "level low",
+	    "edge positive",
+	    "edge negative",
+	};
+	KSJSCZ_TriggerModeGet(0, (unsigned long*)&TriggerMode);
+	KSJQT_CreateComboBox("Trigger Mode:",(int*)(&TriggerMode) , 6, ComboItem_TriggerMode, OnComboBox_TriggerMode, NULL);
+
     int nScreenW = 1280;
     int nScreenH = 720;
 
@@ -137,7 +222,7 @@ int main()
     int nShowX = ( nScreenW - nShowW ) >> 1;
     int nShowY = ( nScreenH - nShowH ) >> 1;
 
-    nRet = KSJQT_SetPosition( 0, 0, 1280,  720);
+    nRet = KSJQT_SetPosition( 0, 0, 1280,  1024);
 
     int nFramesCounter = 0;
     struct timeval  start;
@@ -157,8 +242,8 @@ int main()
 
 	    // KSJSCZ_HelperSaveToBmp(pDataBuffer, nCaptureWidth, nCaptureHeight,nCaptureBitCount, "/picture/data/capture.bmp" );
 
-	    // nRet = KSJQT_Show(pDataBuffer, nCaptureWidth, nCaptureHeight, nCaptureBitCount);
-	    // printf("KSJQT_Show %d\n", nRet);
+	    nRet = KSJQT_Show(pDataBuffer, nCaptureWidth, nCaptureHeight, nCaptureBitCount);
+	    printf("KSJQT_Show %d\n", nRet);
 
 	    nRet = KSJSCZ_ReleaseBuffer(0);
 		printf("KSJSCZ_ReleaseBuffer %d\n", nRet);
