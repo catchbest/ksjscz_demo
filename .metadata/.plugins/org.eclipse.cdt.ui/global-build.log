@@ -1,0 +1,27 @@
+13:26:48 **** Incremental Build of configuration Debug for project ksjsczapi_democpp_base ****
+Info: Internal Builder is used for build
+arm-linux-gnueabihf-g++ "-IK:\\github\\git.ksjscz_demo\\ksjsczapi_include" -O0 -g3 -Wall -c -fmessage-length=0 -o KSJImageThreshold.o "..\\KSJImageThreshold.cpp" 
+arm-linux-gnueabihf-g++ "-IK:\\github\\git.ksjscz_demo\\ksjsczapi_include" -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.cpp" 
+..\main.cpp: In function 'int main()':
+..\main.cpp:108:12: warning: unused variable 'szCommand' [-Wunused-variable]
+     char   szCommand[64];
+            ^
+arm-linux-gnueabihf-g++ "-IK:\\github\\git.ksjscz_demo\\ksjsczapi_include" -O0 -g3 -Wall -c -fmessage-length=0 -o KSJImageHistgram.o "..\\KSJImageHistgram.cpp" 
+..\KSJImageHistgram.cpp: In function 'void Y8_ShowHistgram(unsigned char*, int, int, int, int, int, int, int*, int)':
+..\KSJImageHistgram.cpp:20:8: warning: unused variable 'nHistgramPixelsW' [-Wunused-variable]
+  int   nHistgramPixelsW = nAoiW * fRatioWInAoi;    // 直方图横向像素宽度
+        ^
+arm-linux-gnueabihf-g++ "-IK:\\github\\git.ksjscz_demo\\ksjsczapi_include" -O0 -g3 -Wall -c -fmessage-length=0 -o KSJImageAoi.o "..\\KSJImageAoi.cpp" 
+..\KSJImageAoi.cpp: In function 'int KSJIMAGE_ShowAoi(unsigned char*, int, int, int, int, int, int, int)':
+..\KSJImageAoi.cpp:27:6: warning: unused variable 'x' [-Wunused-variable]
+  int x, y;
+      ^
+arm-linux-gnueabihf-g++ "-LK:\\github\\git.ksjscz_demo\\ksjsczapi_lib" -o ksjsczapi_democpp_base main.o KSJImageThreshold.o KSJImageHistgram.o KSJImageAoi.o -lksjscz -lksjqt 
+13:27:41 **** Incremental Build of configuration Debug for project ksjsczapi_democpp_base ****
+Info: Internal Builder is used for build
+arm-linux-gnueabihf-g++ "-IK:\\github\\git.ksjscz_demo\\ksjsczapi_include" -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.cpp" 
+..\main.cpp: In function 'int main()':
+..\main.cpp:108:12: warning: unused variable 'szCommand' [-Wunused-variable]
+     char   szCommand[64];
+            ^
+arm-linux-gnueabihf-g++ "-LK:\\github\\git.ksjscz_demo\\ksjsczapi_lib" -o ksjsczapi_democpp_base main.o KSJImageThreshold.o KSJImageHistgram.o KSJImageAoi.o -lksjscz -lksjqt 
