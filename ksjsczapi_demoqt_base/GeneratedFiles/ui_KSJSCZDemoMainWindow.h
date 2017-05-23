@@ -70,7 +70,7 @@ public:
         KSJSCZDemoMainWindow->resize(1266, 700);
         UserInputGroupBox = new QGroupBox(KSJSCZDemoMainWindow);
         UserInputGroupBox->setObjectName(QStringLiteral("UserInputGroupBox"));
-        UserInputGroupBox->setGeometry(QRect(810, 16, 447, 465));
+        UserInputGroupBox->setGeometry(QRect(814, 16, 447, 465));
         StaticText_1 = new QLabel(UserInputGroupBox);
         StaticText_1->setObjectName(QStringLiteral("StaticText_1"));
         StaticText_1->setGeometry(QRect(12, 72, 115, 16));
@@ -231,7 +231,7 @@ public:
         WriteRegPushButton->setText(QApplication::translate("KSJSCZDemoMainWindow", "Write", 0));
         StaticText_RegAddress->setText(QApplication::translate("KSJSCZDemoMainWindow", "0x0000", 0));
         StaticText_RegValue->setText(QApplication::translate("KSJSCZDemoMainWindow", "0x00000000", 0));
-        StaticText_Version->setText(QApplication::translate("KSJSCZDemoMainWindow", "KSJSCZApi Ver: 0.0.0.0", 0));
+        StaticText_Version->setText(QApplication::translate("KSJSCZDemoMainWindow", "Ver: 0.0.0.0", 0));
         StartCapturePushButton->setText(QApplication::translate("KSJSCZDemoMainWindow", "Start", 0));
     } // retranslateUi
 

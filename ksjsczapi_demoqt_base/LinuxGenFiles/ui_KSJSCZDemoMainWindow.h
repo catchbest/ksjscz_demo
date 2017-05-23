@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'KSJSCZDemoMainWindow.ui'
 **
-** Created: Fri May 19 18:04:40 2017
+** Created: Tue May 23 13:19:26 2017
 **      by: Qt User Interface Compiler version 4.8.3
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!

@@ -47,6 +47,7 @@ KSJSCZ_API  KSJSCZ_EmptyFrameBuffer(int nSensorIndex);
 KSJSCZ_API  KSJSCZ_SetTriggerMode(int nSensorIndex, enum KSJSCZ_TRIGGER_MODE TriggerMode);
 KSJSCZ_API  KSJSCZ_GetTriggerMode(int nSensorIndex, enum KSJSCZ_TRIGGER_MODE *pTriggerMode);
 
+KSJSCZ_API KSJSCZ_SetTriggerCallback(int nSensorIndex, KSJSCZ_TRIGGER_CALLBACK pfTriggerCallback);
 
 KSJSCZ_API  KSJSCZ_GetTriggerDelayRange(int nSensorIndex, unsigned long *pwMin, unsigned long *pwMax);
 KSJSCZ_API  KSJSCZ_SetTriggerDelay(int nSensorIndex, unsigned long ulDelay);

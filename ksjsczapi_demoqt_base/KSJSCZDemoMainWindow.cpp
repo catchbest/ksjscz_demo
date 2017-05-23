@@ -57,6 +57,8 @@ void* ThreadForCaptureData(void *arg)
 
 	pMainWindow->update();
 
+	int nTick = 0;
+
 	while (!pMainWindow->m_bStopCaptureThread)
 	{
 		if (pMainWindow->m_bIsCapturing)
@@ -71,8 +73,15 @@ void* ThreadForCaptureData(void *arg)
 
 			if (KSJSCZ_ERR_SUCCESS == nRet)
 			{
-				MyProcessData(pImageData, nWidth, nHeight, nBitCount);
+				//char img_file_path[260] = { 0 };
+
+				//sprintf(img_file_path, "/picture/data/%02d.bmp", nTick++);
+				//KSJSCZ_HelperSaveToBmp(pImageData, nWidth, nHeight, nBitCount, img_file_path);
+				//if (nTick > 50) nTick = 0;
+
+				MyProcessData(pImageData, nWidth, nHeight, nBitCount);				
 				KSJSCZ_ShowCaptureData(0, pImageData);
+				
 				KSJSCZ_ReleaseBuffer(0);
 			}
 		}
@@ -105,6 +114,8 @@ QDialog(parent)
 {
 	ui->setupUi(this);
 	setWindowFlags(Qt::FramelessWindowHint);
+
+	//setStyleSheet("background-color: black");
 
 	connect(ui->TriggerModeComBox, SIGNAL(currentIndexChanged(int)), this, SLOT(OnTriggerModeChanged(int)));
 	connect(ui->ExpTimeSpinBox, SIGNAL(valueChanged(double)), this, SLOT(OnExpTimerChanged(double)));
@@ -163,6 +174,8 @@ QDialog(parent)
 	int nMaj1, nMaj2, nMin1, nMin2;
 	nRet = KSJSCZ_GetLibVersion(&nMaj1, &nMaj2, &nMin1, &nMin2);
 	ui->StaticText_Version->setText(QString("KSJSCZApi Ver: %1.%2.%3.%4").arg(nMaj1).arg(nMaj2).arg(nMin1).arg(nMin2));
+
+	nRet = KSJSCZ_LogSet(1, NULL);
 
 	nRet = KSJSCZ_Init();
 
