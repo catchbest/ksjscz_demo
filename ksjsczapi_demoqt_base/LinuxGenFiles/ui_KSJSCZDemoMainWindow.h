@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'KSJSCZDemoMainWindow.ui'
 **
-** Created: Tue May 23 13:19:26 2017
+** Created: Fri May 26 11:37:50 2017
 **      by: Qt User Interface Compiler version 4.8.3
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -63,6 +63,15 @@ public:
     QLabel *StaticText_RegValue;
     QLabel *StaticText_Version;
     QPushButton *StartCapturePushButton;
+    QGroupBox *GPIO;
+    QPushButton *WriteGpioPushButton;
+    QLabel *StaticText_18;
+    QSpinBox *GpioValueSpinBox;
+    QLabel *StaticText_Gpio;
+    QLabel *StaticText_21;
+    QPushButton *ReadGpioPushButton;
+    QLabel *StaticText_12;
+    QSpinBox *TrigerDelaySpinBox;
 
     void setupUi(QDialog *KSJSCZDemoMainWindow)
     {
@@ -71,51 +80,52 @@ public:
         KSJSCZDemoMainWindow->resize(1266, 700);
         UserInputGroupBox = new QGroupBox(KSJSCZDemoMainWindow);
         UserInputGroupBox->setObjectName(QString::fromUtf8("UserInputGroupBox"));
-        UserInputGroupBox->setGeometry(QRect(814, 16, 447, 465));
+        UserInputGroupBox->setGeometry(QRect(816, 4, 447, 549));
         StaticText_1 = new QLabel(UserInputGroupBox);
         StaticText_1->setObjectName(QString::fromUtf8("StaticText_1"));
-        StaticText_1->setGeometry(QRect(12, 72, 115, 16));
+        StaticText_1->setGeometry(QRect(12, 86, 115, 16));
         StaticText_2 = new QLabel(UserInputGroupBox);
         StaticText_2->setObjectName(QString::fromUtf8("StaticText_2"));
-        StaticText_2->setGeometry(QRect(222, 74, 69, 16));
+        StaticText_2->setGeometry(QRect(222, 88, 69, 16));
         StaticText_2->setFrameShape(QFrame::NoFrame);
         StaticText_ExpostureTimeRange = new QLabel(UserInputGroupBox);
         StaticText_ExpostureTimeRange->setObjectName(QString::fromUtf8("StaticText_ExpostureTimeRange"));
-        StaticText_ExpostureTimeRange->setGeometry(QRect(300, 76, 133, 16));
+        StaticText_ExpostureTimeRange->setGeometry(QRect(300, 90, 133, 16));
         StaticText_ExpostureTimeRange->setFrameShape(QFrame::StyledPanel);
         StaticText_ExpostureLinesRange = new QLabel(UserInputGroupBox);
         StaticText_ExpostureLinesRange->setObjectName(QString::fromUtf8("StaticText_ExpostureLinesRange"));
-        StaticText_ExpostureLinesRange->setGeometry(QRect(300, 110, 133, 16));
+        StaticText_ExpostureLinesRange->setGeometry(QRect(300, 124, 133, 16));
         StaticText_ExpostureLinesRange->setFrameShape(QFrame::StyledPanel);
         StaticText_3 = new QLabel(UserInputGroupBox);
         StaticText_3->setObjectName(QString::fromUtf8("StaticText_3"));
-        StaticText_3->setGeometry(QRect(222, 108, 69, 16));
+        StaticText_3->setGeometry(QRect(222, 122, 69, 16));
         StaticText_3->setFrameShape(QFrame::NoFrame);
         StaticText_4 = new QLabel(UserInputGroupBox);
         StaticText_4->setObjectName(QString::fromUtf8("StaticText_4"));
-        StaticText_4->setGeometry(QRect(12, 106, 115, 16));
+        StaticText_4->setGeometry(QRect(12, 120, 115, 16));
         ExpLinesSpinBox = new QSpinBox(UserInputGroupBox);
         ExpLinesSpinBox->setObjectName(QString::fromUtf8("ExpLinesSpinBox"));
-        ExpLinesSpinBox->setGeometry(QRect(130, 104, 77, 25));
+        ExpLinesSpinBox->setEnabled(false);
+        ExpLinesSpinBox->setGeometry(QRect(130, 118, 77, 25));
         ExpLinesSpinBox->setMaximum(99999);
         StaticText_5 = new QLabel(UserInputGroupBox);
         StaticText_5->setObjectName(QString::fromUtf8("StaticText_5"));
-        StaticText_5->setGeometry(QRect(12, 142, 115, 16));
+        StaticText_5->setGeometry(QRect(12, 156, 115, 16));
         StaticText_6 = new QLabel(UserInputGroupBox);
         StaticText_6->setObjectName(QString::fromUtf8("StaticText_6"));
-        StaticText_6->setGeometry(QRect(222, 144, 69, 16));
+        StaticText_6->setGeometry(QRect(222, 158, 69, 16));
         StaticText_6->setFrameShape(QFrame::NoFrame);
         StaticText_GainRange = new QLabel(UserInputGroupBox);
         StaticText_GainRange->setObjectName(QString::fromUtf8("StaticText_GainRange"));
-        StaticText_GainRange->setGeometry(QRect(300, 146, 133, 16));
+        StaticText_GainRange->setGeometry(QRect(300, 160, 133, 16));
         StaticText_GainRange->setFrameShape(QFrame::StyledPanel);
         GainSpinBox = new QSpinBox(UserInputGroupBox);
         GainSpinBox->setObjectName(QString::fromUtf8("GainSpinBox"));
-        GainSpinBox->setGeometry(QRect(130, 140, 77, 25));
+        GainSpinBox->setGeometry(QRect(130, 154, 77, 25));
         GainSpinBox->setMaximum(99999);
         FieldOfViewGroupBox = new QGroupBox(UserInputGroupBox);
         FieldOfViewGroupBox->setObjectName(QString::fromUtf8("FieldOfViewGroupBox"));
-        FieldOfViewGroupBox->setGeometry(QRect(10, 170, 423, 83));
+        FieldOfViewGroupBox->setGeometry(QRect(10, 228, 423, 83));
         StaticText_7 = new QLabel(FieldOfViewGroupBox);
         StaticText_7->setObjectName(QString::fromUtf8("StaticText_7"));
         StaticText_7->setGeometry(QRect(24, 24, 65, 16));
@@ -150,17 +160,17 @@ public:
         RowSizeSpinBox->setMaximum(99999);
         ExpTimeSpinBox = new QDoubleSpinBox(UserInputGroupBox);
         ExpTimeSpinBox->setObjectName(QString::fromUtf8("ExpTimeSpinBox"));
-        ExpTimeSpinBox->setGeometry(QRect(130, 68, 77, 25));
-        ExpTimeSpinBox->setSingleStep(0.1);
+        ExpTimeSpinBox->setGeometry(QRect(130, 82, 77, 25));
+        ExpTimeSpinBox->setSingleStep(0.01);
         TriggerModeComBox = new QComboBox(UserInputGroupBox);
         TriggerModeComBox->setObjectName(QString::fromUtf8("TriggerModeComBox"));
-        TriggerModeComBox->setGeometry(QRect(130, 32, 303, 22));
+        TriggerModeComBox->setGeometry(QRect(130, 46, 303, 22));
         StaticText_11 = new QLabel(UserInputGroupBox);
         StaticText_11->setObjectName(QString::fromUtf8("StaticText_11"));
-        StaticText_11->setGeometry(QRect(16, 34, 87, 16));
+        StaticText_11->setGeometry(QRect(16, 48, 87, 16));
         RegisterGroupBox = new QGroupBox(UserInputGroupBox);
         RegisterGroupBox->setObjectName(QString::fromUtf8("RegisterGroupBox"));
-        RegisterGroupBox->setGeometry(QRect(10, 272, 425, 97));
+        RegisterGroupBox->setGeometry(QRect(10, 324, 425, 97));
         RegValueSpinBox = new QSpinBox(RegisterGroupBox);
         RegValueSpinBox->setObjectName(QString::fromUtf8("RegValueSpinBox"));
         RegValueSpinBox->setGeometry(QRect(74, 60, 77, 25));
@@ -195,11 +205,44 @@ public:
         StaticText_RegValue->setFrameShape(QFrame::StyledPanel);
         StaticText_Version = new QLabel(UserInputGroupBox);
         StaticText_Version->setObjectName(QString::fromUtf8("StaticText_Version"));
-        StaticText_Version->setGeometry(QRect(12, 440, 209, 16));
+        StaticText_Version->setGeometry(QRect(222, 16, 209, 16));
         StaticText_Version->setFrameShape(QFrame::StyledPanel);
         StartCapturePushButton = new QPushButton(UserInputGroupBox);
         StartCapturePushButton->setObjectName(QString::fromUtf8("StartCapturePushButton"));
-        StartCapturePushButton->setGeometry(QRect(12, 388, 113, 33));
+        StartCapturePushButton->setGeometry(QRect(12, 496, 113, 33));
+        GPIO = new QGroupBox(UserInputGroupBox);
+        GPIO->setObjectName(QString::fromUtf8("GPIO"));
+        GPIO->setGeometry(QRect(12, 426, 423, 51));
+        WriteGpioPushButton = new QPushButton(GPIO);
+        WriteGpioPushButton->setObjectName(QString::fromUtf8("WriteGpioPushButton"));
+        WriteGpioPushButton->setGeometry(QRect(356, 14, 63, 29));
+        StaticText_18 = new QLabel(GPIO);
+        StaticText_18->setObjectName(QString::fromUtf8("StaticText_18"));
+        StaticText_18->setGeometry(QRect(8, 22, 43, 16));
+        StaticText_18->setFrameShape(QFrame::NoFrame);
+        GpioValueSpinBox = new QSpinBox(GPIO);
+        GpioValueSpinBox->setObjectName(QString::fromUtf8("GpioValueSpinBox"));
+        GpioValueSpinBox->setGeometry(QRect(56, 20, 47, 21));
+        GpioValueSpinBox->setMaximum(999999);
+        GpioValueSpinBox->setSingleStep(1);
+        StaticText_Gpio = new QLabel(GPIO);
+        StaticText_Gpio->setObjectName(QString::fromUtf8("StaticText_Gpio"));
+        StaticText_Gpio->setGeometry(QRect(114, 20, 35, 21));
+        StaticText_Gpio->setFrameShape(QFrame::StyledPanel);
+        StaticText_21 = new QLabel(GPIO);
+        StaticText_21->setObjectName(QString::fromUtf8("StaticText_21"));
+        StaticText_21->setGeometry(QRect(156, 22, 127, 16));
+        StaticText_21->setFrameShape(QFrame::NoFrame);
+        ReadGpioPushButton = new QPushButton(GPIO);
+        ReadGpioPushButton->setObjectName(QString::fromUtf8("ReadGpioPushButton"));
+        ReadGpioPushButton->setGeometry(QRect(290, 14, 63, 29));
+        StaticText_12 = new QLabel(UserInputGroupBox);
+        StaticText_12->setObjectName(QString::fromUtf8("StaticText_12"));
+        StaticText_12->setGeometry(QRect(12, 194, 115, 16));
+        TrigerDelaySpinBox = new QSpinBox(UserInputGroupBox);
+        TrigerDelaySpinBox->setObjectName(QString::fromUtf8("TrigerDelaySpinBox"));
+        TrigerDelaySpinBox->setGeometry(QRect(130, 192, 77, 25));
+        TrigerDelaySpinBox->setMaximum(99999);
 
         retranslateUi(KSJSCZDemoMainWindow);
 
@@ -234,6 +277,13 @@ public:
         StaticText_RegValue->setText(QApplication::translate("KSJSCZDemoMainWindow", "0x00000000", 0, QApplication::UnicodeUTF8));
         StaticText_Version->setText(QApplication::translate("KSJSCZDemoMainWindow", "Ver: 0.0.0.0", 0, QApplication::UnicodeUTF8));
         StartCapturePushButton->setText(QApplication::translate("KSJSCZDemoMainWindow", "Start", 0, QApplication::UnicodeUTF8));
+        GPIO->setTitle(QApplication::translate("KSJSCZDemoMainWindow", "GroupBox", 0, QApplication::UnicodeUTF8));
+        WriteGpioPushButton->setText(QApplication::translate("KSJSCZDemoMainWindow", "Write", 0, QApplication::UnicodeUTF8));
+        StaticText_18->setText(QApplication::translate("KSJSCZDemoMainWindow", "Value:", 0, QApplication::UnicodeUTF8));
+        StaticText_Gpio->setText(QApplication::translate("KSJSCZDemoMainWindow", "0x00", 0, QApplication::UnicodeUTF8));
+        StaticText_21->setText(QApplication::translate("KSJSCZDemoMainWindow", "IN:Bit0-1 OUT:Bit2-7", 0, QApplication::UnicodeUTF8));
+        ReadGpioPushButton->setText(QApplication::translate("KSJSCZDemoMainWindow", "Read", 0, QApplication::UnicodeUTF8));
+        StaticText_12->setText(QApplication::translate("KSJSCZDemoMainWindow", "Triger Delay(ms):", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'KSJSCZDemoMainWindow.h'
 **
-** Created: Tue May 23 13:19:27 2017
+** Created: Fri May 26 11:37:50 2017
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.3)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_CKSJSCZDemoMainWindow[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-      13,   14, // methods
+      16,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -44,6 +44,9 @@ static const uint qt_meta_data_CKSJSCZDemoMainWindow[] = {
      255,   22,   22,   22, 0x09,
      267,   22,   22,   22, 0x09,
      280,   22,   22,   22, 0x09,
+     293,   22,   22,   22, 0x09,
+     307,   22,   22,   22, 0x09,
+     324,   22,   22,   22, 0x09,
 
        0        // eod
 };
@@ -56,7 +59,8 @@ static const char qt_meta_stringdata_CKSJSCZDemoMainWindow[] = {
     "OnRowStartChanged(int)\0OnRowSizeChanged(int)\0"
     "OnRegAddressChanged(int)\0"
     "OnRegValueChanged(int)\0OnReadReg()\0"
-    "OnWriteReg()\0OnStartCapture()\0"
+    "OnWriteReg()\0OnReadGpio()\0OnWriteGpio()\0"
+    "OnStartCapture()\0OnTrigerDelayChanged(int)\0"
 };
 
 void CKSJSCZDemoMainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -77,7 +81,10 @@ void CKSJSCZDemoMainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c
         case 9: _t->OnRegValueChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 10: _t->OnReadReg(); break;
         case 11: _t->OnWriteReg(); break;
-        case 12: _t->OnStartCapture(); break;
+        case 12: _t->OnReadGpio(); break;
+        case 13: _t->OnWriteGpio(); break;
+        case 14: _t->OnStartCapture(); break;
+        case 15: _t->OnTrigerDelayChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
         default: ;
         }
     }
@@ -115,9 +122,9 @@ int CKSJSCZDemoMainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 13)
+        if (_id < 16)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 13;
+        _id -= 16;
     }
     return _id;
 }

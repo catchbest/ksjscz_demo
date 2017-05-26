@@ -129,7 +129,10 @@ QDialog(parent)
 	connect(ui->RegValueSpinBox, SIGNAL(valueChanged(int)), this, SLOT(OnRegValueChanged(int)));
 	connect(ui->ReadRegPushButton, SIGNAL(clicked()), this, SLOT(OnReadReg()));
 	connect(ui->WriteRegPushButton, SIGNAL(clicked()), this, SLOT(OnWriteReg()));
+	connect(ui->ReadGpioPushButton, SIGNAL(clicked()), this, SLOT(OnReadGpio()));
+	connect(ui->WriteGpioPushButton, SIGNAL(clicked()), this, SLOT(OnWriteGpio()));
 	connect(ui->StartCapturePushButton, SIGNAL(clicked()), this, SLOT(OnStartCapture()));
+	connect(ui->TrigerDelaySpinBox, SIGNAL(valueChanged(int)), this, SLOT(OnTrigerDelayChanged(int)));
 
 	ui->TriggerModeComBox->blockSignals(true);
 	ui->TriggerModeComBox->addItem("Sofatware Command Continue");
@@ -167,7 +170,10 @@ QDialog(parent)
 	ui->RegAddressSpinBox->setValue(0x70);
 	ui->RegValueSpinBox->setValue(0);
 	ui->StaticText_RegAddress->setText("0x70");
-	
+
+	ui->GpioValueSpinBox->setValue(0);
+	ui->GpioValueSpinBox->setRange(0, 255);
+
 	ui->StartCapturePushButton->setText(m_bIsCapturing?"Stop":"Start");
 
 	int nRet = KSJSCZ_ERR_SUCCESS;
@@ -183,11 +189,15 @@ QDialog(parent)
 	nRet = KSJSCZ_SetPosition(0, m_nImagePositionLeft, m_nImagePositionTop, m_nImagePositionWidth, m_nImagePositionHeight);
 	nRet = KSJSCZ_SetCaptureFieldOfView(0, m_nCaptureColStart, m_nCaptureRowStart, m_nCaptureColSize, m_nCaptureRowSize);
 
-	nRet = KSJSCZ_SetGain(0, 128);
-	nRet = KSJSCZ_SetExposureLines(0, 120);
-	nRet = KSJSCZ_SetTriggerMode(0, KSJSCZ_TM_CMD_SINGLE);
+	unsigned short usGpioStatus;
+
+	KSJSCZ_GpioGetStatus(&usGpioStatus);
+
+	ui->StaticText_Gpio->setText(QString("0x%1").arg(usGpioStatus, 2, 16, QChar('0')));
 
 	UpdateUiWithCameraSetting();
+
+	nRet = KSJSCZ_SetTriggerMode(0, KSJSCZ_TM_CMD_SINGLE);
 
 	StartCaptureThread();
 }
@@ -259,6 +269,8 @@ void CKSJSCZDemoMainWindow::UpdateUiWithCameraSetting()
 	float fValue, fValueMin, fValueMax;
 	unsigned long ulValue, ulValueMin, ulValueMax;
 
+	KSJSCZ_SetExposureLines(0, 10);
+
 	KSJSCZ_GetExposureLinesRange(0, &ulValueMin, &ulValueMax);
 	ui->ExpLinesSpinBox->setRange(ulValueMin, ulValueMax);
 	ui->StaticText_ExpostureLinesRange->setText(QString::number(ulValueMin) + "-" + QString::number(ulValueMax));
@@ -277,6 +289,10 @@ void CKSJSCZDemoMainWindow::UpdateUiWithCameraSetting()
 	KSJSCZ_GetGain(0, &ulValue);
 	ui->GainSpinBox->setValue(ulValue);
 
+	KSJSCZ_GetTriggerDelay(0, &ulValue);
+
+	ui->TrigerDelaySpinBox->setValue(ulValue);
+
 	ui->ColStartSpinBox->setValue(m_nCaptureColStart);
 	ui->ColSizeSpinBox->setValue(m_nCaptureColSize);
 	ui->RowStartSpinBox->setValue(m_nCaptureRowStart);
@@ -294,6 +310,11 @@ void CKSJSCZDemoMainWindow::OnExpTimerChanged(double value)
 	KSJSCZ_SetExposureTime(0, value);
 }
 
+void CKSJSCZDemoMainWindow::OnTrigerDelayChanged(int value)
+{
+	KSJSCZ_SetTriggerDelay(0, value);
+}
+
 void CKSJSCZDemoMainWindow::OnExpLinesChanged(int value)
 {
 	KSJSCZ_SetExposureLines(0, value);
@@ -302,7 +323,7 @@ void CKSJSCZDemoMainWindow::OnExpLinesChanged(int value)
 void CKSJSCZDemoMainWindow::OnGainChanged(int value)
 {
 	m_nCaptureColStart = ui->ColStartSpinBox->value();
-	m_nCaptureColSize = ui->ColSizeSpinBox->value();
+	m_nCaptureColSize  = ui->ColSizeSpinBox->value();
 	m_nCaptureRowStart = ui->RowStartSpinBox->value();
 	KSJSCZ_SetGain(0, value);
 }
@@ -310,9 +331,9 @@ void CKSJSCZDemoMainWindow::OnGainChanged(int value)
 void CKSJSCZDemoMainWindow::OnColStartChanged(int value)
 {
 	m_nCaptureColStart = ui->ColStartSpinBox->value();
-	m_nCaptureColSize = ui->ColSizeSpinBox->value();
+	m_nCaptureColSize  = ui->ColSizeSpinBox->value();
 	m_nCaptureRowStart = ui->RowStartSpinBox->value();
-	m_nCaptureRowSize = ui->RowSizeSpinBox->value();
+	m_nCaptureRowSize  = ui->RowSizeSpinBox->value();
 
 	ui->ColStartSpinBox->setRange(0, ((1280 - m_nCaptureColSize)<(1280 - 8)) ? (1280 - m_nCaptureColSize) : (1280 - 8));
 	ui->ColSizeSpinBox->setRange(8, 1280 - m_nCaptureColStart);
@@ -327,9 +348,9 @@ void CKSJSCZDemoMainWindow::OnColSizeChanged(int value)
 	if (value >= 8)
 	{
 		m_nCaptureColStart = ui->ColStartSpinBox->value();
-		m_nCaptureColSize = ui->ColSizeSpinBox->value();
+		m_nCaptureColSize  = ui->ColSizeSpinBox->value();
 		m_nCaptureRowStart = ui->RowStartSpinBox->value();
-		m_nCaptureRowSize = ui->RowSizeSpinBox->value();
+		m_nCaptureRowSize  = ui->RowSizeSpinBox->value();
 
 		ui->ColStartSpinBox->setRange(0, ((1280 - m_nCaptureColSize)<(1280 - 8)) ? (1280 - m_nCaptureColSize) : (1280 - 8));
 		ui->ColSizeSpinBox->setRange(8, 1280 - m_nCaptureColStart);
@@ -343,9 +364,9 @@ void CKSJSCZDemoMainWindow::OnColSizeChanged(int value)
 void CKSJSCZDemoMainWindow::OnRowStartChanged(int value)
 {
 	m_nCaptureColStart = ui->ColStartSpinBox->value();
-	m_nCaptureColSize = ui->ColSizeSpinBox->value();
+	m_nCaptureColSize  = ui->ColSizeSpinBox->value();
 	m_nCaptureRowStart = ui->RowStartSpinBox->value();
-	m_nCaptureRowSize = ui->RowSizeSpinBox->value();
+	m_nCaptureRowSize  = ui->RowSizeSpinBox->value();
 
 	ui->ColStartSpinBox->setRange(0, ((1280 - m_nCaptureColSize)<(1280 - 8)) ? (1280 - m_nCaptureColSize) : (1280 - 8));
 	ui->ColSizeSpinBox->setRange(8, 1280 - m_nCaptureColStart);
@@ -360,9 +381,9 @@ void CKSJSCZDemoMainWindow::OnRowSizeChanged(int value)
 	if (value >= 8)
 	{
 		m_nCaptureColStart = ui->ColStartSpinBox->value();
-		m_nCaptureColSize = ui->ColSizeSpinBox->value();
+		m_nCaptureColSize  = ui->ColSizeSpinBox->value();
 		m_nCaptureRowStart = ui->RowStartSpinBox->value();
-		m_nCaptureRowSize = ui->RowSizeSpinBox->value();
+		m_nCaptureRowSize  = ui->RowSizeSpinBox->value();
 
 		ui->ColStartSpinBox->setRange(0, ((1280 - m_nCaptureColSize)<(1280 - 8)) ? (1280 - m_nCaptureColSize) : (1280 - 8));
 		ui->ColSizeSpinBox->setRange(8, 1280 - m_nCaptureColStart);
@@ -399,6 +420,26 @@ void CKSJSCZDemoMainWindow::OnWriteReg()
 	unsigned short usRegAddress = ui->RegAddressSpinBox->value();
 
 	KSJSCZ_WrRegFPGA(0, usRegAddress, ulRegValue);
+}
+
+void CKSJSCZDemoMainWindow::OnReadGpio()
+{
+	unsigned short usGpioValue;
+
+	KSJSCZ_GpioGetStatus(&usGpioValue);
+
+	ui->StaticText_Gpio->setText(QString("0x%1").arg(usGpioValue, 2, 16, QChar('0')));
+}
+
+void CKSJSCZDemoMainWindow::OnWriteGpio()
+{
+	unsigned short usGpioValue = ui->GpioValueSpinBox->value();
+
+	KSJSCZ_GpioSetStatus(usGpioValue);
+
+	KSJSCZ_GpioGetStatus(&usGpioValue);
+
+	ui->StaticText_Gpio->setText(QString("0x%1").arg(usGpioValue, 2, 16, QChar('0')));
 }
 
 void CKSJSCZDemoMainWindow::OnStartCapture()

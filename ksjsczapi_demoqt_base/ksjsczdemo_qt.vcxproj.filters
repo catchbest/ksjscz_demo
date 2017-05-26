@@ -5,27 +5,15 @@
     <ClCompile Include="GeneratedFiles\Release\moc_KSJSCZDemoMainWindow.cpp" />
     <ClCompile Include="KSJSCZDemoMainWindow.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="KSJImageHistgram.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="KSJImageThreshold.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="KSJImageAoi.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
+    <ClCompile Include="KSJImageAoi.cpp" />
+    <ClCompile Include="KSJImageHistgram.cpp" />
+    <ClCompile Include="KSJImageThreshold.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_KSJSCZDemoMainWindow.h" />
-    <ClInclude Include="KSJImageHistgram.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="KSJImageThreshold.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="KSJImageAoi.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <ClInclude Include="KSJImageAoi.h" />
+    <ClInclude Include="KSJImageHistgram.h" />
+    <ClInclude Include="KSJImageThreshold.h" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="KSJSCZDemoMainWindow.h" />

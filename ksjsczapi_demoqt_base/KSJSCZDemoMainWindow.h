@@ -36,7 +36,10 @@ protected slots:
 	void OnRegValueChanged(int);
 	void OnReadReg();
 	void OnWriteReg();
+	void OnReadGpio();
+	void OnWriteGpio();
 	void OnStartCapture();
+	void OnTrigerDelayChanged(int);
 
 protected:
 	virtual void paintEvent(QPaintEvent *);

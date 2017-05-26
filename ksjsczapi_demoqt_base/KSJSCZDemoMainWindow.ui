@@ -16,10 +16,10 @@
   <widget class="QGroupBox" name="UserInputGroupBox">
    <property name="geometry">
     <rect>
-     <x>814</x>
-     <y>16</y>
+     <x>816</x>
+     <y>4</y>
      <width>447</width>
-     <height>465</height>
+     <height>549</height>
     </rect>
    </property>
    <property name="title">
@@ -29,7 +29,7 @@
     <property name="geometry">
      <rect>
       <x>12</x>
-      <y>72</y>
+      <y>86</y>
       <width>115</width>
       <height>16</height>
      </rect>
@@ -42,7 +42,7 @@
     <property name="geometry">
      <rect>
       <x>222</x>
-      <y>74</y>
+      <y>88</y>
       <width>69</width>
       <height>16</height>
      </rect>
@@ -58,7 +58,7 @@
     <property name="geometry">
      <rect>
       <x>300</x>
-      <y>76</y>
+      <y>90</y>
       <width>133</width>
       <height>16</height>
      </rect>
@@ -74,7 +74,7 @@
     <property name="geometry">
      <rect>
       <x>300</x>
-      <y>110</y>
+      <y>124</y>
       <width>133</width>
       <height>16</height>
      </rect>
@@ -90,7 +90,7 @@
     <property name="geometry">
      <rect>
       <x>222</x>
-      <y>108</y>
+      <y>122</y>
       <width>69</width>
       <height>16</height>
      </rect>
@@ -106,7 +106,7 @@
     <property name="geometry">
      <rect>
       <x>12</x>
-      <y>106</y>
+      <y>120</y>
       <width>115</width>
       <height>16</height>
      </rect>
@@ -116,10 +116,13 @@
     </property>
    </widget>
    <widget class="QSpinBox" name="ExpLinesSpinBox">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>130</x>
-      <y>104</y>
+      <y>118</y>
       <width>77</width>
       <height>25</height>
      </rect>
@@ -132,7 +135,7 @@
     <property name="geometry">
      <rect>
       <x>12</x>
-      <y>142</y>
+      <y>156</y>
       <width>115</width>
       <height>16</height>
      </rect>
@@ -145,7 +148,7 @@
     <property name="geometry">
      <rect>
       <x>222</x>
-      <y>144</y>
+      <y>158</y>
       <width>69</width>
       <height>16</height>
      </rect>
@@ -161,7 +164,7 @@
     <property name="geometry">
      <rect>
       <x>300</x>
-      <y>146</y>
+      <y>160</y>
       <width>133</width>
       <height>16</height>
      </rect>
@@ -177,7 +180,7 @@
     <property name="geometry">
      <rect>
       <x>130</x>
-      <y>140</y>
+      <y>154</y>
       <width>77</width>
       <height>25</height>
      </rect>
@@ -190,7 +193,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>170</y>
+      <y>228</y>
       <width>423</width>
       <height>83</height>
      </rect>
@@ -319,20 +322,20 @@
     <property name="geometry">
      <rect>
       <x>130</x>
-      <y>68</y>
+      <y>82</y>
       <width>77</width>
       <height>25</height>
      </rect>
     </property>
     <property name="singleStep">
-     <double>0.100000000000000</double>
+     <double>0.010000000000000</double>
     </property>
    </widget>
    <widget class="QComboBox" name="TriggerModeComBox">
     <property name="geometry">
      <rect>
       <x>130</x>
-      <y>32</y>
+      <y>46</y>
       <width>303</width>
       <height>22</height>
      </rect>
@@ -342,7 +345,7 @@
     <property name="geometry">
      <rect>
       <x>16</x>
-      <y>34</y>
+      <y>48</y>
       <width>87</width>
       <height>16</height>
      </rect>
@@ -355,7 +358,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>272</y>
+      <y>324</y>
       <width>425</width>
       <height>97</height>
      </rect>
@@ -489,8 +492,8 @@
    <widget class="QLabel" name="StaticText_Version">
     <property name="geometry">
      <rect>
-      <x>12</x>
-      <y>440</y>
+      <x>222</x>
+      <y>16</y>
       <width>209</width>
       <height>16</height>
      </rect>
@@ -506,13 +509,142 @@
     <property name="geometry">
      <rect>
       <x>12</x>
-      <y>388</y>
+      <y>496</y>
       <width>113</width>
       <height>33</height>
      </rect>
     </property>
     <property name="text">
      <string>Start</string>
+    </property>
+   </widget>
+   <widget class="QGroupBox" name="GPIO">
+    <property name="geometry">
+     <rect>
+      <x>12</x>
+      <y>426</y>
+      <width>423</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>GroupBox</string>
+    </property>
+    <widget class="QPushButton" name="WriteGpioPushButton">
+     <property name="geometry">
+      <rect>
+       <x>356</x>
+       <y>14</y>
+       <width>63</width>
+       <height>29</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Write</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="StaticText_18">
+     <property name="geometry">
+      <rect>
+       <x>8</x>
+       <y>22</y>
+       <width>43</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
+     </property>
+     <property name="text">
+      <string>Value:</string>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="GpioValueSpinBox">
+     <property name="geometry">
+      <rect>
+       <x>56</x>
+       <y>20</y>
+       <width>47</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="maximum">
+      <number>999999</number>
+     </property>
+     <property name="singleStep">
+      <number>1</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="StaticText_Gpio">
+     <property name="geometry">
+      <rect>
+       <x>114</x>
+       <y>20</y>
+       <width>35</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="text">
+      <string>0x00</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="StaticText_21">
+     <property name="geometry">
+      <rect>
+       <x>156</x>
+       <y>22</y>
+       <width>127</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
+     </property>
+     <property name="text">
+      <string>IN:Bit0-1 OUT:Bit2-7</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="ReadGpioPushButton">
+     <property name="geometry">
+      <rect>
+       <x>290</x>
+       <y>14</y>
+       <width>63</width>
+       <height>29</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Read</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QLabel" name="StaticText_12">
+    <property name="geometry">
+     <rect>
+      <x>12</x>
+      <y>194</y>
+      <width>115</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Triger Delay(ms):</string>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="TrigerDelaySpinBox">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>192</y>
+      <width>77</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="maximum">
+     <number>99999</number>
     </property>
    </widget>
   </widget>
