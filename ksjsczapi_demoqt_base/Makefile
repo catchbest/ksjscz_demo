@@ -9,7 +9,6 @@ WINNAME1    = KSJSCZDemoMainWindow
 
 
 
-GENFILE_DIR   = LinuxGenFiles/
 
 
 ####### Compiler, tools and options
@@ -19,7 +18,7 @@ CXX           = arm-linux-gnueabihf-g++
 DEFINES       = -D$(KSJ_SO_NAME)_LIBRARY -DQT_WIDGETS_LIB -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_SHARED
 INCPATH       = -I/opt/Qt4.8/mkspecs/qws/linux-arm-gnueabi-g++ -I. -I/opt/Qt4.8/include/QtCore -I/opt/Qt4.8/include/QtNetwork \
 -I/opt/Qt4.8/include/QtGui -I/opt/Qt4.8/include -I/opt/Qt4.8/include \
--I/usr/local/include -I$(GENFILE_DIR)\
+-I/usr/local/include \
  -I../ksjsczapi_include
  
 LINK          = arm-linux-gnueabihf-g++ 
@@ -36,6 +35,7 @@ LFLAGS        = -Wl,-O1 -Wl,-rpath,/opt/Qt4.8/lib
 
 #下面的加载的动态库及库目录，可根据需要增删
 LIBS          = $(SUBLIBS)  -L../ksjsczapi_lib \
+-L../zbar.lib/ \
  -L/opt/Qt4.8/lib -L. -L/usr/local/lib -lpthread -ltinyxml2 \
 -lQtCore -lQtGui -lQtNetwork  -lQt3Support  -lQtScript  -lQtSvg  -lQtMultimedia  \
 -lQtScriptTools  -lQtTest  -lQtDeclarative  -lQtSql  -lQtXml \
@@ -44,8 +44,7 @@ LIBS          = $(SUBLIBS)  -L../ksjsczapi_lib \
 -lopencv_features2d  -lopencv_objdetect  -lopencv_video \
 -lopencv_flann  -lopencv_photo  -lopencv_videostab \
 -lopencv_highgui  -lopencv_shape \
--lopencv_imgcodecs  -lopencv_stitching -ldl \
--lksjscz
+-lopencv_imgcodecs  -lopencv_stitching -lksjscz -lzbar -ljpeg -ldl \
 
 
 AR            = arm-linux-gnueabihf-ar cqs
@@ -201,14 +200,11 @@ $(DESTDIR)/$(TARGET):  $(OBJECTS) $(SUBLIBS) $(OBJCOMP)
 	-$(MOVE) $(TARGET)  $(DESTDIR) 
 
 delautofile:
-	-$(DEL_FILE) $(GENFILE_DIR)/*
 	
 
 genTmpDir:
-	@$(CHK_DIR_EXISTS) $(GENFILE_DIR) || $(MKDIR) $(GENFILE_DIR)
 	@$(CHK_DIR_EXISTS) $(OBJECTS_PARENT_DIR) || $(MKDIR) $(OBJECTS_PARENT_DIR)
 	@$(CHK_DIR_EXISTS) $(OBJECTS_DIR) || $(MKDIR) $(OBJECTS_DIR)
-	@$(CHK_DIR_EXISTS) $(OBJECTS_DIR)$(GENFILE_DIR) || $(MKDIR) $(OBJECTS_DIR)$(GENFILE_DIR)
 	@$(CHK_DIR_EXISTS) $(DESTPARENTDIR) || $(MKDIR) $(DESTPARENTDIR)
 	@$(CHK_DIR_EXISTS) $(DESTDIR) || $(MKDIR)  $(DESTDIR)  
 	
@@ -216,10 +212,10 @@ genTmpDir:
 
 
 genuih:
-	-$(UIH) $(WINNAME1).ui -o $(GENFILE_DIR)ui_$(WINNAME1).h
+	-$(UIH) $(WINNAME1).ui -o ui_$(WINNAME1).h
 
 genmoc:
-	-$(MOC) $(DEFINES) $(INCPATH) $(WINNAME1).h -o $(GENFILE_DIR)moc_$(WINNAME1).cpp
+	-$(MOC) $(DEFINES) $(INCPATH) $(WINNAME1).h -o moc_$(WINNAME1).cpp
 ####### Compile
 
 
@@ -231,8 +227,6 @@ genmoc:
 #在此处添加.cpp文件
 gensource:genTmpDir genuih genmoc
 SOURCE += $(wildcard *.cpp) 
-SOURCE += $(wildcard $(GENFILE_DIR)*.cpp) 
-#SOURCE += $(GENFILE_DIR)moc_$(WINNAME1).cpp
 		
 #在此处添加.o文件, 一般每个.cpp添加一个.o文件
 
@@ -288,10 +282,8 @@ check: first
 
 
 cleanuih:
-	-$(DEL_FILE) $(GENFILE_DIR)ui_$(WINNAME1).h
 
 cleanmoc:	
-	-$(DEL_FILE) $(GENFILE_DIR)moc_$(WINNAME1).cpp
 
 ####### Install
 

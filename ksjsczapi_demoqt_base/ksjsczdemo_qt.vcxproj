@@ -160,9 +160,6 @@
     <ClCompile Include="GeneratedFiles\Release\moc_KSJSCZDemoMainWindow.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="KSJImageAoi.cpp" />
-    <ClCompile Include="KSJImageHistgram.cpp" />
-    <ClCompile Include="KSJImageThreshold.cpp" />
     <ClCompile Include="KSJSCZDemoMainWindow.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -192,9 +189,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_KSJSCZDemoMainWindow.h" />
-    <ClInclude Include="KSJImageAoi.h" />
-    <ClInclude Include="KSJImageHistgram.h" />
-    <ClInclude Include="KSJImageThreshold.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="GeneratedFiles\Debug\KSJSCZDemoMainWindow.moc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

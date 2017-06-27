@@ -1,0 +1,2 @@
+The projects ksjsczapi_democ_base and ksjsczapi_democpp_base can builder by eclipse at windows system.
+The project ksjsczapi_demoqt_base must build at the linux system which has set up the arm build environment.

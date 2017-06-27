@@ -5,12 +5,9 @@
  *      Author: Mike
  */
 #include <stdio.h>
-#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sys/time.h>
 #include <time.h>
-#include <unistd.h>
 
 #include "KSJImageThreshold.h"
 #include "KSJImageHistgram.h"
@@ -47,16 +44,16 @@ int main(int argc, char **argv)
 {
 	int nRet = KSJSCZ_ERR_SUCCESS;
 
-	int nDisplayWidth  = 800;
-	int nDisplayHeight = 600;
+	int nDisplayWidth  = 600;
+	int nDisplayHeight = 480;
 	int nXPosition     = (1280 - nDisplayWidth) / 2;
 	int nYPosition     = (720 - nDisplayHeight) / 2;
 
-	int ulColSize      = 800;
-	int ulRowSize      = 600;
+	int ulColSize      = 600;
+	int ulRowSize      = 480;
 
 	int nGain          = 128;
-	int nExposureLines = 100;
+	int nExposureLines = 10;
 
 	if (argc > 2) nXPosition     = atoi(argv[2]);
 	if (argc > 3) nYPosition     = atoi(argv[3]);

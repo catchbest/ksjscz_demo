@@ -18,6 +18,9 @@
   <ItemGroup>
     <CustomBuild Include="KSJSCZDemoMainWindow.h" />
     <CustomBuild Include="KSJSCZDemoMainWindow.ui" />
+    <CustomBuild Include="GeneratedFiles\Debug\KSJSCZDemoMainWindow.moc">
+      <Filter>Generated Files\Debug</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">
@@ -29,6 +32,16 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h</Extensions>
       <ParseFiles>true</ParseFiles>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>moc;h;cpp</Extensions>
+      <ParseFiles>true</ParseFiles>
+    </Filter>
+    <Filter Include="Generated Files\Debug">
+      <UniqueIdentifier>{2b72fe4f-6221-4325-8805-15fdef207efb}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
     </Filter>
   </ItemGroup>
 </Project>

@@ -62,8 +62,8 @@ KSJSCZ_API KSJSCZ_GetDeviceInformation(int nSensorIndex, enum KSJSCZ_DEVICE_TYPE
 KSJSCZ_API KSJSCZ_GetCaptureFieldOfViewRange( int nSensorIndex, unsigned long *pulColSizeMin, unsigned long *pulRowSizeMin, unsigned long *pulColSizeMax, unsigned long *pulRowSizeMax);
 KSJSCZ_API KSJSCZ_SetCaptureFieldOfView(int nSensorIndex, unsigned long ulColStart, unsigned long ulRowStart, unsigned long ulColSize, unsigned long ulRowSize);
 KSJSCZ_API KSJSCZ_GetCaptureFieldOfView(int nSensorIndex, unsigned long *pulColStart, unsigned long *pulRowStart, unsigned long *pulColSize, unsigned long *pulRowSize);
-KSJSCZ_API KSJSCZ_SetAddressMode(int nSensorIndex, KSJ_ADDRESSMODE AddressMode);
-KSJSCZ_API KSJSCZ_GetAddressMode(int nSensorIndex, KSJ_ADDRESSMODE *pAddressMode);
+KSJSCZ_API KSJSCZ_SetAddressMode(int nSensorIndex, enum KSJ_ADDRESSMODE AddressMode);
+KSJSCZ_API KSJSCZ_GetAddressMode(int nSensorIndex, enum KSJ_ADDRESSMODE *pAddressMode);
 KSJSCZ_API KSJSCZ_GetCaptureSize(int nSensorIndex, int *pnWidth, int *pnHeight, int *pnBitCount);
 KSJSCZ_API KSJSCZ_CaptureSetTimeOut(int nSensorIndex, unsigned long ulTimeOut); // unit is second
 KSJSCZ_API KSJSCZ_CaptureData(int nSensorIndex, unsigned char **pDataBuffer);
