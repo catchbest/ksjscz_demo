@@ -21,9 +21,11 @@ private:
 	Ui::KSJSCZDemoMainWindow *ui;
 
 protected:
-	void changeEvent(QEvent * event);
-	void mousePressEvent(QMouseEvent *);
-	void mouseMoveEvent(QMouseEvent *);
+	virtual void changeEvent(QEvent * event);
+	virtual void mousePressEvent(QMouseEvent *);
+	virtual void mouseMoveEvent(QMouseEvent *);
+	virtual void wheelEvent(QWheelEvent * event);
+	virtual void mouseDoubleClickEvent(QMouseEvent * e);
 
 protected slots:
 	void OnTriggerModeChanged(int);

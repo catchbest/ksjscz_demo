@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'KSJSCZDemoMainWindow.h'
 **
-** Created: Tue Jun 27 15:58:08 2017
+** Created: Wed Jul 5 13:37:27 2017
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.3)
 **
 ** WARNING! All changes made in this file will be lost!

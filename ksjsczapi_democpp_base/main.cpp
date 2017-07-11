@@ -66,7 +66,7 @@ int main(int argc, char **argv)
 
 	nRet = KSJSCZ_Init();
 
-	enum KSJSCZ_TRIGGER_MODE  TriggerMode = KSJSCZ_TM_CMD_SINGLE;
+	enum KSJSCZ_TRIGGER_MODE  TriggerMode = KSJSCZ_TM_CMD_CONTINUE;
 	KSJSCZ_SetTriggerMode(0, TriggerMode );
 
 	KSJSCZ_SetGain(0, nGain);
@@ -89,6 +89,7 @@ int main(int argc, char **argv)
 
 	while (1)
 	{
+		++nCount;
 		nRet = KSJSCZ_CaptureData(0, &pDataBuffer);
 
 		if (nRet == KSJSCZ_ERR_SUCCESS)

@@ -23,11 +23,226 @@
 
 #include "../zbar.inc/zbar.h"
 
+
+
+#include <unistd.h>   
+#include <sys/types.h>   
+#include <fcntl.h>   
+#include <sys/stat.h>   
+#include <stdio.h>   
+#include <sys/param.h>   
+#include <sys/ioctl.h>   
+#include <stdlib.h>   
+#include <stdio.h>
+#include <iostream> 
+#include <sys/socket.h>   
+#include <arpa/inet.h>   
+#include <linux/soundcard.h>   
+#include "sys/select.h"   
+#include "termios.h" 
+
+
 using namespace zbar;
 
 
 #define  DEFAULT_WND_WIDTH   828
 #define  DEFAULT_WND_HEIGHT  720
+
+
+//端口信息定义   
+typedef struct _Port_Info
+{
+	int baud_rate;
+	int port_fd;
+	char parity;
+	char stop_bit;
+	char flow_ctrl;
+	char data_bits;
+}*Port_Info;
+
+
+int Fd_Com;
+#define COM "/dev/ttyPS1"   
+
+char buffer_com[1024 + 10];
+char buffer_read_com[1024];
+int send_index;
+
+//打开串口   
+int open_port(char *port)
+{
+	int fd;
+	if ((fd = open(port, O_RDWR | O_NOCTTY | O_NONBLOCK)) == -1)
+	{
+		perror("can not open com port!");
+		return -1;
+	}
+}
+
+//关闭指定串口   
+void close_port(int fd)
+{
+	close(fd);
+}
+
+//根据波特率获得响应的波特率设置参数   
+int get_baud_rate(unsigned long baud_rate)
+{
+	switch (baud_rate)
+	{
+	case 2400:
+		return B2400;
+	case 4800:
+		return B4800;
+	case 9600:
+		return B9600;
+	case 19200:
+		return B19200;
+	case 38400:
+		return B38400;
+	case 57600:
+		return B57600;
+	case 115200:
+		return B115200;
+	case 230400:
+		return B230400;
+	default:
+		return -1;
+	}
+}
+
+//设置端口   
+int set_port(Port_Info p_info)
+{
+	struct termios old_opt, new_opt;
+	int baud_rate, parity;
+
+	memset(&old_opt, 0, sizeof(old_opt));
+	memset(&new_opt, 0, sizeof(new_opt));
+
+	cfmakeraw(&new_opt);
+	tcgetattr(p_info->port_fd, &old_opt);
+
+	//设置串口波特率   
+	baud_rate = get_baud_rate(p_info->baud_rate);
+	//修改new_opt结构中的串口输入/输出波特率槽参数   
+	cfsetispeed(&new_opt, baud_rate);
+	cfsetospeed(&new_opt, baud_rate);
+
+	//修改控制模式，保证程序不会占用串口   
+	new_opt.c_cflag |= CLOCAL;
+	//修改控制模式，使得能够从串口读取输入数据   
+	new_opt.c_cflag |= CREAD;
+
+	//设置数据流控制   
+	switch (p_info->flow_ctrl)
+	{
+	case '0':
+	{
+				//不使用流控制   
+				new_opt.c_cflag &= ~CRTSCTS;
+				break;
+	}
+	case '1':
+	{
+				//使用硬件进行流控制   
+				new_opt.c_cflag |= CRTSCTS;
+				break;
+	}
+	case '2':
+	{
+				new_opt.c_cflag |= IXON | IXOFF | IXANY;
+				break;
+	}
+	}
+
+	//设置数据位   
+	new_opt.c_cflag &= ~CSIZE;
+	switch (p_info->data_bits)
+	{
+	case '5':
+	{
+				new_opt.c_cflag |= CS5;
+				break;
+	}
+	case '6':
+	{
+				new_opt.c_cflag |= CS6;
+				break;
+	}
+	case '7':
+	{
+				new_opt.c_cflag |= CS7;
+				break;
+	}
+	case '8':
+	{
+				new_opt.c_cflag |= CS8;
+				break;
+	}
+	default:
+	{
+			   new_opt.c_cflag |= CS8;
+			   break;
+	}
+	}
+
+	//设置奇偶校验位   
+	switch (p_info->parity)
+	{
+	case '0':
+	{
+				//不使用奇偶校验   
+				new_opt.c_cflag &= ~PARENB;
+				break;
+	}
+	case '1':
+	{
+				//使用偶校验   
+				new_opt.c_cflag |= PARENB;
+				new_opt.c_cflag &= ~PARODD;
+				break;
+	}
+	case '2':
+	{
+				//使用奇校验   
+				new_opt.c_cflag |= PARENB;
+				new_opt.c_cflag |= PARODD;
+				break;
+	}
+	}
+
+	//设置停止位   
+	if (p_info->stop_bit == '2')
+	{
+		new_opt.c_cflag |= CSTOPB;
+	}
+	else
+	{
+		new_opt.c_cflag &= ~CSTOPB;
+	}
+
+	//修改输出模式，原始数据输出   
+	new_opt.c_oflag *= ~OPOST;
+	//修改控制字符，读取字符最小个数为1   
+	new_opt.c_cc[VMIN] = 1;
+	//修改控制字符，读取第一个字符等待等待1 *(1/10)s   
+	new_opt.c_cc[VTIME] = 1;
+
+	//如果发生数据溢出，接收数据，但是不再读取   
+	tcflush(p_info->port_fd, TCIFLUSH);
+
+	int result;
+	result = tcsetattr(p_info->port_fd, TCSANOW, &new_opt);
+	if (result == -1)
+	{
+		perror("cannot set the serial port parameters");
+		return -1;
+	}
+
+	tcgetattr(p_info->port_fd, &old_opt);
+	return result;
+}
 
 
 void* ThreadForCaptureData(void *arg)
@@ -214,6 +429,37 @@ QDialog(parent)
 
 	nRet = KSJSCZ_SetTriggerMode(0, m_nTriggerMode);
 
+	KSJSCZ_WrRegFPGA(0, 0x9C, 0);
+
+	Fd_Com = open_port(COM);
+
+	struct _Port_Info info;
+	info.baud_rate = 115200;
+	info.data_bits = 8;
+	info.flow_ctrl = 0;
+	info.port_fd = Fd_Com;
+	info.stop_bit = 1;
+	info.parity = 0;
+
+	if (set_port(&info) == -1)
+	{
+		printf("set com para wrong!!!!!!!!!!!!! ========= \r\n");
+	}
+
+	char *data = "com is ok";
+	int len = write(Fd_Com, data, 3);
+
+	if (len != 3)
+	{
+		//如果出现溢出情况   
+		printf("write wrong!!!!!!!!!!!!! ========= \r\n");
+
+		tcflush(Fd_Com, TCOFLUSH);
+	}
+	else
+	{
+		printf("com is ok! ========= \r\n");
+	}
 	StartCaptureThread();
 
 	m_nTimeTick = 0;
@@ -239,6 +485,58 @@ void CKSJSCZDemoMainWindow::changeEvent(QEvent *event)
 
 void CKSJSCZDemoMainWindow::mouseMoveEvent(QMouseEvent *e)
 {
+
+}
+
+void CKSJSCZDemoMainWindow::mouseDoubleClickEvent(QMouseEvent * e)
+{
+	if (m_nImagePositionLeft != 0 || m_nImagePositionTop != 0 || m_nImagePositionWidth != m_nVideoWidgetWidth || m_nImagePositionHeight != m_nVideoWidgetHeight)
+	{
+		m_nImagePositionLeft = 0;
+		m_nImagePositionTop = 0;
+		m_nImagePositionWidth = m_nVideoWidgetWidth;
+		m_nImagePositionHeight = m_nVideoWidgetHeight;
+
+		KSJSCZ_SetPosition(0, m_nImagePositionLeft, m_nImagePositionTop, m_nImagePositionWidth, m_nImagePositionHeight);
+
+		printf("KSJSCZ_SetPosition(0, %d, %d, %d, %d)\r\n", m_nImagePositionLeft, m_nImagePositionTop, m_nImagePositionWidth, m_nImagePositionHeight);
+	}
+}
+
+void CKSJSCZDemoMainWindow::wheelEvent(QWheelEvent * event)
+{
+	if (event->delta() > 0)
+	{
+		if (m_nImagePositionWidth > 320)
+		{
+
+			printf("--> KSJSCZ_SetPosition(0, %d, %d, %d, %d)\r\n", m_nImagePositionLeft, m_nImagePositionTop, m_nImagePositionWidth, m_nImagePositionHeight);
+			m_nImagePositionLeft += 4;
+			m_nImagePositionTop += 3;
+			m_nImagePositionWidth -= 8;
+			m_nImagePositionHeight -= 6;
+
+			KSJSCZ_SetPosition(0, m_nImagePositionLeft, m_nImagePositionTop, m_nImagePositionWidth, m_nImagePositionHeight);
+
+			printf("<-- KSJSCZ_SetPosition(0, %d, %d, %d, %d)\r\n", m_nImagePositionLeft, m_nImagePositionTop, m_nImagePositionWidth, m_nImagePositionHeight);
+		}
+	}
+	else
+	{
+		if (m_nImagePositionWidth < 2560)
+		{
+			printf("--> KSJSCZ_SetPosition(0, %d, %d, %d, %d)\r\n", m_nImagePositionLeft, m_nImagePositionTop, m_nImagePositionWidth, m_nImagePositionHeight);
+
+			m_nImagePositionLeft -= 4;
+			m_nImagePositionTop -= 3;
+			m_nImagePositionWidth += 8;
+			m_nImagePositionHeight += 6;
+
+			KSJSCZ_SetPosition(0, m_nImagePositionLeft, m_nImagePositionTop, m_nImagePositionWidth, m_nImagePositionHeight);
+
+			printf("<-- KSJSCZ_SetPosition(0, %d, %d, %d, %d)\r\n", m_nImagePositionLeft, m_nImagePositionTop, m_nImagePositionWidth, m_nImagePositionHeight);
+		}
+	}
 }
 
 void CKSJSCZDemoMainWindow::paintEvent(QPaintEvent *)
@@ -247,7 +545,7 @@ void CKSJSCZDemoMainWindow::paintEvent(QPaintEvent *)
 
 	painter.setPen(Qt::NoPen);
 
-	painter.setBrush(QColor(192,192,192));
+	painter.setBrush(QColor(192, 192, 192));
 	painter.drawRect(QRect(0, 0, DEFAULT_WND_WIDTH, DEFAULT_WND_HEIGHT));
 	painter.setBrush(Qt::black);
 	painter.drawRect(QRect(m_nVideoWidgetLeft, m_nVideoWidgetTop, m_nVideoWidgetWidth, m_nVideoWidgetHeight));
@@ -295,7 +593,7 @@ void CKSJSCZDemoMainWindow::UpdateUiSetting()
 
 	KSJSCZ_SetExposureLines(0, m_nExpLines);
 	KSJSCZ_GetExposureLinesRange(0, &ulValueMin, &ulValueMax);
-	ui->ExpLinesSpinBox->setRange(ulValueMin, ulValueMax);
+	ui->ExpLinesSpinBox->setRange(ulValueMin > 2 ? ulValueMin : 2, ulValueMax);
 	ui->StaticText_ExpostureLinesRange->setText(QString::number(ulValueMin) + "-" + QString::number(ulValueMax));
 
 	KSJSCZ_GetExposureTimeRange(0, &fValueMin, &fValueMax);
@@ -303,7 +601,7 @@ void CKSJSCZDemoMainWindow::UpdateUiSetting()
 	ui->StaticText_ExpostureTimeRange->setText(QString::number(fValueMin) + "-" + QString::number(fValueMax) + "ms");
 	KSJSCZ_GetExposureTime(0, &fValue);
 	ui->ExpTimeSpinBox->setValue(fValue);
-	
+
 	KSJSCZ_SetGain(0, m_nGain);
 	KSJSCZ_GetGainRange(0, &ulValueMin, &ulValueMax);
 	ui->GainSpinBox->setRange(ulValueMin, ulValueMax);
@@ -484,7 +782,7 @@ void CKSJSCZDemoMainWindow::OnWriteReg()
 	unsigned long  ulRegValue;
 	unsigned short usRegAddress;
 
-	QString strRegValue   = ui->LineEdit_RegValue->text();
+	QString strRegValue = ui->LineEdit_RegValue->text();
 	QString strRegAddress = ui->LineEdit_RegAddress->text();
 
 	if (strRegAddress.left(2).toUpper() == "0X")
@@ -530,13 +828,13 @@ void CKSJSCZDemoMainWindow::OnReadGpio()
 void CKSJSCZDemoMainWindow::OnSetFov()
 {
 	m_nCaptureColStart = ui->ColStartSpinBox->value();
-	m_nCaptureColSize  = ui->ColSizeSpinBox->value();
+	m_nCaptureColSize = ui->ColSizeSpinBox->value();
 	m_nCaptureRowStart = ui->RowStartSpinBox->value();
-	m_nCaptureRowSize  = ui->RowSizeSpinBox->value();
+	m_nCaptureRowSize = ui->RowSizeSpinBox->value();
 
 	if (m_nCaptureColSize < 8)         m_nCaptureColSize = 8;
 	else if (m_nCaptureColSize > 1280) m_nCaptureColSize = 1280;
-	
+
 	if (m_nCaptureRowSize < 8)         m_nCaptureRowSize = 8;
 	else if (m_nCaptureRowSize > 1024) m_nCaptureRowSize = 1024;
 
@@ -761,11 +1059,13 @@ void CKSJSCZDemoMainWindow::OnTimerFrameRate()
 		ui->StaticText_FPS->setText(szfps);
 
 		m_nCaptureCountPre = m_nCaptureCount;
+
+		int len = write(Fd_Com, szfps, 12);
 	}
 
 	m_ucLedShineValue += 1;
 	if (m_ucLedShineValue >= 4) m_ucLedShineValue = 0;
-	
+
 	// 这两个灯的红绿顺序相反
 	if (m_bALedShine)
 	{
@@ -893,33 +1193,33 @@ void CKSJSCZDemoMainWindow::LoadUserParams()
 
 void CKSJSCZDemoMainWindow::ResetShowPositions()
 {
-	m_nVideoWidgetLeft   = 4;
-	m_nVideoWidgetTop    = 4;
-	m_nVideoWidgetWidth  = DEFAULT_WND_WIDTH - 2 * 4;
-	m_nVideoWidgetHeight = DEFAULT_WND_HEIGHT - 2 * 4;
+	m_nVideoWidgetLeft = 4;
+	m_nVideoWidgetTop = 4;
+	m_nVideoWidgetWidth = (DEFAULT_WND_WIDTH - 2 * 4) & 0xfffffffc;
+	m_nVideoWidgetHeight = (DEFAULT_WND_HEIGHT - 2 * 4) & 0xfffffffc;
 
 	if (m_nCaptureColSize <= 0) m_nCaptureColSize = 640;
 	if (m_nCaptureRowSize <= 0) m_nCaptureRowSize = 480;
 
-	float fw = (float)m_nVideoWidgetWidth  / m_nCaptureColSize;
+	float fw = (float)m_nVideoWidgetWidth / m_nCaptureColSize;
 	float fh = (float)m_nVideoWidgetHeight / m_nCaptureRowSize;
 
 	printf("VideoWidgetPos: %f - %f - %d - %d\r\n", fw, fh, m_nCaptureColSize, m_nCaptureRowSize);
 
 	if (fw < fh)
 	{
-		m_nVideoWidgetHeight = (int)(fw*m_nCaptureRowSize + 0.5);
-		m_nVideoWidgetTop    = (DEFAULT_WND_HEIGHT - m_nVideoWidgetHeight) / 2;
+		m_nVideoWidgetHeight = ((int)(fw*m_nCaptureRowSize + 0.5)) & 0xfffffffc;
+		m_nVideoWidgetTop = (DEFAULT_WND_HEIGHT - m_nVideoWidgetHeight) / 2;
 	}
 	else
 	{
-		m_nVideoWidgetWidth = (int)(fh*m_nCaptureColSize + 0.5);
-		m_nVideoWidgetLeft  = (DEFAULT_WND_WIDTH - m_nVideoWidgetWidth) / 2;
+		m_nVideoWidgetWidth = ((int)(fh*m_nCaptureColSize + 0.5)) & 0xfffffffc;
+		m_nVideoWidgetLeft = (DEFAULT_WND_WIDTH - m_nVideoWidgetWidth) / 2;
 	}
 
-	m_nImagePositionLeft   = 0;
-	m_nImagePositionTop    = 0;
-	m_nImagePositionWidth  = m_nVideoWidgetWidth;
+	m_nImagePositionLeft = 0;
+	m_nImagePositionTop = 0;
+	m_nImagePositionWidth = m_nVideoWidgetWidth;
 	m_nImagePositionHeight = m_nVideoWidgetHeight;
 
 	KSJSCZ_SetVideoWidgetPos(0, m_nVideoWidgetLeft, m_nVideoWidgetTop, m_nVideoWidgetWidth, m_nVideoWidgetHeight);

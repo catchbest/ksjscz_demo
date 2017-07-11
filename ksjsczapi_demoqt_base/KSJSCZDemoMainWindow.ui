@@ -17,7 +17,7 @@
    <property name="geometry">
     <rect>
      <x>836</x>
-     <y>-14</y>
+     <y>2</y>
      <width>425</width>
      <height>711</height>
     </rect>
@@ -129,6 +129,9 @@
     </property>
     <property name="readOnly">
      <bool>false</bool>
+    </property>
+    <property name="minimum">
+     <number>2</number>
     </property>
     <property name="maximum">
      <number>99999</number>
@@ -389,7 +392,7 @@
    <widget class="QPushButton" name="StartCapturePushButton">
     <property name="geometry">
      <rect>
-      <x>194</x>
+      <x>174</x>
       <y>288</y>
       <width>79</width>
       <height>31</height>
@@ -706,9 +709,9 @@
    <widget class="QLabel" name="StaticText_FPS">
     <property name="geometry">
      <rect>
-      <x>288</x>
+      <x>276</x>
       <y>296</y>
-      <width>49</width>
+      <width>61</width>
       <height>16</height>
      </rect>
     </property>
@@ -943,7 +946,7 @@
    <widget class="QCheckBox" name="FlipCheckBox">
     <property name="geometry">
      <rect>
-      <x>108</x>
+      <x>98</x>
       <y>296</y>
       <width>65</width>
       <height>16</height>
@@ -951,6 +954,22 @@
     </property>
     <property name="text">
      <string>Flip</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="StaticText_Main">
+    <property name="geometry">
+     <rect>
+      <x>12</x>
+      <y>16</y>
+      <width>187</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="text">
+     <string/>
     </property>
    </widget>
   </widget>
