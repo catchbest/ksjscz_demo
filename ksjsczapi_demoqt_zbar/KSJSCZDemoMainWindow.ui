@@ -1,0 +1,581 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>KSJSCZDemoMainWindow</class>
+ <widget class="QDialog" name="KSJSCZDemoMainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1266</width>
+    <height>795</height>
+   </rect>
+  </property>
+  <property name="contextMenuPolicy">
+   <enum>Qt::NoContextMenu</enum>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <widget class="QGroupBox" name="UserInputGroupBox">
+   <property name="geometry">
+    <rect>
+     <x>964</x>
+     <y>6</y>
+     <width>303</width>
+     <height>697</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Camera Setting</string>
+   </property>
+   <widget class="QLabel" name="StaticText_4">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>362</y>
+      <width>65</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Exposure:</string>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="ExpLinesSpinBox">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>358</y>
+      <width>63</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="readOnly">
+     <bool>false</bool>
+    </property>
+    <property name="minimum">
+     <number>2</number>
+    </property>
+    <property name="maximum">
+     <number>99999</number>
+    </property>
+   </widget>
+   <widget class="QLabel" name="StaticText_5">
+    <property name="geometry">
+     <rect>
+      <x>182</x>
+      <y>362</y>
+      <width>39</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Gain:</string>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="GainSpinBox">
+    <property name="geometry">
+     <rect>
+      <x>226</x>
+      <y>358</y>
+      <width>63</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="maximum">
+     <number>99999</number>
+    </property>
+   </widget>
+   <widget class="QGroupBox" name="FieldOfViewGroupBox">
+    <property name="geometry">
+     <rect>
+      <x>6</x>
+      <y>432</y>
+      <width>283</width>
+      <height>127</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Field of View</string>
+    </property>
+    <widget class="QLabel" name="StaticText_7">
+     <property name="geometry">
+      <rect>
+       <x>8</x>
+       <y>26</y>
+       <width>65</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
+     </property>
+     <property name="text">
+      <string>Col Start:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="StaticText_8">
+     <property name="geometry">
+      <rect>
+       <x>162</x>
+       <y>26</y>
+       <width>39</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
+     </property>
+     <property name="text">
+      <string>Size:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="StaticText_9">
+     <property name="geometry">
+      <rect>
+       <x>162</x>
+       <y>64</y>
+       <width>39</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
+     </property>
+     <property name="text">
+      <string>Size:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="StaticText_10">
+     <property name="geometry">
+      <rect>
+       <x>8</x>
+       <y>64</y>
+       <width>65</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
+     </property>
+     <property name="text">
+      <string>Row Start:</string>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="ColStartSpinBox">
+     <property name="geometry">
+      <rect>
+       <x>82</x>
+       <y>22</y>
+       <width>69</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="maximum">
+      <number>1280</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="ColSizeSpinBox">
+     <property name="geometry">
+      <rect>
+       <x>206</x>
+       <y>22</y>
+       <width>69</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="maximum">
+      <number>1280</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="RowStartSpinBox">
+     <property name="geometry">
+      <rect>
+       <x>82</x>
+       <y>60</y>
+       <width>69</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="maximum">
+      <number>1024</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="RowSizeSpinBox">
+     <property name="geometry">
+      <rect>
+       <x>206</x>
+       <y>60</y>
+       <width>69</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="maximum">
+      <number>1024</number>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="SetFovPushButton">
+     <property name="geometry">
+      <rect>
+       <x>160</x>
+       <y>92</y>
+       <width>115</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Set</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QComboBox" name="TriggerModeComBox">
+    <property name="geometry">
+     <rect>
+      <x>92</x>
+      <y>22</y>
+      <width>203</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="StaticText_11">
+    <property name="geometry">
+     <rect>
+      <x>8</x>
+      <y>24</y>
+      <width>81</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Trigger Mode</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="StaticText_Version">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>674</y>
+      <width>257</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Plain</enum>
+    </property>
+    <property name="text">
+     <string>0.0.0.0</string>
+    </property>
+    <property name="wordWrap">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="StartCapturePushButton">
+    <property name="geometry">
+     <rect>
+      <x>16</x>
+      <y>56</y>
+      <width>79</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Start</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="StaticText_12">
+    <property name="geometry">
+     <rect>
+      <x>128</x>
+      <y>404</y>
+      <width>89</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Trigger Delay:</string>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="TriggerDelaySpinBox">
+    <property name="geometry">
+     <rect>
+      <x>226</x>
+      <y>398</y>
+      <width>63</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="maximum">
+     <number>99999</number>
+    </property>
+   </widget>
+   <widget class="QGroupBox" name="groupBox">
+    <property name="geometry">
+     <rect>
+      <x>12</x>
+      <y>100</y>
+      <width>281</width>
+      <height>203</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>1D Bar or 2D Bar</string>
+    </property>
+    <widget class="QCheckBox" name="ParseQRCODECheckBox">
+     <property name="geometry">
+      <rect>
+       <x>188</x>
+       <y>88</y>
+       <width>75</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>QRCODE</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="ParseUPCECheckBox">
+     <property name="geometry">
+      <rect>
+       <x>102</x>
+       <y>88</y>
+       <width>77</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>UPCE</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="ParsePDF417CheckBox">
+     <property name="geometry">
+      <rect>
+       <x>188</x>
+       <y>66</y>
+       <width>79</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>PDF417</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="ParseEAN8CheckBox">
+     <property name="geometry">
+      <rect>
+       <x>16</x>
+       <y>44</y>
+       <width>67</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>EAN8</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="ParseISBN13CheckBox">
+     <property name="geometry">
+      <rect>
+       <x>102</x>
+       <y>66</y>
+       <width>73</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>ISBN13</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="ParseUPCACheckBox">
+     <property name="geometry">
+      <rect>
+       <x>16</x>
+       <y>88</y>
+       <width>59</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>UPCA</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="ParseCODE39CheckBox">
+     <property name="geometry">
+      <rect>
+       <x>16</x>
+       <y>110</y>
+       <width>81</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>CODE39</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="ParseISBN10CheckBox">
+     <property name="geometry">
+      <rect>
+       <x>16</x>
+       <y>66</y>
+       <width>69</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>ISBN10</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="ParseCODE128CheckBox">
+     <property name="geometry">
+      <rect>
+       <x>102</x>
+       <y>110</y>
+       <width>85</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>CODE128</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="ParseEAN13CheckBox">
+     <property name="geometry">
+      <rect>
+       <x>102</x>
+       <y>44</y>
+       <width>73</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>EAN13</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="ParseI25CheckBox">
+     <property name="geometry">
+      <rect>
+       <x>188</x>
+       <y>44</y>
+       <width>69</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>I25</string>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="DensitySpinBox">
+     <property name="geometry">
+      <rect>
+       <x>126</x>
+       <y>138</y>
+       <width>43</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="minimum">
+      <number>1</number>
+     </property>
+     <property name="maximum">
+      <number>32</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="StaticText_14">
+     <property name="geometry">
+      <rect>
+       <x>18</x>
+       <y>140</y>
+       <width>99</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
+     </property>
+     <property name="text">
+      <string>Sample Density:</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="ProcessDataCheckBox">
+     <property name="geometry">
+      <rect>
+       <x>14</x>
+       <y>20</y>
+       <width>113</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Process Image</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="StaticText_Zbar">
+     <property name="geometry">
+      <rect>
+       <x>14</x>
+       <y>172</y>
+       <width>253</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QCheckBox" name="MirrorCheckBox">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>328</y>
+      <width>73</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Mirror </string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="StaticText_FPS">
+    <property name="geometry">
+     <rect>
+      <x>112</x>
+      <y>64</y>
+      <width>61</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="text">
+     <string>0fps</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="FlipCheckBox">
+    <property name="geometry">
+     <rect>
+      <x>108</x>
+      <y>328</y>
+      <width>65</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Flip</string>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
