@@ -374,6 +374,7 @@ QDialog(parent)
 
 	LoadUserParams();
 
+	ui->StartCapturePushButton->setText(m_bIsCapturing ? "Stop" : "Start");
 	ui->ProcessDataCheckBox->setCheckState(m_bParseZbarDemo ? Qt::Checked : Qt::Unchecked);
 
 	ui->TriggerModeComBox->blockSignals(true);
@@ -412,13 +413,17 @@ QDialog(parent)
 	ui->StartCapturePushButton->setText(m_bIsCapturing ? "Stop" : "Start");
 
 	int nRet = KSJSCZ_ERR_SUCCESS;
-	int nMaj1, nMaj2, nMin1, nMin2;
-	nRet = KSJSCZ_GetLibVersion(&nMaj1, &nMaj2, &nMin1, &nMin2);
-	ui->StaticText_Version->setText(QString("KSJSCZApi Ver: %1.%2.%3.%4").arg(nMaj1).arg(nMaj2).arg(nMin1).arg(nMin2));
 
 	nRet = KSJSCZ_LogSet(1, NULL);
-
 	nRet = KSJSCZ_Init();
+
+	unsigned long ulRegValue;
+
+	KSJSCZ_RdRegFPGA(0, 0x00, &ulRegValue);
+
+	int nMaj1, nMaj2, nMin1, nMin2;
+	nRet = KSJSCZ_GetLibVersion(&nMaj1, &nMaj2, &nMin1, &nMin2);
+	ui->StaticText_Version->setText(QString("%1.%2.%3.%4(%5.%6)").arg(nMaj1).arg(nMaj2).arg(nMin1).arg(nMin2).arg(ulRegValue >> 8 & 0x00FF).arg(ulRegValue & 0x00FF));
 
 	nRet = KSJSCZ_SetCaptureFieldOfView(0, m_nCaptureColStart, m_nCaptureRowStart, m_nCaptureColSize, m_nCaptureRowSize);
 
@@ -428,6 +433,8 @@ QDialog(parent)
 	UpdateUiSetting();
 
 	nRet = KSJSCZ_SetTriggerMode(0, m_nTriggerMode);
+
+	printf("KSJSCZ_SetTriggerMode %d\r\n", m_nTriggerMode);
 
 	KSJSCZ_WrRegFPGA(0, 0x9C, 0);
 
@@ -443,23 +450,25 @@ QDialog(parent)
 
 	if (set_port(&info) == -1)
 	{
-		printf("set com para wrong!!!!!!!!!!!!! ========= \r\n");
+		printf("=== Set com para wrong! === \r\n");
 	}
 
-	char *data = "com is ok";
-	int len = write(Fd_Com, data, 3);
+	char *data = "Com is conneted!\r\n";
 
-	if (len != 3)
+	int len = write(Fd_Com, data, 18);
+
+	if (len != 18)
 	{
 		//如果出现溢出情况   
-		printf("write wrong!!!!!!!!!!!!! ========= \r\n");
+		printf("=== Com write wrong! === \r\n");
 
 		tcflush(Fd_Com, TCOFLUSH);
 	}
 	else
 	{
-		printf("com is ok! ========= \r\n");
+		printf("=== Com is conneted! === \r\n");
 	}
+
 	StartCaptureThread();
 
 	m_nTimeTick = 0;
@@ -699,7 +708,10 @@ void CKSJSCZDemoMainWindow::OnTriggerModeChanged(int value)
 	m_nTriggerMode = (KSJSCZ_TRIGGER_MODE)value;
 
 	KSJSCZ_SetTriggerMode(0, m_nTriggerMode);
-	//KSJSCZ_EmptyFrameBuffer(0);
+
+    printf("KSJSCZ_SetTriggerMode %d\r\n", m_nTriggerMode);
+	
+	SaveUserParams();
 }
 
 void CKSJSCZDemoMainWindow::OnExpTimerChanged(double value)
@@ -978,9 +990,10 @@ void CKSJSCZDemoMainWindow::ParseZbar(unsigned char *pData, int nWidth, int nHei
 
 	zbar_image_scanner_t *pImageScanner = zbar_image_scanner_create();
 
+	if (m_nDensity <= 0) m_nDensity = 1;
+
 	zbar_image_scanner_set_config(pImageScanner, ZBAR_NONE, ZBAR_CFG_X_DENSITY, m_nDensity);
 	zbar_image_scanner_set_config(pImageScanner, ZBAR_NONE, ZBAR_CFG_Y_DENSITY, m_nDensity);
-
 
 	zbar_image_scanner_set_config(pImageScanner, ZBAR_NONE, ZBAR_CFG_ENABLE, 0);
 
@@ -998,27 +1011,39 @@ void CKSJSCZDemoMainWindow::ParseZbar(unsigned char *pData, int nWidth, int nHei
 
 	zbar_scan_image(pImageScanner, pImage);
 
-	const zbar_symbol_set_t *pSymbolSet = zbar_image_get_symbols(pImage);
-	int nSymbolNum = zbar_symbol_set_get_size(pSymbolSet);
+	const zbar_symbol_set_t *pSymbolSet   = zbar_image_get_symbols(pImage);
+	const zbar_symbol_t     *pSymbolFirst = zbar_symbol_set_first_symbol(pSymbolSet);
 
-	const zbar_symbol_t  *pSymbolFirst = zbar_symbol_set_first_symbol(pSymbolSet);
-
-	zbar_symbol_type_t   SymbolType;
-	const zbar_symbol_t  *pSymbolCur = pSymbolFirst;
+	zbar_symbol_type_t      SymbolType;
+	const zbar_symbol_t     *pSymbolCur   = pSymbolFirst;
 
 	QString strZbar = "";
 
-	while (pSymbolCur)
+	if (pSymbolCur == NULL)
 	{
-		SymbolType = zbar_symbol_get_type(pSymbolCur);
-		std::string strTypeName = zbar_get_symbol_name(SymbolType);
-		std::string strData(zbar_symbol_get_data(pSymbolCur), zbar_symbol_get_data_length(pSymbolCur));;
+		write(Fd_Com, "{NG}\r\n", 6);
+	}
+	else
+	{
+		while (pSymbolCur)
+		{
+			SymbolType = zbar_symbol_get_type(pSymbolCur);
+			std::string strTypeName = zbar_get_symbol_name(SymbolType);
+			std::string strData(zbar_symbol_get_data(pSymbolCur), zbar_symbol_get_data_length(pSymbolCur));;
 
-		strZbar = QString::fromLocal8Bit(strData.c_str());
+			strZbar = QString::fromLocal8Bit(strData.c_str());
 
-		if (strZbar != "") break;
+			if (Fd_Com != -1)
+			{
+				write(Fd_Com, "{OK[", 4);
+				write(Fd_Com, strData.c_str(), strData.length());
+				write(Fd_Com, "]}\r\n", 4);
+			}
 
-		pSymbolCur = zbar_symbol_next(pSymbolCur);
+			if (strZbar != "") break;
+
+			pSymbolCur = zbar_symbol_next(pSymbolCur);
+		}
 	}
 
 	zbar_image_scanner_destroy(pImageScanner);
@@ -1028,13 +1053,7 @@ void CKSJSCZDemoMainWindow::ParseZbar(unsigned char *pData, int nWidth, int nHei
 	{
 		++m_nParseZbarCount;
 
-		strZbar = QString::number(m_nParseZbarCount) + " - [" + QString::number(m_nParseZbarFailedCount) + "]" + strZbar;
-
-		//char szPath[64] = { 0 };
-
-		//sprintf(szPath, "/picture/data/Successed%02d.bmp", m_nParseZbarCount%20);
-
-		//KSJSCZ_HelperSaveToBmp(pData, nWidth, nHeight, 8, szPath);
+		strZbar = QString::number(m_nParseZbarCount) + "-[F:" + QString::number(m_nParseZbarFailedCount) + "]: " + strZbar;
 	}
 	else
 	{
@@ -1059,8 +1078,6 @@ void CKSJSCZDemoMainWindow::OnTimerFrameRate()
 		ui->StaticText_FPS->setText(szfps);
 
 		m_nCaptureCountPre = m_nCaptureCount;
-
-		int len = write(Fd_Com, szfps, 12);
 	}
 
 	m_ucLedShineValue += 1;
