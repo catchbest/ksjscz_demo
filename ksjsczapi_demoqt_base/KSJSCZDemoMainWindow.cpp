@@ -378,8 +378,8 @@ QDialog(parent)
 	ui->ProcessDataCheckBox->setCheckState(m_bParseZbarDemo ? Qt::Checked : Qt::Unchecked);
 
 	ui->TriggerModeComBox->blockSignals(true);
-	ui->TriggerModeComBox->addItem("Sofatware Command Continue");
-	ui->TriggerModeComBox->addItem("Sofatware Single Trigger");
+	ui->TriggerModeComBox->addItem("Software Command Continue");
+	ui->TriggerModeComBox->addItem("Software Single Trigger");
 	ui->TriggerModeComBox->addItem("External Trigger (High Level)");
 	ui->TriggerModeComBox->addItem("External Trigger (Low Level)");
 	ui->TriggerModeComBox->addItem("External Trigger (Positive Edge)");
