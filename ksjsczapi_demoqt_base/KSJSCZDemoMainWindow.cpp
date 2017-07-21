@@ -472,7 +472,7 @@ QDialog(parent)
 	StartCaptureThread();
 
 	m_nTimeTick = 0;
-	m_pTimerFrameRate->setInterval(100);  //时间刚好慢一倍
+	m_pTimerFrameRate->setInterval(200);
 	m_pTimerFrameRate->start();
 }
 
