@@ -387,10 +387,13 @@ QDialog(parent)
 	ui->TriggerModeComBox->setCurrentIndex(m_nTriggerMode);
 	ui->TriggerModeComBox->blockSignals(false);
 
-	m_nCaptureColStart = (1280 - 640) / 2;
-	m_nCaptureColSize = 640;
-	m_nCaptureRowStart = (1024 - 480) / 2;
-	m_nCaptureRowSize = 480;
+	if (m_nCaptureColSize <= 0 || m_nCaptureColSize > 1280 || m_nCaptureRowSize <= 0 || m_nCaptureRowSize > 1024)
+	{
+		m_nCaptureColStart = (1280 - 640) / 2;
+		m_nCaptureColSize = 640;
+		m_nCaptureRowStart = (1024 - 480) / 2;
+		m_nCaptureRowSize = 480;
+	}
 
 	ui->ColStartSpinBox->blockSignals(true);
 	ui->ColSizeSpinBox->blockSignals(true);
@@ -423,7 +426,7 @@ QDialog(parent)
 
 	int nMaj1, nMaj2, nMin1, nMin2;
 	nRet = KSJSCZ_GetLibVersion(&nMaj1, &nMaj2, &nMin1, &nMin2);
-	ui->StaticText_Version->setText(QString("V1.1 (PL: %1.%2.%3.%4 FPGA: %5.%6)").arg(nMaj1).arg(nMaj2).arg(nMin1).arg(nMin2).arg(ulRegValue >> 8 & 0x00FF).arg(ulRegValue & 0x00FF));
+	ui->StaticText_Version->setText(QString("V1.1 (Lib: %1.%2.%3.%4 FPGA: %5.%6)").arg(nMaj1).arg(nMaj2).arg(nMin1).arg(nMin2).arg(ulRegValue >> 8 & 0x00FF).arg(ulRegValue & 0x00FF));
 
 	nRet = KSJSCZ_SetCaptureFieldOfView(0, m_nCaptureColStart, m_nCaptureRowStart, m_nCaptureColSize, m_nCaptureRowSize);
 
@@ -869,6 +872,8 @@ void CKSJSCZDemoMainWindow::OnSetFov()
 	printf("KSJSCZ_SetCaptureFieldOfView: %d - %d - %d - %d\r\n", m_nCaptureColStart, m_nCaptureRowStart, m_nCaptureColSize, m_nCaptureRowSize);
 
 	ResetShowPositions();
+
+	SaveUserParams();
 }
 
 void CKSJSCZDemoMainWindow::OnStartCapture()

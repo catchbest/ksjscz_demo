@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'KSJSCZDemoMainWindow.ui'
 **
-** Created: Tue Jul 25 12:47:38 2017
+** Created: Tue Jul 25 17:54:08 2017
 **      by: Qt User Interface Compiler version 4.8.3
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -202,7 +202,7 @@ public:
         StaticText_11->setGeometry(QRect(8, 46, 87, 16));
         StaticText_Version = new QLabel(UserInputGroupBox);
         StaticText_Version->setObjectName(QString::fromUtf8("StaticText_Version"));
-        StaticText_Version->setGeometry(QRect(206, 16, 209, 16));
+        StaticText_Version->setGeometry(QRect(10, 690, 209, 16));
         StaticText_Version->setFrameShape(QFrame::StyledPanel);
         StartCapturePushButton = new QPushButton(UserInputGroupBox);
         StartCapturePushButton->setObjectName(QString::fromUtf8("StartCapturePushButton"));
@@ -343,7 +343,7 @@ public:
         FlipCheckBox->setGeometry(QRect(98, 296, 65, 16));
         StaticText_Main = new QLabel(UserInputGroupBox);
         StaticText_Main->setObjectName(QString::fromUtf8("StaticText_Main"));
-        StaticText_Main->setGeometry(QRect(12, 16, 187, 16));
+        StaticText_Main->setGeometry(QRect(230, 690, 187, 16));
         StaticText_Main->setFrameShape(QFrame::StyledPanel);
 
         retranslateUi(KSJSCZDemoMainWindow);
