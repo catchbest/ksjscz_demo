@@ -271,7 +271,6 @@ void* ThreadForCaptureData(void *arg)
 			if (KSJSCZ_ERR_SUCCESS == nRet)
 			{
 				pMainWindow->m_nCaptureCount++;
-				pMainWindow->ui->StaticText_Count->setText(QString::number(pMainWindow->m_nCaptureCount));
 
 				if (pMainWindow->m_bParseZbarDemo)
 				{
@@ -330,6 +329,7 @@ QDialog(parent)
 , m_nExpLines(1)
 , m_nGain(128)
 , m_nDelay(0)
+, m_nLastShowTick(-1)
 {
 	ui->setupUi(this);
 	setWindowFlags(Qt::FramelessWindowHint);
@@ -423,7 +423,7 @@ QDialog(parent)
 
 	int nMaj1, nMaj2, nMin1, nMin2;
 	nRet = KSJSCZ_GetLibVersion(&nMaj1, &nMaj2, &nMin1, &nMin2);
-	ui->StaticText_Version->setText(QString("%1.%2.%3.%4(%5.%6)").arg(nMaj1).arg(nMaj2).arg(nMin1).arg(nMin2).arg(ulRegValue >> 8 & 0x00FF).arg(ulRegValue & 0x00FF));
+	ui->StaticText_Version->setText(QString("V1.1 (PL: %1.%2.%3.%4 FPGA: %5.%6)").arg(nMaj1).arg(nMaj2).arg(nMin1).arg(nMin2).arg(ulRegValue >> 8 & 0x00FF).arg(ulRegValue & 0x00FF));
 
 	nRet = KSJSCZ_SetCaptureFieldOfView(0, m_nCaptureColStart, m_nCaptureRowStart, m_nCaptureColSize, m_nCaptureRowSize);
 
@@ -453,7 +453,7 @@ QDialog(parent)
 		printf("=== Set com para wrong! === \r\n");
 	}
 
-	char *data = "Com is conneted!\r\n";
+	char *data = "=== Com is conneted! === \r\n";
 
 	int len = write(Fd_Com, data, 18);
 
@@ -472,7 +472,7 @@ QDialog(parent)
 	StartCaptureThread();
 
 	m_nTimeTick = 0;
-	m_pTimerFrameRate->setInterval(200);
+	m_pTimerFrameRate->setInterval(25);
 	m_pTimerFrameRate->start();
 }
 
@@ -1067,7 +1067,7 @@ void CKSJSCZDemoMainWindow::OnTimerFrameRate()
 {
 	++m_nTimeTick;
 
-	if (m_nTimeTick >= 5)
+	if (m_nTimeTick >= 40)
 	{
 		m_nTimeTick = 0;
 
@@ -1078,21 +1078,27 @@ void CKSJSCZDemoMainWindow::OnTimerFrameRate()
 		ui->StaticText_FPS->setText(szfps);
 
 		m_nCaptureCountPre = m_nCaptureCount;
+
+		m_ucLedShineValue += 1;
+		if (m_ucLedShineValue >= 4) m_ucLedShineValue = 0;
+
+		// 这两个灯的红绿顺序相反
+		if (m_bALedShine)
+		{
+			KSJSCZ_GpioSet(6, m_ucLedShineValue & 0x2);
+			KSJSCZ_GpioSet(7, m_ucLedShineValue & 0x1);
+		}
+		if (m_bBLedShine)
+		{
+			KSJSCZ_GpioSet(9, m_ucLedShineValue & 0x2);
+			KSJSCZ_GpioSet(8, m_ucLedShineValue & 0x1);
+		}
 	}
 
-	m_ucLedShineValue += 1;
-	if (m_ucLedShineValue >= 4) m_ucLedShineValue = 0;
-
-	// 这两个灯的红绿顺序相反
-	if (m_bALedShine)
+	if (m_nLastShowTick != m_nCaptureCount)
 	{
-		KSJSCZ_GpioSet(6, m_ucLedShineValue & 0x2);
-		KSJSCZ_GpioSet(7, m_ucLedShineValue & 0x1);
-	}
-	if (m_bBLedShine)
-	{
-		KSJSCZ_GpioSet(9, m_ucLedShineValue & 0x2);
-		KSJSCZ_GpioSet(8, m_ucLedShineValue & 0x1);
+		ui->StaticText_Count->setText(QString::number(m_nCaptureCount));
+		m_nLastShowTick = m_nCaptureCount;
 	}
 }
 

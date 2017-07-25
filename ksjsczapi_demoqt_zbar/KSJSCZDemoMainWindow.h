@@ -60,6 +60,7 @@ private:
 
 	int  m_nTimeTick;
 	int  m_nCaptureCountPre;
+	int  m_nLastShowTick;
 protected:
 	int StartCaptureThread();
 	int KillCaptureThread();

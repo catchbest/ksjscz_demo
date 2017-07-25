@@ -334,6 +334,7 @@ QDialog(parent)
 , m_nExpLines(2)
 , m_nGain(128)
 , m_nDelay(0)
+, m_nLastShowTick(-1)
 {
 	ui->setupUi(this);
 	setWindowFlags(Qt::FramelessWindowHint);
@@ -417,7 +418,7 @@ QDialog(parent)
 
 	int nMaj1, nMaj2, nMin1, nMin2;
 	nRet = KSJSCZ_GetLibVersion(&nMaj1, &nMaj2, &nMin1, &nMin2);
-	ui->StaticText_Version->setText(QString("%1.%2.%3.%4(%5.%6)").arg(nMaj1).arg(nMaj2).arg(nMin1).arg(nMin2).arg(ulRegValue >> 8 & 0x00FF).arg(ulRegValue & 0x00FF));
+	ui->StaticText_Version->setText(QString("V1.1 (PL: %1.%2.%3.%4 FPGA: %5.%6)").arg(nMaj1).arg(nMaj2).arg(nMin1).arg(nMin2).arg(ulRegValue >> 8 & 0x00FF).arg(ulRegValue & 0x00FF));
 
 	nRet = KSJSCZ_SetCaptureFieldOfView(0, m_nCaptureColStart, m_nCaptureRowStart, m_nCaptureColSize, m_nCaptureRowSize);
 
@@ -466,7 +467,7 @@ QDialog(parent)
 	StartCaptureThread();
 
 	m_nTimeTick = 0;
-	m_pTimerFrameRate->setInterval(100);  //时间刚好慢一倍
+	m_pTimerFrameRate->setInterval(200);
 	m_pTimerFrameRate->start();
 }
 
@@ -932,19 +933,22 @@ void CKSJSCZDemoMainWindow::OnTimerFrameRate()
 		m_nCaptureCountPre = m_nCaptureCount;
 	}
 
-	m_ucLedShineValue += 1;
-	if (m_ucLedShineValue >= 4) m_ucLedShineValue = 0;
+	if (m_nTimeTick % 10 == 0)
+	{
+		m_ucLedShineValue += 1;
+		if (m_ucLedShineValue >= 4) m_ucLedShineValue = 0;
 
-	// 这两个灯的红绿顺序相反
-	if (m_bALedShine)
-	{
-		KSJSCZ_GpioSet(6, m_ucLedShineValue & 0x2);
-		KSJSCZ_GpioSet(7, m_ucLedShineValue & 0x1);
-	}
-	if (m_bBLedShine)
-	{
-		KSJSCZ_GpioSet(9, m_ucLedShineValue & 0x2);
-		KSJSCZ_GpioSet(8, m_ucLedShineValue & 0x1);
+		// 这两个灯的红绿顺序相反
+		if (m_bALedShine)
+		{
+			KSJSCZ_GpioSet(6, m_ucLedShineValue & 0x2);
+			KSJSCZ_GpioSet(7, m_ucLedShineValue & 0x1);
+		}
+		if (m_bBLedShine)
+		{
+			KSJSCZ_GpioSet(9, m_ucLedShineValue & 0x2);
+			KSJSCZ_GpioSet(8, m_ucLedShineValue & 0x1);
+		}
 	}
 }
 
