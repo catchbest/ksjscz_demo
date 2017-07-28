@@ -10,6 +10,13 @@
 #include "ui_KSJSCZDemoMainWindow.h"
 
 
+#include "../ksjsczapi_include/KSJSczApiShow.h"
+#include "../ksjsczapi_include/KSJSCZApiBase.h"
+#include "../ksjsczapi_include/KSJSCZApiTriggerMode.h"
+#include "../ksjsczapi_include/KSJSCZApiIo.h"
+#include "../ksjsczapi_include/KSJSczApiCode.h"
+#include "../ksjsczapi_include/KSJSczApiInternal.h"
+
 
 CKSJSCZDemoMainWindow::CKSJSCZDemoMainWindow(QWidget *parent) :
 QDialog(parent)
@@ -17,6 +24,8 @@ QDialog(parent)
 {
 	ui->setupUi(this);
 	setWindowFlags(Qt::FramelessWindowHint);
+
+	int nRet = KSJSCZ_Init();
 
 	m_pClientConnection = NULL;
 
@@ -38,6 +47,8 @@ QDialog(parent)
 CKSJSCZDemoMainWindow::~CKSJSCZDemoMainWindow()
 {
 	delete ui;
+
+	KSJSCZ_UnInit();
 }
 
 void CKSJSCZDemoMainWindow::paintEvent(QPaintEvent *)
