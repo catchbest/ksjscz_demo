@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'KSJSCZDemoMainWindow.ui'
 **
-** Created: Fri Jul 28 11:59:31 2017
+** Created: Thu Aug 17 11:48:33 2017
 **      by: Qt User Interface Compiler version 4.8.3
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -39,7 +39,7 @@ public:
         StartCapturePushButton->setGeometry(QRect(960, 110, 79, 31));
         statusLabel = new QLabel(KSJSCZDemoMainWindow);
         statusLabel->setObjectName(QString::fromUtf8("statusLabel"));
-        statusLabel->setGeometry(QRect(240, 180, 381, 61));
+        statusLabel->setGeometry(QRect(160, 150, 381, 51));
         label_1 = new QLabel(KSJSCZDemoMainWindow);
         label_1->setObjectName(QString::fromUtf8("label_1"));
         label_1->setGeometry(QRect(650, 160, 391, 41));
@@ -63,7 +63,7 @@ public:
     {
         KSJSCZDemoMainWindow->setWindowTitle(QApplication::translate("KSJSCZDemoMainWindow", "Dialog", 0, QApplication::UnicodeUTF8));
         StartCapturePushButton->setText(QApplication::translate("KSJSCZDemoMainWindow", "Send", 0, QApplication::UnicodeUTF8));
-        statusLabel->setText(QApplication::translate("KSJSCZDemoMainWindow", ".....", 0, QApplication::UnicodeUTF8));
+        statusLabel->setText(QApplication::translate("KSJSCZDemoMainWindow", "Tcp Server === Listen to 192.168.1.202:6666", 0, QApplication::UnicodeUTF8));
         label_1->setText(QApplication::translate("KSJSCZDemoMainWindow", "......", 0, QApplication::UnicodeUTF8));
         label_2->setText(QApplication::translate("KSJSCZDemoMainWindow", "......", 0, QApplication::UnicodeUTF8));
     } // retranslateUi

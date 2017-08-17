@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'KSJSCZDemoMainWindow.ui'
 **
-** Created: Tue Jul 25 10:20:41 2017
+** Created: Thu Aug 17 12:26:31 2017
 **      by: Qt User Interface Compiler version 4.8.3
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -24,6 +24,7 @@ class Ui_KSJSCZDemoMainWindow
 {
 public:
     QPushButton *StartCapturePushButton;
+    QPushButton *StopCapturePushButton;
 
     void setupUi(QDialog *KSJSCZDemoMainWindow)
     {
@@ -33,6 +34,9 @@ public:
         StartCapturePushButton = new QPushButton(KSJSCZDemoMainWindow);
         StartCapturePushButton->setObjectName(QString::fromUtf8("StartCapturePushButton"));
         StartCapturePushButton->setGeometry(QRect(1170, 10, 79, 31));
+        StopCapturePushButton = new QPushButton(KSJSCZDemoMainWindow);
+        StopCapturePushButton->setObjectName(QString::fromUtf8("StopCapturePushButton"));
+        StopCapturePushButton->setGeometry(QRect(1170, 60, 79, 31));
 
         retranslateUi(KSJSCZDemoMainWindow);
 
@@ -43,6 +47,7 @@ public:
     {
         KSJSCZDemoMainWindow->setWindowTitle(QApplication::translate("KSJSCZDemoMainWindow", "Dialog", 0, QApplication::UnicodeUTF8));
         StartCapturePushButton->setText(QApplication::translate("KSJSCZDemoMainWindow", "Start", 0, QApplication::UnicodeUTF8));
+        StopCapturePushButton->setText(QApplication::translate("KSJSCZDemoMainWindow", "Stop", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

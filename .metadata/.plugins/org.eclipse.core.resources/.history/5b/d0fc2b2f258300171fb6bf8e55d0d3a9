@@ -1,0 +1,25 @@
+#pragma once
+
+#include "QtGui/QLabel"
+
+class CKsjScrollbar;
+
+class CImageLabel : public QLabel
+{
+	Q_OBJECT
+
+public:
+	CImageLabel(QWidget* parent = Q_NULLPTR);
+	~CImageLabel();
+
+signals:                                     //自定义信号
+	void explains();            //假如要自定义槽和信号, explains信号是必须的
+	void sigmouseEvent(int type, QMouseEvent * e);
+
+protected:
+	virtual void mousePressEvent(QMouseEvent * e);
+	virtual void mouseReleaseEvent(QMouseEvent * e);
+	virtual void mouseMoveEvent(QMouseEvent * e);
+	virtual void mouseDoubleClickEvent(QMouseEvent * e);
+	virtual void wheelEvent(QWheelEvent * event);
+};

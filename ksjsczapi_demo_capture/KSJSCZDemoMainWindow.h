@@ -20,8 +20,9 @@ public:
 private:
 	Ui::KSJSCZDemoMainWindow *ui;
 
-protected slots:
+	protected slots:
 	void OnStartCapture();
+	void OnStopCapture();
 
 protected:
 	virtual void paintEvent(QPaintEvent *);

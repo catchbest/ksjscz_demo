@@ -29,14 +29,14 @@
   <widget class="QLabel" name="statusLabel">
    <property name="geometry">
     <rect>
-     <x>240</x>
-     <y>180</y>
+     <x>160</x>
+     <y>150</y>
      <width>381</width>
-     <height>61</height>
+     <height>51</height>
     </rect>
    </property>
    <property name="text">
-    <string>.....</string>
+    <string>Tcp Server === Listen to 192.168.1.202:6666</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_1">

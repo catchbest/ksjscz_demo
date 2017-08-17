@@ -1,50 +1,30 @@
-16:07:46 **** Incremental Build of configuration Debug for project ksjsczapi_demo_capture ****
+18:11:17 **** Rebuild of configuration Debug for project ksjsczapi_demo_qimage ****
 Info: Internal Builder is used for build
-arm-linux-gnueabihf-g++ -I../../Qt4.8/include -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.cpp" 
-arm-linux-gnueabihf-g++ -I../../Qt4.8/include -O0 -g3 -Wall -c -fmessage-length=0 -o KSJSCZDemoMainWindow.o "..\\KSJSCZDemoMainWindow.cpp" 
-In file included from ..\KSJSCZDemoMainWindow.cpp:17:0:
-..\../ksjsczapi_include/KSJSczApiInternal.h:32:0: warning: "KSJSCZ_API" redefined
- #define KSJSCZ_API KSJSCZ_IMPORT_EXPORT int KSJSCZ_CALLTYPE
- ^
-In file included from ..\KSJSCZDemoMainWindow.cpp:15:0:
-..\../ksjsczapi_include/KSJSCZApiIo.h:33:0: note: this is the location of the previous definition
- #define KSJSCZ_API int
- ^
-..\KSJSCZDemoMainWindow.cpp: In constructor 'CKSJSCZDemoMainWindow::CKSJSCZDemoMainWindow(QWidget*)':
-..\KSJSCZDemoMainWindow.cpp:74:6: warning: variable 'nRet' set but not used [-Wunused-but-set-variable]
-  int nRet = KSJSCZ_Init();
-      ^
+arm-linux-gnueabihf-g++ -I../../Qt4.8/include -O0 -g3 -Wall -c -fmessage-length=0 -o Moc_ImageLabel.o "..\\Moc_ImageLabel.cpp" 
 arm-linux-gnueabihf-g++ -I../../Qt4.8/include -O0 -g3 -Wall -c -fmessage-length=0 -o Moc_KSJSCZDemoMainWindow.o "..\\Moc_KSJSCZDemoMainWindow.cpp" 
-arm-linux-gnueabihf-g++ -lpthread -ldl -L../../ksjsczapi_lib "-LE:\\Working\\github\\git.ksjscz_demo\\Qt4.8\\lib" -o ksjsczapi_demo_capture KSJSCZDemoMainWindow.o Moc_KSJSCZDemoMainWindow.o main.o -lksjscz -lQtCore -lQtGui -lQtNetwork 
-16:09:34 **** Incremental Build of configuration Debug for project ksjsczapi_demo_capture ****
-Info: Internal Builder is used for build
+arm-linux-gnueabihf-g++ -I../../Qt4.8/include -O0 -g3 -Wall -c -fmessage-length=0 -o ImageLabel.o "..\\ImageLabel.cpp" 
 arm-linux-gnueabihf-g++ -I../../Qt4.8/include -O0 -g3 -Wall -c -fmessage-length=0 -o KSJSCZDemoMainWindow.o "..\\KSJSCZDemoMainWindow.cpp" 
-In file included from ..\KSJSCZDemoMainWindow.cpp:17:0:
+In file included from ..\KSJSCZDemoMainWindow.cpp:18:0:
 ..\../ksjsczapi_include/KSJSczApiInternal.h:32:0: warning: "KSJSCZ_API" redefined
  #define KSJSCZ_API KSJSCZ_IMPORT_EXPORT int KSJSCZ_CALLTYPE
  ^
-In file included from ..\KSJSCZDemoMainWindow.cpp:15:0:
+In file included from ..\KSJSCZDemoMainWindow.cpp:16:0:
 ..\../ksjsczapi_include/KSJSCZApiIo.h:33:0: note: this is the location of the previous definition
  #define KSJSCZ_API int
  ^
-..\KSJSCZDemoMainWindow.cpp: In constructor 'CKSJSCZDemoMainWindow::CKSJSCZDemoMainWindow(QWidget*)':
-..\KSJSCZDemoMainWindow.cpp:74:6: warning: variable 'nRet' set but not used [-Wunused-but-set-variable]
+In file included from ..\KSJSCZDemoMainWindow.cpp:8:0:
+..\KSJSCZDemoMainWindow.h: In constructor 'CKSJSCZDemoMainWindow::CKSJSCZDemoMainWindow(QWidget*)':
+..\KSJSCZDemoMainWindow.h:56:10: warning: 'CKSJSCZDemoMainWindow::m_pImage' will be initialized after [-Wreorder]
+  QImage* m_pImage;
+          ^
+..\KSJSCZDemoMainWindow.h:45:7: warning:   'bool CKSJSCZDemoMainWindow::m_bIsCapturing' [-Wreorder]
+  bool m_bIsCapturing;
+       ^
+..\KSJSCZDemoMainWindow.cpp:62:1: warning:   when initialized here [-Wreorder]
+ CKSJSCZDemoMainWindow::CKSJSCZDemoMainWindow(QWidget *parent) :
+ ^
+..\KSJSCZDemoMainWindow.cpp:96:6: warning: variable 'nRet' set but not used [-Wunused-but-set-variable]
   int nRet = KSJSCZ_Init();
       ^
-arm-linux-gnueabihf-g++ -lpthread -ldl -L../../ksjsczapi_lib "-LE:\\Working\\github\\git.ksjscz_demo\\Qt4.8\\lib" -o ksjsczapi_demo_capture KSJSCZDemoMainWindow.o Moc_KSJSCZDemoMainWindow.o main.o -lksjscz -lQtCore -lQtGui -lQtNetwork 
-16:11:53 **** Incremental Build of configuration Debug for project ksjsczapi_demo_capture ****
-Info: Internal Builder is used for build
-arm-linux-gnueabihf-g++ -I../../Qt4.8/include -O0 -g3 -Wall -c -fmessage-length=0 -o KSJSCZDemoMainWindow.o "..\\KSJSCZDemoMainWindow.cpp" 
-In file included from ..\KSJSCZDemoMainWindow.cpp:17:0:
-..\../ksjsczapi_include/KSJSczApiInternal.h:32:0: warning: "KSJSCZ_API" redefined
- #define KSJSCZ_API KSJSCZ_IMPORT_EXPORT int KSJSCZ_CALLTYPE
- ^
-In file included from ..\KSJSCZDemoMainWindow.cpp:15:0:
-..\../ksjsczapi_include/KSJSCZApiIo.h:33:0: note: this is the location of the previous definition
- #define KSJSCZ_API int
- ^
-..\KSJSCZDemoMainWindow.cpp: In constructor 'CKSJSCZDemoMainWindow::CKSJSCZDemoMainWindow(QWidget*)':
-..\KSJSCZDemoMainWindow.cpp:74:6: warning: variable 'nRet' set but not used [-Wunused-but-set-variable]
-  int nRet = KSJSCZ_Init();
-      ^
-arm-linux-gnueabihf-g++ -lpthread -ldl -L../../ksjsczapi_lib "-LE:\\Working\\github\\git.ksjscz_demo\\Qt4.8\\lib" -o ksjsczapi_demo_capture KSJSCZDemoMainWindow.o Moc_KSJSCZDemoMainWindow.o main.o -lksjscz -lQtCore -lQtGui -lQtNetwork 
+arm-linux-gnueabihf-g++ -I../../Qt4.8/include -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.cpp" 
+arm-linux-gnueabihf-g++ -lpthread -ldl -L../../ksjsczapi_lib -L../../Qt4.8/lib -o ksjsczapi_demo_qimage ImageLabel.o KSJSCZDemoMainWindow.o Moc_ImageLabel.o Moc_KSJSCZDemoMainWindow.o main.o -lksjscz -lQtCore -lQtGui -lQtNetwork 

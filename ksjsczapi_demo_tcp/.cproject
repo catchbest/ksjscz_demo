@@ -18,7 +18,7 @@
 							<option id="cdt.managedbuild.option.gnu.cross.prefix.611016884" name="Prefix" superClass="cdt.managedbuild.option.gnu.cross.prefix" value="arm-linux-gnueabihf-" valueType="string"/>
 							<option id="cdt.managedbuild.option.gnu.cross.path.1479545191" name="Path" superClass="cdt.managedbuild.option.gnu.cross.path" value="C:\Program Files (x86)\Linaro\gcc-linaro-arm-linux-gnueabihf-4.9-2014.09\bin" valueType="string"/>
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="cdt.managedbuild.targetPlatform.gnu.cross.848771797" isAbstract="false" osList="all" superClass="cdt.managedbuild.targetPlatform.gnu.cross"/>
-							<builder autoBuildTarget="all" buildPath="${workspace_loc:/ksjsczapi_demo_capture}/Debug" cleanBuildTarget="clean" id="org.eclipse.cdt.build.core.internal.builder.1227676175" incrementalBuildTarget="all" managedBuildOn="true" name="CDT Internal Builder" superClass="org.eclipse.cdt.build.core.internal.builder"/>
+							<builder autoBuildTarget="all" buildPath="${workspace_loc:/ksjsczapi_demo_capture}/Debug" cleanBuildTarget="clean" id="org.eclipse.cdt.build.core.internal.builder.1227676175" incrementalBuildTarget="all" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="CDT Internal Builder" superClass="org.eclipse.cdt.build.core.internal.builder"/>
 							<tool id="cdt.managedbuild.tool.gnu.cross.c.compiler.1336017629" name="Cross GCC Compiler" superClass="cdt.managedbuild.tool.gnu.cross.c.compiler">
 								<option defaultValue="gnu.c.optimization.level.none" id="gnu.c.compiler.option.optimization.level.100548621" name="Optimization Level" superClass="gnu.c.compiler.option.optimization.level" useByScannerDiscovery="false" valueType="enumerated"/>
 								<option id="gnu.c.compiler.option.debugging.level.435588425" name="Debug Level" superClass="gnu.c.compiler.option.debugging.level" useByScannerDiscovery="false" value="gnu.c.debugging.level.max" valueType="enumerated"/>
@@ -45,7 +45,7 @@
 								</option>
 								<option id="gnu.cpp.link.option.paths.1577244590" name="Library search path (-L)" superClass="gnu.cpp.link.option.paths" valueType="libPaths">
 									<listOptionValue builtIn="false" value="../../ksjsczapi_lib"/>
-									<listOptionValue builtIn="false" value="&quot;E:\Working\github\git.ksjscz_demo\Qt4.8\lib&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;../../Qt4.8/lib&quot;"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.1486668555" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
@@ -79,7 +79,7 @@
 							<option id="cdt.managedbuild.option.gnu.cross.prefix.455787411" name="Prefix" superClass="cdt.managedbuild.option.gnu.cross.prefix" value="arm-linux-gnueabihf-" valueType="string"/>
 							<option id="cdt.managedbuild.option.gnu.cross.path.583442460" name="Path" superClass="cdt.managedbuild.option.gnu.cross.path" value="C:\Program Files (x86)\Linaro\gcc-linaro-arm-linux-gnueabihf-4.9-2014.09\bin" valueType="string"/>
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="cdt.managedbuild.targetPlatform.gnu.cross.1682025612" isAbstract="false" osList="all" superClass="cdt.managedbuild.targetPlatform.gnu.cross"/>
-							<builder autoBuildTarget="all" buildPath="${workspace_loc:/ksjsczapi_demo_capture}/Release" cleanBuildTarget="clean" id="org.eclipse.cdt.build.core.internal.builder.685422166" incrementalBuildTarget="all" managedBuildOn="true" name="CDT Internal Builder" superClass="org.eclipse.cdt.build.core.internal.builder"/>
+							<builder autoBuildTarget="all" buildPath="${workspace_loc:/ksjsczapi_demo_capture}/Release" cleanBuildTarget="clean" id="org.eclipse.cdt.build.core.internal.builder.685422166" incrementalBuildTarget="all" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="CDT Internal Builder" superClass="org.eclipse.cdt.build.core.internal.builder"/>
 							<tool id="cdt.managedbuild.tool.gnu.cross.c.compiler.313397855" name="Cross GCC Compiler" superClass="cdt.managedbuild.tool.gnu.cross.c.compiler">
 								<option defaultValue="gnu.c.optimization.level.most" id="gnu.c.compiler.option.optimization.level.287269707" name="Optimization Level" superClass="gnu.c.compiler.option.optimization.level" useByScannerDiscovery="false" valueType="enumerated"/>
 								<option id="gnu.c.compiler.option.debugging.level.490553919" name="Debug Level" superClass="gnu.c.compiler.option.debugging.level" useByScannerDiscovery="false" value="gnu.c.debugging.level.none" valueType="enumerated"/>
@@ -106,7 +106,7 @@
 								</option>
 								<option id="gnu.cpp.link.option.paths.1232929885" name="Library search path (-L)" superClass="gnu.cpp.link.option.paths" valueType="libPaths">
 									<listOptionValue builtIn="false" value="../../ksjsczapi_lib"/>
-									<listOptionValue builtIn="false" value="&quot;E:\Working\github\git.ksjscz_demo\Qt4.8\lib&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;../../Qt4.8/lib&quot;"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.107808435" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
@@ -125,14 +125,32 @@
 		</cconfiguration>
 	</storageModule>
 	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-		<project id="ksjsczapi_demo_capture.cdt.managedbuild.target.gnu.cross.exe.867903418" name="Executable" projectType="cdt.managedbuild.target.gnu.cross.exe"/>
+		<project id="ksjsczapi_demo_tcp.cdt.managedbuild.target.gnu.cross.exe.17645063" name="Executable" projectType="cdt.managedbuild.target.gnu.cross.exe"/>
+	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
+	<storageModule moduleId="refreshScope" versionNumber="2">
+		<configuration configurationName="Debug">
+			<resource resourceType="PROJECT" workspacePath="/ksjsczapi_demo_tcp"/>
+		</configuration>
+		<configuration configurationName="Release">
+			<resource resourceType="PROJECT" workspacePath="/ksjsczapi_demo_tcp"/>
+		</configuration>
 	</storageModule>
 	<storageModule moduleId="scannerConfiguration">
 		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
-		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.cross.exe.release.1875392500;cdt.managedbuild.config.gnu.cross.exe.release.1875392500.;cdt.managedbuild.tool.gnu.cross.cpp.compiler.1872513383;cdt.managedbuild.tool.gnu.cpp.compiler.input.238692537">
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.cross.exe.debug.1492862364;cdt.managedbuild.config.gnu.cross.exe.debug.1492862364.;cdt.managedbuild.tool.gnu.cross.c.compiler.1336017629;cdt.managedbuild.tool.gnu.c.compiler.input.454820826">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.cross.exe.debug.1313943192;cdt.managedbuild.config.gnu.cross.exe.debug.1313943192.;cdt.managedbuild.tool.gnu.cross.c.compiler.1005582991;cdt.managedbuild.tool.gnu.c.compiler.input.251712721">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.cross.exe.release.1238388024;cdt.managedbuild.config.gnu.cross.exe.release.1238388024.;cdt.managedbuild.tool.gnu.cross.c.compiler.904715834;cdt.managedbuild.tool.gnu.c.compiler.input.1159587468">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
 		</scannerConfigBuildInfo>
 		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.cross.exe.release.318355274;cdt.managedbuild.config.gnu.cross.exe.release.318355274.;cdt.managedbuild.tool.gnu.cross.cpp.compiler.164859728;cdt.managedbuild.tool.gnu.cpp.compiler.input.1001135264">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.cross.exe.release.1875392500;cdt.managedbuild.config.gnu.cross.exe.release.1875392500.;cdt.managedbuild.tool.gnu.cross.cpp.compiler.1872513383;cdt.managedbuild.tool.gnu.cpp.compiler.input.238692537">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
 		</scannerConfigBuildInfo>
 		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.cross.exe.debug.1335883221;cdt.managedbuild.config.gnu.cross.exe.debug.1335883221.;cdt.managedbuild.tool.gnu.cross.cpp.compiler.1970111760;cdt.managedbuild.tool.gnu.cpp.compiler.input.1823891449">
@@ -141,19 +159,22 @@
 		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.cross.exe.release.318355274;cdt.managedbuild.config.gnu.cross.exe.release.318355274.;cdt.managedbuild.tool.gnu.cross.c.compiler.313397855;cdt.managedbuild.tool.gnu.c.compiler.input.1679645766">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
 		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.cross.exe.debug.1492862364;cdt.managedbuild.config.gnu.cross.exe.debug.1492862364.;cdt.managedbuild.tool.gnu.cross.c.compiler.1336017629;cdt.managedbuild.tool.gnu.c.compiler.input.454820826">
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.cross.exe.debug.648612915;cdt.managedbuild.config.gnu.cross.exe.debug.648612915.;cdt.managedbuild.tool.gnu.cross.cpp.compiler.1496757880;cdt.managedbuild.tool.gnu.cpp.compiler.input.37339647">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.cross.exe.debug.1313943192;cdt.managedbuild.config.gnu.cross.exe.debug.1313943192.;cdt.managedbuild.tool.gnu.cross.cpp.compiler.1845614698;cdt.managedbuild.tool.gnu.cpp.compiler.input.2131292814">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
 		</scannerConfigBuildInfo>
 		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.cross.exe.release.1875392500;cdt.managedbuild.config.gnu.cross.exe.release.1875392500.;cdt.managedbuild.tool.gnu.cross.c.compiler.929936811;cdt.managedbuild.tool.gnu.c.compiler.input.1067978167">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
-		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.cross.exe.debug.648612915;cdt.managedbuild.config.gnu.cross.exe.debug.648612915.;cdt.managedbuild.tool.gnu.cross.cpp.compiler.1496757880;cdt.managedbuild.tool.gnu.cpp.compiler.input.37339647">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
 		</scannerConfigBuildInfo>
 		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.cross.exe.debug.1335883221;cdt.managedbuild.config.gnu.cross.exe.debug.1335883221.;cdt.managedbuild.tool.gnu.cross.c.compiler.821155726;cdt.managedbuild.tool.gnu.c.compiler.input.753303924">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
 		</scannerConfigBuildInfo>
 		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.cross.exe.debug.648612915;cdt.managedbuild.config.gnu.cross.exe.debug.648612915.;cdt.managedbuild.tool.gnu.cross.c.compiler.364469453;cdt.managedbuild.tool.gnu.c.compiler.input.1496800824">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.cross.exe.release.1238388024;cdt.managedbuild.config.gnu.cross.exe.release.1238388024.;cdt.managedbuild.tool.gnu.cross.cpp.compiler.624819101;cdt.managedbuild.tool.gnu.cpp.compiler.input.2069483145">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
 		</scannerConfigBuildInfo>
 		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.cross.exe.release.263113149;cdt.managedbuild.config.gnu.cross.exe.release.263113149.;cdt.managedbuild.tool.gnu.cross.c.compiler.2130226477;cdt.managedbuild.tool.gnu.c.compiler.input.1094022352">
@@ -165,14 +186,5 @@
 		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.cross.exe.debug.1492862364;cdt.managedbuild.config.gnu.cross.exe.debug.1492862364.;cdt.managedbuild.tool.gnu.cross.cpp.compiler.63881559;cdt.managedbuild.tool.gnu.cpp.compiler.input.528156169">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
 		</scannerConfigBuildInfo>
-	</storageModule>
-	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
-	<storageModule moduleId="refreshScope" versionNumber="2">
-		<configuration configurationName="Debug">
-			<resource resourceType="PROJECT" workspacePath="/ksjsczapi_demo_capture"/>
-		</configuration>
-		<configuration configurationName="Release">
-			<resource resourceType="PROJECT" workspacePath="/ksjsczapi_demo_capture"/>
-		</configuration>
 	</storageModule>
 </cproject>

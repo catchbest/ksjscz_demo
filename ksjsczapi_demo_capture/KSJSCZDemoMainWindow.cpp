@@ -43,7 +43,6 @@ void* ThreadForCaptureData(void *arg)
 			if (KSJSCZ_ERR_SUCCESS == KSJSCZ_CaptureData(0, &pImageData))
 			{
 				KSJSCZ_ShowCaptureData(0, pImageData);
-
 				KSJSCZ_ReleaseBuffer(0);
 			}
 		}
@@ -70,6 +69,10 @@ QDialog(parent)
 	setWindowFlags(Qt::FramelessWindowHint);
 
 	connect(ui->StartCapturePushButton, SIGNAL(clicked()), this, SLOT(OnStartCapture()));
+	connect(ui->StopCapturePushButton, SIGNAL(clicked()), this, SLOT(OnStopCapture()));
+
+	ui->StartCapturePushButton->setEnabled(!m_bIsCapturing);
+	ui->StopCapturePushButton->setEnabled(m_bIsCapturing);
 
 	int nRet = KSJSCZ_Init();
 
@@ -136,7 +139,17 @@ int CKSJSCZDemoMainWindow::KillCaptureThread()
 
 void CKSJSCZDemoMainWindow::OnStartCapture()
 {
-	m_bIsCapturing = !m_bIsCapturing;
+	m_bIsCapturing = true;
 
-	ui->StartCapturePushButton->setText(m_bIsCapturing ? "Stop" : "Start");
+	ui->StartCapturePushButton->setEnabled(!m_bIsCapturing);
+	ui->StopCapturePushButton->setEnabled(m_bIsCapturing);
 }
+
+void CKSJSCZDemoMainWindow::OnStopCapture()
+{
+	m_bIsCapturing = false;
+
+	ui->StartCapturePushButton->setEnabled(!m_bIsCapturing);
+	ui->StopCapturePushButton->setEnabled(m_bIsCapturing);
+}
+
