@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'KSJSCZDemoMainWindow.ui'
 **
-** Created: Thu Aug 17 18:10:25 2017
+** Created: Fri Aug 18 12:17:50 2017
 **      by: Qt User Interface Compiler version 4.8.3
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -18,6 +18,7 @@
 #include <QtGui/QHeaderView>
 #include <QtGui/QLabel>
 #include <QtGui/QPushButton>
+#include <QtGui/QScrollBar>
 
 QT_BEGIN_NAMESPACE
 
@@ -27,6 +28,8 @@ public:
     QPushButton *StartCapturePushButton;
     QPushButton *StopCapturePushButton;
     QLabel *InfoLabel;
+    QScrollBar *HorizontalScrollBar;
+    QScrollBar *VerticalScrollBar;
 
     void setupUi(QDialog *KSJSCZDemoMainWindow)
     {
@@ -42,6 +45,14 @@ public:
         InfoLabel = new QLabel(KSJSCZDemoMainWindow);
         InfoLabel->setObjectName(QString::fromUtf8("InfoLabel"));
         InfoLabel->setGeometry(QRect(1120, 150, 131, 20));
+        HorizontalScrollBar = new QScrollBar(KSJSCZDemoMainWindow);
+        HorizontalScrollBar->setObjectName(QString::fromUtf8("HorizontalScrollBar"));
+        HorizontalScrollBar->setGeometry(QRect(1080, 760, 160, 16));
+        HorizontalScrollBar->setOrientation(Qt::Horizontal);
+        VerticalScrollBar = new QScrollBar(KSJSCZDemoMainWindow);
+        VerticalScrollBar->setObjectName(QString::fromUtf8("VerticalScrollBar"));
+        VerticalScrollBar->setGeometry(QRect(1140, 460, 16, 160));
+        VerticalScrollBar->setOrientation(Qt::Vertical);
 
         retranslateUi(KSJSCZDemoMainWindow);
 

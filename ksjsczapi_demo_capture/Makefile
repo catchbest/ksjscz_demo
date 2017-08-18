@@ -3,7 +3,7 @@
 #############################################################################
 
 #将所有AppName替换成实际项目名称
-KSJ_SO_NAME = ksjsczdemo_capture
+KSJ_SO_NAME = ksjsczapi_demo_capture
 WINNAME1    = KSJSCZDemoMainWindow
 
 
@@ -39,12 +39,7 @@ LIBS          = $(SUBLIBS)  -L../ksjsczapi_lib \
  -L/opt/Qt4.8/lib -L. -L/usr/local/lib -lpthread -ltinyxml2 \
 -lQtCore -lQtGui -lQtNetwork  -lQt3Support  -lQtScript  -lQtSvg  -lQtMultimedia  \
 -lQtScriptTools  -lQtTest  -lQtDeclarative  -lQtSql  -lQtXml \
--lopencv_calib3d  -lopencv_imgproc  -lopencv_superres \
--lopencv_core  -lopencv_ml  -lopencv_videoio \
--lopencv_features2d  -lopencv_objdetect  -lopencv_video \
--lopencv_flann  -lopencv_photo  -lopencv_videostab \
--lopencv_highgui  -lopencv_shape \
--lopencv_imgcodecs  -lopencv_stitching -lksjscz -lzbar -ljpeg -ldl \
+-lksjscz -lzbar -ljpeg -ldl \
 
 
 AR            = arm-linux-gnueabihf-ar cqs
@@ -216,6 +211,7 @@ genuih:
 
 genmoc:
 	-$(MOC) $(DEFINES) $(INCPATH) $(WINNAME1).h -o moc_$(WINNAME1).cpp
+	
 ####### Compile
 
 

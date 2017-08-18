@@ -6,7 +6,7 @@
 #include "QtGui/QLabel"
 #include "QtGui/QScrollArea"
 #include "QtGui/QMatrix"
-#include "ImageLabel.h"
+#include "KSJVBImageZoom.h"
 #include "../ksjsczapi_include/KSJSCZApiTriggerMode.h"
 
 
@@ -26,16 +26,17 @@ private:
 protected slots:
 	void OnStartCapture();
 	void OnStopCapture();
+	void OnHorScrollbar(int value);
+	void OnVerScrollbar(int value);
 
-	virtual void smousePressEvent(QMouseEvent * e);
-	virtual void smouseReleaseEvent(QMouseEvent * e);
-	virtual void smouseMoveEvent(QMouseEvent * e);
-	virtual void smouseDoubleClickEvent(QMouseEvent * e);
-	virtual void swheelEvent(QWheelEvent * event);
 
 protected:
 	virtual void paintEvent(QPaintEvent *);
-	virtual void resizeEvent(QResizeEvent * event);
+	virtual void mousePressEvent(QMouseEvent * e);
+	virtual void mouseReleaseEvent(QMouseEvent * e);
+	virtual void mouseMoveEvent(QMouseEvent * e);
+	virtual void mouseDoubleClickEvent(QMouseEvent * e);
+	virtual void wheelEvent(QWheelEvent * event);
 
 protected:
 	int StartCaptureThread();
@@ -50,19 +51,26 @@ protected:
 	friend void* ThreadForCaptureData(void *arg);
 
 protected:
+	void ResetScrollerInfo();
 	void ConvertToQImage(unsigned char* pImageData, int w, int h);
+
+public:
+	virtual void ZoomIn();
+	virtual void ZoomOut();
+	virtual void ZoomIn(int nClientX, int nClientY);
+	virtual void ZoomOut(int nClientX, int nClientY);
+	virtual void SetZoomMode(KSJ_ZOOM_MODE mode);
 
 protected:
 	QImage* m_pImage;
-	QPixmap m_pixmapToShow;
 
-	CImageLabel *m_pImageShowLabel;
-	QScrollArea *m_pImageWidgetScroll;
-
-	int m_nShowWidth;
-	int m_nShowHeight;
-
+	QRect  m_rcClient;
 	QPoint m_ptLastMouse;
+
+	int m_nImageLastWidth;
+	int m_nImageLastHeight;
+
+	CKSJVBImageZoom* m_pImageZoomer;
 };
 
 #endif // __KSJSCZDEMO_MAINWINDOWS_H_

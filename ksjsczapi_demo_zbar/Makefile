@@ -3,7 +3,7 @@
 #############################################################################
 
 #将所有AppName替换成实际项目名称
-KSJ_SO_NAME = ksjsczdemo_zbar
+KSJ_SO_NAME = ksjsczapi_demo_zbar
 WINNAME1    = KSJSCZDemoMainWindow
 
 

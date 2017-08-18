@@ -66,32 +66,32 @@ QDialog(parent)
 , m_bIsCapturing(false)
 , m_bStopCaptureThread(false)
 , m_nCaptureInterruptThreadId(0)
+, m_nImageLastWidth(0)
+, m_nImageLastHeight(0)
 {
 	ui->setupUi(this);
 	setWindowFlags(Qt::FramelessWindowHint);
+	setMouseTracking(true);
 
-	m_nShowWidth = 960-10;
-	m_nShowHeight = 720-10;
-
-	m_pImageShowLabel = new CImageLabel;
-	m_pImageWidgetScroll = new QScrollArea(this);
-	m_pImageWidgetScroll->setWidget(m_pImageShowLabel);
-	m_pImageWidgetScroll->setWidgetResizable(true);
-
-	m_pImageShowLabel->setMinimumSize(m_nShowWidth, m_nShowHeight);
+	m_pImageZoomer = new CKSJVBImageZoom();
 
 	connect(ui->StartCapturePushButton, SIGNAL(clicked()), this, SLOT(OnStartCapture()));
 	connect(ui->StopCapturePushButton, SIGNAL(clicked()), this, SLOT(OnStopCapture()));
-
-	connect(m_pImageShowLabel, SIGNAL(sigmousePressEvent(QMouseEvent*)), this, SLOT(smousePressEvent(QMouseEvent*)));
-	connect(m_pImageShowLabel, SIGNAL(sigmouseReleaseEvent(QMouseEvent*)), this, SLOT(smouseReleaseEvent(QMouseEvent*)));
-	connect(m_pImageShowLabel, SIGNAL(sigmouseMoveEvent(QMouseEvent*)), this, SLOT(smouseMoveEvent(QMouseEvent*)));
-	connect(m_pImageShowLabel, SIGNAL(sigmouseDoubleClickEvent(QMouseEvent*)), this, SLOT(smouseDoubleClickEvent(QMouseEvent*)));
-	connect(m_pImageShowLabel, SIGNAL(sigwheelEvent(QWheelEvent*)), this, SLOT(swheelEvent(QWheelEvent*)));
-
+	connect(ui->HorizontalScrollBar, SIGNAL(valueChanged(int)), this, SLOT(OnHorScrollbar(int)));
+	connect(ui->VerticalScrollBar, SIGNAL(valueChanged(int)), this, SLOT(OnVerScrollbar(int)));
 
 	ui->StartCapturePushButton->setEnabled(!m_bIsCapturing);
 	ui->StopCapturePushButton->setEnabled(m_bIsCapturing);
+
+	m_rcClient.setRect(0, 0, DEFAULT_WND_WIDTH - 16, DEFAULT_WND_HEIGHT - 16);
+	m_pImageZoomer->SetClientSize(DEFAULT_WND_WIDTH - 16, DEFAULT_WND_HEIGHT - 16);
+
+	ui->VerticalScrollBar->setGeometry(DEFAULT_WND_WIDTH - 16, 0, 16, DEFAULT_WND_HEIGHT - 16);
+	ui->HorizontalScrollBar->setGeometry(0, DEFAULT_WND_HEIGHT - 16, DEFAULT_WND_WIDTH - 16, 16);
+	ui->VerticalScrollBar->setRange(0, 0);
+	ui->HorizontalScrollBar->setRange(0, 0);
+	//ui->VerticalScrollBar->setVisible(false);
+	//ui->HorizontalScrollBar->setVisible(false);
 
 	int nRet = KSJSCZ_Init();
 
@@ -119,6 +119,9 @@ CKSJSCZDemoMainWindow::~CKSJSCZDemoMainWindow()
 		m_pImage = NULL;
 	}
 
+	delete m_pImageZoomer;
+	m_pImageZoomer = NULL;
+
 	delete ui;
 }
 
@@ -126,12 +129,21 @@ void CKSJSCZDemoMainWindow::paintEvent(QPaintEvent *)
 {
 	if (m_pImage != NULL)
 	{
-		if (m_nShowWidth != m_pixmapToShow.width() || m_nShowHeight != m_pixmapToShow.height())
+		if (m_nImageLastWidth != m_pImage->width() || m_nImageLastHeight != m_pImage->height())
 		{
-			m_pixmapToShow = QPixmap::fromImage(m_pImage->scaled(m_nShowWidth, m_nShowHeight));
+			m_pImageZoomer->SetImageSize(m_pImage->width(), m_pImage->height());
+
+			m_nImageLastWidth = m_pImage->width();
+			m_nImageLastHeight = m_pImage->height();
 		}
 
-		m_pImageShowLabel->setPixmap(m_pixmapToShow);
+		QPainter painter(this);
+
+		int sx, sy, sw, sh, dx, dy, dw, dh;
+
+		m_pImageZoomer->GetValidShowPosition(sx, sy, sw, sh, dx, dy, dw, dh);
+
+		painter.drawImage(QRect(dx, dy, dw, dh), *m_pImage, QRect(sx, sy, sw, sh));
 	}
 }
 
@@ -208,12 +220,47 @@ void CKSJSCZDemoMainWindow::ConvertToQImage(unsigned char* pImageData, int w, in
 	update();
 }
 
-void CKSJSCZDemoMainWindow::resizeEvent(QResizeEvent * event)
+void CKSJSCZDemoMainWindow::ZoomIn()
 {
-	m_pImageWidgetScroll->setGeometry(0, 0, 960, 720);
+	ZoomIn(m_rcClient.width() / 2, m_rcClient.height() / 2);
 }
 
-void CKSJSCZDemoMainWindow::smousePressEvent(QMouseEvent * e)
+void CKSJSCZDemoMainWindow::ZoomOut()
+{
+	ZoomOut(m_rcClient.width() / 2, m_rcClient.height() / 2);
+}
+
+void CKSJSCZDemoMainWindow::ZoomIn(int nClientX, int nClientY)
+{
+	if (m_pImageZoomer != NULL)
+	{
+		m_pImageZoomer->ZoomIn(nClientX, nClientY);
+
+		this->update();
+	}
+}
+
+void CKSJSCZDemoMainWindow::ZoomOut(int nClientX, int nClientY)
+{
+	if (m_pImageZoomer != NULL)
+	{
+		m_pImageZoomer->ZoomOut(nClientX, nClientY);
+
+		this->update();
+	}
+}
+
+void CKSJSCZDemoMainWindow::SetZoomMode(KSJ_ZOOM_MODE mode)
+{
+	if (m_pImageZoomer != NULL)
+	{
+		m_pImageZoomer->SetZoomMode(mode);
+
+		this->update();
+	}
+}
+
+void CKSJSCZDemoMainWindow::mousePressEvent(QMouseEvent * e)
 {
 	if (e->button() == Qt::LeftButton)
 	{
@@ -221,45 +268,22 @@ void CKSJSCZDemoMainWindow::smousePressEvent(QMouseEvent * e)
 	}
 }
 
-void CKSJSCZDemoMainWindow::smouseReleaseEvent(QMouseEvent * e)
+void CKSJSCZDemoMainWindow::mouseReleaseEvent(QMouseEvent * e)
 {
 	if (e->button() == Qt::LeftButton)
 	{
 	}
 }
 
-void CKSJSCZDemoMainWindow::smouseMoveEvent(QMouseEvent * e)
+void CKSJSCZDemoMainWindow::mouseMoveEvent(QMouseEvent * e)
 {
 	if (!(e->buttons()&Qt::RightButton) && (e->buttons() == Qt::LeftButton))
 	{
-		int nMin = m_pImageWidgetScroll->horizontalScrollBar()->minimum();
-		int nMax = m_pImageWidgetScroll->horizontalScrollBar()->maximum();
-		int nPos = m_pImageWidgetScroll->horizontalScrollBar()->sliderPosition();
-		
-		if (nMax > nMin)
+		if (m_pImageZoomer != NULL)
 		{
-			int nNew = nPos + m_ptLastMouse.x() - e->pos().x();
-
-
-			if (nNew < nMin) nNew = nMin;
-			else if (nNew>nMax) nNew = nMax;
-
-			m_pImageWidgetScroll->horizontalScrollBar()->setSliderPosition(nNew);
-		}
-
-		nMin = m_pImageWidgetScroll->verticalScrollBar()->minimum();
-		nMax = m_pImageWidgetScroll->verticalScrollBar()->maximum();
-		nPos = m_pImageWidgetScroll->verticalScrollBar()->sliderPosition();
-
-		if (nMax > nMin)
-		{
-			int nNew = nPos + m_ptLastMouse.y() - e->pos().y();
-
-
-			if (nNew < nMin) nNew = nMin;
-			else if (nNew>nMax) nNew = nMax;
-
-			m_pImageWidgetScroll->verticalScrollBar()->setSliderPosition(nNew);
+			m_pImageZoomer->Move(e->pos().x() - m_ptLastMouse.x(), e->pos().y() - m_ptLastMouse.y());
+			ResetScrollerInfo();
+			update();
 		}
 	}
 
@@ -271,52 +295,72 @@ void CKSJSCZDemoMainWindow::smouseMoveEvent(QMouseEvent * e)
 	}
 }
 
-void CKSJSCZDemoMainWindow::smouseDoubleClickEvent(QMouseEvent * e)
+void CKSJSCZDemoMainWindow::mouseDoubleClickEvent(QMouseEvent * e)
 {
 	if (e->button() == Qt::RightButton)   //ÓÒ¼üË«»÷
 	{
-		m_nShowWidth = 960-10;
-		m_nShowHeight = 720-10;
-		m_pImageShowLabel->setMinimumSize(m_nShowWidth, m_nShowHeight);
+		m_pImageZoomer->SetZoomMode(ZM_FITIMG);
+		ResetScrollerInfo();
 		update();
-		printf("m_nShowWidth:%d - m_nShowHeight:%d\r\n", m_nShowWidth, m_nShowHeight);
 	}
 }
 
-void CKSJSCZDemoMainWindow::swheelEvent(QWheelEvent * event)
+void CKSJSCZDemoMainWindow::wheelEvent(QWheelEvent * event)
 {
 	if (event->delta() > 0)
 	{
-		if (m_nShowWidth < 4800 && m_nShowHeight < 3600)
-		{
-			m_nShowWidth *= 1.1;
-			m_nShowHeight *= 1.1;
-			m_pImageShowLabel->setMinimumSize(m_nShowWidth, m_nShowHeight);
-
-			if (m_nShowWidth < 960)
-			{
-				m_pImageShowLabel->setGeometry((960 - m_nShowWidth) / 2, (720 - m_nShowHeight) / 2, m_nShowWidth, m_nShowHeight);
-			}
-
-			update();
-			printf("m_nShowWidth:%d - m_nShowHeight:%d\r\n", m_nShowWidth, m_nShowHeight);
-		}
+		ZoomIn(event->x(), event->y());
+		ResetScrollerInfo();
+		update();
 	}
 	else
 	{
-		if (m_nShowWidth > 96 && m_nShowHeight > 72)
-		{
-			m_nShowWidth /= 1.1;
-			m_nShowHeight /= 1.1;
-			m_pImageShowLabel->setMinimumSize(m_nShowWidth, m_nShowHeight);
-
-			if (m_nShowWidth < 960)
-			{
-				m_pImageShowLabel->setGeometry((960 - m_nShowWidth) / 2, (720 - m_nShowHeight) / 2, m_nShowWidth, m_nShowHeight);
-			}
-
-			update();
-			printf("m_nShowWidth:%d - m_nShowHeight:%d\r\n", m_nShowWidth, m_nShowHeight);
-		}
+		ZoomOut(event->x(), event->y());
+		ResetScrollerInfo();
+		update();
 	}
+}
+
+void CKSJSCZDemoMainWindow::ResetScrollerInfo()
+{
+	if (m_pImageZoomer != NULL)
+	{
+		int x, y, w, h, dx, dy;
+
+		m_pImageZoomer->GetOffset(dx, dy);
+		m_pImageZoomer->GetImageShowPosition(x, y, w, h);
+
+		if (w > m_rcClient.width()) ui->HorizontalScrollBar->setRange(0, w - m_rcClient.width());
+		else ui->HorizontalScrollBar->setRange(0, 0);
+
+		ui->HorizontalScrollBar->setValue(-dx);
+
+		if (h > m_rcClient.height()) ui->VerticalScrollBar->setRange(0, h - m_rcClient.height());
+		else ui->VerticalScrollBar->setRange(0, 0);
+
+		ui->VerticalScrollBar->setValue(-dy);
+	}
+	else
+	{
+		ui->VerticalScrollBar->setRange(0, 0);
+		ui->HorizontalScrollBar->setRange(0, 0);
+	}
+}
+
+void CKSJSCZDemoMainWindow::OnVerScrollbar(int value)
+{
+	int x, y;
+	m_pImageZoomer->GetOffset(x,y);
+	m_pImageZoomer->SetOffset(x, -value);
+
+	this->update();
+}
+
+void CKSJSCZDemoMainWindow::OnHorScrollbar(int value)
+{
+	int x, y;
+	m_pImageZoomer->GetOffset(x, y);
+	m_pImageZoomer->SetOffset(-value, y);
+
+	this->update();
 }

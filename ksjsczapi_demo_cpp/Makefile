@@ -3,11 +3,7 @@
 #############################################################################
 
 #将所有AppName替换成实际项目名称
-KSJ_SO_NAME = ksjsczdemo_cpp
-#WINNAME1    = KSJSCZDemoMainWindow
-
-
-
+KSJ_SO_NAME = ksjsczapi_demo_cpp
 
 GENFILE_DIR   = LinuxGenFiles/
 
@@ -17,9 +13,7 @@ GENFILE_DIR   = LinuxGenFiles/
 CC            = arm-linux-gnueabihf-gcc 
 CXX           = arm-linux-gnueabihf-g++ 
 DEFINES       = -D$(KSJ_SO_NAME)_LIBRARY -DQT_WIDGETS_LIB -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_SHARED
-INCPATH       = -I/opt/Qt4.8/mkspecs/qws/linux-arm-gnueabi-g++ -I. -I/opt/Qt4.8/include/QtCore -I/opt/Qt4.8/include/QtNetwork \
--I/opt/Qt4.8/include/QtGui -I/opt/Qt4.8/include -I/opt/Qt4.8/include \
--I/usr/local/include -I$(GENFILE_DIR)\
+INCPATH       = -I/usr/local/include -I$(GENFILE_DIR)\
  -I../ksjsczapi_include
  
 LINK          = arm-linux-gnueabihf-g++ 
@@ -27,7 +21,7 @@ LINK          = arm-linux-gnueabihf-g++
 #下面的这三项可以生成动态库
 #CFLAGS        = -pipe -O2 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 #CXXFLAGS      = -pipe -O2 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-#LFLAGS        = -Wl,-O1 -Wl,-rpath,/opt/Qt4.8/lib -shared -Wl,-soname,lib$(KSJ_SO_NAME).so
+#LFLAGS        = -Wl,-O1 -Wl,-rpath,-soname,lib$(KSJ_SO_NAME).so
 
 #下面的这三项可以生成app
 CFLAGS        = -pipe -O2 -Wall -W -D_REENTRANT  $(DEFINES)
@@ -36,15 +30,8 @@ LFLAGS        = -Wl,-O1 -Wl,-rpath,/opt/Qt4.8/lib
 
 #下面的加载的动态库及库目录，可根据需要增删
 LIBS          = $(SUBLIBS)  -L../ksjsczapi_lib \
- -L/opt/Qt4.8/lib -L. -L/usr/local/lib -lpthread -ltinyxml2 \
--lQtCore -lQtGui -lQtNetwork  -lQt3Support  -lQtScript  -lQtSvg  -lQtMultimedia  \
--lQtScriptTools  -lQtTest  -lQtDeclarative  -lQtSql  -lQtXml \
--lopencv_calib3d  -lopencv_imgproc  -lopencv_superres \
--lopencv_core  -lopencv_ml  -lopencv_videoio \
--lopencv_features2d  -lopencv_objdetect  -lopencv_video \
--lopencv_flann  -lopencv_photo  -lopencv_videostab \
--lopencv_highgui  -lopencv_shape \
--lopencv_imgcodecs  -lopencv_stitching -lksjscz -ldl \
+ -L. -L/usr/local/lib -lpthread -ltinyxml2 \
+ -lksjscz -ldl \
 
 
 AR            = arm-linux-gnueabihf-ar cqs

@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'KSJSCZDemoMainWindow.h'
 **
-** Created: Thu Aug 17 18:10:25 2017
+** Created: Fri Aug 18 12:17:50 2017
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.3)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_CKSJSCZDemoMainWindow[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-       7,   14, // methods
+       4,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -33,22 +33,16 @@ static const uint qt_meta_data_CKSJSCZDemoMainWindow[] = {
  // slots: signature, parameters, type, tag, flags
       23,   22,   22,   22, 0x09,
       40,   22,   22,   22, 0x09,
-      58,   56,   22,   22, 0x09,
-      89,   56,   22,   22, 0x09,
-     122,   56,   22,   22, 0x09,
-     152,   56,   22,   22, 0x09,
-     195,  189,   22,   22, 0x09,
+      62,   56,   22,   22, 0x09,
+      82,   56,   22,   22, 0x09,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_CKSJSCZDemoMainWindow[] = {
     "CKSJSCZDemoMainWindow\0\0OnStartCapture()\0"
-    "OnStopCapture()\0e\0smousePressEvent(QMouseEvent*)\0"
-    "smouseReleaseEvent(QMouseEvent*)\0"
-    "smouseMoveEvent(QMouseEvent*)\0"
-    "smouseDoubleClickEvent(QMouseEvent*)\0"
-    "event\0swheelEvent(QWheelEvent*)\0"
+    "OnStopCapture()\0value\0OnHorScrollbar(int)\0"
+    "OnVerScrollbar(int)\0"
 };
 
 void CKSJSCZDemoMainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -59,11 +53,8 @@ void CKSJSCZDemoMainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c
         switch (_id) {
         case 0: _t->OnStartCapture(); break;
         case 1: _t->OnStopCapture(); break;
-        case 2: _t->smousePressEvent((*reinterpret_cast< QMouseEvent*(*)>(_a[1]))); break;
-        case 3: _t->smouseReleaseEvent((*reinterpret_cast< QMouseEvent*(*)>(_a[1]))); break;
-        case 4: _t->smouseMoveEvent((*reinterpret_cast< QMouseEvent*(*)>(_a[1]))); break;
-        case 5: _t->smouseDoubleClickEvent((*reinterpret_cast< QMouseEvent*(*)>(_a[1]))); break;
-        case 6: _t->swheelEvent((*reinterpret_cast< QWheelEvent*(*)>(_a[1]))); break;
+        case 2: _t->OnHorScrollbar((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 3: _t->OnVerScrollbar((*reinterpret_cast< int(*)>(_a[1]))); break;
         default: ;
         }
     }
@@ -101,9 +92,9 @@ int CKSJSCZDemoMainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 7)
+        if (_id < 4)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 7;
+        _id -= 4;
     }
     return _id;
 }

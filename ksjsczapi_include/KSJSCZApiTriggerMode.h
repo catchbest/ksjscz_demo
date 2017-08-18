@@ -65,8 +65,8 @@ KSJSCZ_API  KSJSCZ_GetTriggerFilterRange(int nSensorIndex, unsigned short *pwMin
 KSJSCZ_API  KSJSCZ_GetTriggerFilter(int nSensorIndex, unsigned short *pwFilter); // 配置过滤外触发信号噪声的时间参数
 KSJSCZ_API  KSJSCZ_SetTriggerFilter(int nSensorIndex, unsigned short wFilter);
 
-//KSJSCZ_API  KSJSCZ_GetFrameBufNum(int nSensorIndex, unsigned long *pulNumber);
-//KSJSCZ_API  KSJSCZ_SetFrameBufNum(int nSensorIndex, unsigned long ulNumber);
+KSJSCZ_API  KSJSCZ_GetFrameBufNum(int nSensorIndex, unsigned long *pulNumber);
+KSJSCZ_API  KSJSCZ_SetFrameBufNum(int nSensorIndex, unsigned long ulNumber);
 
 
 #ifdef __cplusplus

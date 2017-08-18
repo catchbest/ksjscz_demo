@@ -3,9 +3,8 @@
 #############################################################################
 
 #将所有AppName替换成实际项目名称
-KSJ_SO_NAME = ksjsczdemo_capture
+KSJ_SO_NAME = ksjsczapi_demo_qimage
 WINNAME1    = KSJSCZDemoMainWindow
-WINNAME2    = ImageLabel
 
 
 
@@ -40,12 +39,7 @@ LIBS          = $(SUBLIBS)  -L../ksjsczapi_lib \
  -L/opt/Qt4.8/lib -L. -L/usr/local/lib -lpthread -ltinyxml2 \
 -lQtCore -lQtGui -lQtNetwork  -lQt3Support  -lQtScript  -lQtSvg  -lQtMultimedia  \
 -lQtScriptTools  -lQtTest  -lQtDeclarative  -lQtSql  -lQtXml \
--lopencv_calib3d  -lopencv_imgproc  -lopencv_superres \
--lopencv_core  -lopencv_ml  -lopencv_videoio \
--lopencv_features2d  -lopencv_objdetect  -lopencv_video \
--lopencv_flann  -lopencv_photo  -lopencv_videostab \
--lopencv_highgui  -lopencv_shape \
--lopencv_imgcodecs  -lopencv_stitching -lksjscz -lzbar -ljpeg -ldl \
+-lksjscz -lzbar -ljpeg -ldl \
 
 
 AR            = arm-linux-gnueabihf-ar cqs
@@ -217,8 +211,6 @@ genuih:
 
 genmoc:
 	-$(MOC) $(DEFINES) $(INCPATH) $(WINNAME1).h -o moc_$(WINNAME1).cpp
-genmoc2:
-	-$(MOC) $(DEFINES) $(INCPATH) $(WINNAME2).h -o moc_$(WINNAME2).cpp
 	
 ####### Compile
 
@@ -229,7 +221,7 @@ genmoc2:
 #	 $(CXX)  $(CXXFLAGS) $(INCPATH) -M  $(SOURCE) > depends.mak
 
 #在此处添加.cpp文件
-gensource:genTmpDir genuih genmoc genmoc2
+gensource:genTmpDir genuih genmoc
 SOURCE += $(wildcard *.cpp) 
 		
 #在此处添加.o文件, 一般每个.cpp添加一个.o文件

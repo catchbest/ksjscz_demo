@@ -72,6 +72,8 @@ int main(int argc, char **argv)
 	KSJSCZ_SetGain(0, nGain);
 	KSJSCZ_SetExposureLines(0, nExposureLines);
 
+	KSJSCZ_SetFrameBufNum(0, 1);
+
 	nRet = KSJSCZ_SetVideoWidgetPos(0, nXPosition, nYPosition, nDisplayWidth, nDisplayHeight);
 	nRet = KSJSCZ_SetPosition(0, 0, 0, nDisplayWidth, nDisplayHeight);
 	nRet = KSJSCZ_SetCaptureFieldOfView(0, (1280 - ulColSize) / 2, (1024 - ulRowSize) / 2, ulColSize, ulRowSize);
