@@ -308,7 +308,7 @@ void CKSJSCZDemoMainWindow::mouseMoveEvent(QMouseEvent * e)
 
 void CKSJSCZDemoMainWindow::mouseDoubleClickEvent(QMouseEvent * e)
 {
-	if (e->button() == Qt::LeftButton)   //ÓÒ¼üË«»÷
+	if (e->button() == Qt::RightButton)   //ÓÒ¼üË«»÷
 	{
 		m_pImageZoomer->SetZoomMode(ZM_FITIMG);
 

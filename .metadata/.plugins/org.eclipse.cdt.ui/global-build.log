@@ -1,30 +1,40 @@
-18:11:17 **** Rebuild of configuration Debug for project ksjsczapi_demo_qimage ****
+09:36:18 **** Rebuild of configuration Debug for project ksjsczapi_demo_show ****
 Info: Internal Builder is used for build
-arm-linux-gnueabihf-g++ -I../../Qt4.8/include -O0 -g3 -Wall -c -fmessage-length=0 -o Moc_ImageLabel.o "..\\Moc_ImageLabel.cpp" 
+arm-linux-gnueabihf-g++ -I../../Qt4.8/include -O0 -g3 -Wall -c -fmessage-length=0 -o KSJVBImageZoom.o "..\\KSJVBImageZoom.cpp" 
+In file included from ..\KSJVBImageZoom.cpp:3:0:
+..\KSJVBImageZoom.h: In constructor 'CKSJVBImageZoom::CKSJVBImageZoom()':
+..\KSJVBImageZoom.h:39:16: warning: 'CKSJVBImageZoom::m_eZoomMode' will be initialized after [-Wreorder]
+  KSJ_ZOOM_MODE m_eZoomMode;
+                ^
+..\KSJVBImageZoom.h:38:8: warning:   'float CKSJVBImageZoom::m_fZoomScale' [-Wreorder]
+  float m_fZoomScale;
+        ^
+..\KSJVBImageZoom.cpp:5:1: warning:   when initialized here [-Wreorder]
+ CKSJVBImageZoom::CKSJVBImageZoom() :
+ ^
+In file included from ..\KSJVBImageZoom.cpp:3:0:
+..\KSJVBImageZoom.h:42:39: warning: 'CKSJVBImageZoom::m_fSrcHeight' will be initialized after [-Wreorder]
+  float m_fSrcX, m_fSrcY, m_fSrcWidth, m_fSrcHeight;
+                                       ^
+..\KSJVBImageZoom.h:41:8: warning:   'float CKSJVBImageZoom::m_fDesX' [-Wreorder]
+  float m_fDesX, m_fDesY, m_fDesWidth, m_fDesHeight;
+        ^
+..\KSJVBImageZoom.cpp:5:1: warning:   when initialized here [-Wreorder]
+ CKSJVBImageZoom::CKSJVBImageZoom() :
+ ^
+arm-linux-gnueabihf-g++ -I../../Qt4.8/include -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.cpp" 
 arm-linux-gnueabihf-g++ -I../../Qt4.8/include -O0 -g3 -Wall -c -fmessage-length=0 -o Moc_KSJSCZDemoMainWindow.o "..\\Moc_KSJSCZDemoMainWindow.cpp" 
-arm-linux-gnueabihf-g++ -I../../Qt4.8/include -O0 -g3 -Wall -c -fmessage-length=0 -o ImageLabel.o "..\\ImageLabel.cpp" 
 arm-linux-gnueabihf-g++ -I../../Qt4.8/include -O0 -g3 -Wall -c -fmessage-length=0 -o KSJSCZDemoMainWindow.o "..\\KSJSCZDemoMainWindow.cpp" 
-In file included from ..\KSJSCZDemoMainWindow.cpp:18:0:
+In file included from ..\KSJSCZDemoMainWindow.cpp:17:0:
 ..\../ksjsczapi_include/KSJSczApiInternal.h:32:0: warning: "KSJSCZ_API" redefined
  #define KSJSCZ_API KSJSCZ_IMPORT_EXPORT int KSJSCZ_CALLTYPE
  ^
-In file included from ..\KSJSCZDemoMainWindow.cpp:16:0:
+In file included from ..\KSJSCZDemoMainWindow.cpp:15:0:
 ..\../ksjsczapi_include/KSJSCZApiIo.h:33:0: note: this is the location of the previous definition
  #define KSJSCZ_API int
  ^
-In file included from ..\KSJSCZDemoMainWindow.cpp:8:0:
-..\KSJSCZDemoMainWindow.h: In constructor 'CKSJSCZDemoMainWindow::CKSJSCZDemoMainWindow(QWidget*)':
-..\KSJSCZDemoMainWindow.h:56:10: warning: 'CKSJSCZDemoMainWindow::m_pImage' will be initialized after [-Wreorder]
-  QImage* m_pImage;
-          ^
-..\KSJSCZDemoMainWindow.h:45:7: warning:   'bool CKSJSCZDemoMainWindow::m_bIsCapturing' [-Wreorder]
-  bool m_bIsCapturing;
-       ^
-..\KSJSCZDemoMainWindow.cpp:62:1: warning:   when initialized here [-Wreorder]
- CKSJSCZDemoMainWindow::CKSJSCZDemoMainWindow(QWidget *parent) :
- ^
-..\KSJSCZDemoMainWindow.cpp:96:6: warning: variable 'nRet' set but not used [-Wunused-but-set-variable]
+..\KSJSCZDemoMainWindow.cpp: In constructor 'CKSJSCZDemoMainWindow::CKSJSCZDemoMainWindow(QWidget*)':
+..\KSJSCZDemoMainWindow.cpp:88:6: warning: variable 'nRet' set but not used [-Wunused-but-set-variable]
   int nRet = KSJSCZ_Init();
       ^
-arm-linux-gnueabihf-g++ -I../../Qt4.8/include -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.cpp" 
-arm-linux-gnueabihf-g++ -lpthread -ldl -L../../ksjsczapi_lib -L../../Qt4.8/lib -o ksjsczapi_demo_qimage ImageLabel.o KSJSCZDemoMainWindow.o Moc_ImageLabel.o Moc_KSJSCZDemoMainWindow.o main.o -lksjscz -lQtCore -lQtGui -lQtNetwork 
+arm-linux-gnueabihf-g++ -lpthread -ldl -L../../ksjsczapi_lib -L../../Qt4.8/lib -o ksjsczapi_demo_show KSJSCZDemoMainWindow.o KSJVBImageZoom.o Moc_KSJSCZDemoMainWindow.o main.o -lksjscz -lQtCore -lQtGui -lQtNetwork 
