@@ -69,10 +69,10 @@ int main(int argc, char **argv)
 	enum KSJSCZ_TRIGGER_MODE  TriggerMode = KSJSCZ_TM_CMD_CONTINUE;
 	KSJSCZ_SetTriggerMode(0, TriggerMode );
 
-	KSJSCZ_SetGain(0, nGain);
-	KSJSCZ_SetExposureLines(0, nExposureLines);
+	//KSJSCZ_SetGain(0, nGain);
+	//KSJSCZ_SetExposureLines(0, nExposureLines);
 
-	KSJSCZ_SetFrameBufNum(0, 1);
+	//KSJSCZ_SetFrameBufNum(0, 1);
 
 	nRet = KSJSCZ_SetVideoWidgetPos(0, nXPosition, nYPosition, nDisplayWidth, nDisplayHeight);
 	nRet = KSJSCZ_SetPosition(0, 0, 0, nDisplayWidth, nDisplayHeight);

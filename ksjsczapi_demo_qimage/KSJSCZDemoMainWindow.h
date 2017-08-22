@@ -62,14 +62,19 @@ public:
 	virtual void SetZoomMode(KSJ_ZOOM_MODE mode);
 
 protected:
+	// 采集到的图像
 	QImage* m_pImage;
 
+	// 保留图像显示位置的信息
 	QRect  m_rcClient;
+	// 鼠标上一次的位置
 	QPoint m_ptLastMouse;
 
+	// 原来图像的大小
 	int m_nImageLastWidth;
 	int m_nImageLastHeight;
 
+	//这个是用来计算放大缩小位置的类
 	CKSJVBImageZoom* m_pImageZoomer;
 };
 

@@ -22,6 +22,8 @@ public:
 
 	virtual void Move(int nDivX, int nDivY);
 
+	virtual void MapPointClientToImage(float fClientX, float fClientY, float& fImageX, float& fImageY) const
+
 	virtual void GetImageShowPosition(int& x, int& y, int& w, int& h);
 
 protected:

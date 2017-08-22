@@ -218,3 +218,9 @@ void CKSJVBImageZoom::GetImageShowPosition(int& x, int& y, int& w, int& h)
 	w = m_fDesImageWidth + m_fOffsetX - x;
 	h = m_fDesImageHeight + m_fOffsetY - y;
 }
+
+void CKSJVBImageZoom::MapPointClientToImage(float fClientX, float fClientY, float& fImageX, float& fImageY) const
+{
+	fImageX = (fClientX - m_nClientOffsetX - m_fOffsetX) / m_fZoomScale;
+	fImageY = (fClientY - m_nClientOffsetY - m_fOffsetY) / m_fZoomScale;
+}
