@@ -243,8 +243,6 @@ QDialog(parent)
 
 	printf("KSJSCZ_SetTriggerMode %d\r\n", m_nTriggerMode);
 
-	KSJSCZ_WrRegFPGA(0, 0x9C, 0);
-
 	StartCaptureThread();
 
 	m_nTimeTick = 0;
@@ -270,7 +268,17 @@ void CKSJSCZDemoMainWindow::changeEvent(QEvent *event)
 
 void CKSJSCZDemoMainWindow::mouseMoveEvent(QMouseEvent *e)
 {
+	if (!(e->buttons()&Qt::LeftButton) && (e->buttons() == Qt::RightButton))
+	{
+		m_nImagePositionLeft += e->pos().x() - m_ptLastMouse.x();
+		m_nImagePositionTop  += e->pos().y() - m_ptLastMouse.y();
 
+		KSJSCZ_SetPosition(0, m_nImagePositionLeft, m_nImagePositionTop, m_nImagePositionWidth, m_nImagePositionHeight);
+
+		printf("KSJSCZ_SetPosition(0, %d, %d, %d, %d)\r\n", m_nImagePositionLeft, m_nImagePositionTop, m_nImagePositionWidth, m_nImagePositionHeight);
+	}
+
+	m_ptLastMouse = e->pos();
 }
 
 void CKSJSCZDemoMainWindow::mouseDoubleClickEvent(QMouseEvent * e)
@@ -294,8 +302,6 @@ void CKSJSCZDemoMainWindow::wheelEvent(QWheelEvent * event)
 	{
 		if (m_nImagePositionWidth > 320)
 		{
-
-			printf("--> KSJSCZ_SetPosition(0, %d, %d, %d, %d)\r\n", m_nImagePositionLeft, m_nImagePositionTop, m_nImagePositionWidth, m_nImagePositionHeight);
 			m_nImagePositionLeft += 4;
 			m_nImagePositionTop += 3;
 			m_nImagePositionWidth -= 8;
@@ -310,8 +316,6 @@ void CKSJSCZDemoMainWindow::wheelEvent(QWheelEvent * event)
 	{
 		if (m_nImagePositionWidth < 2560)
 		{
-			printf("--> KSJSCZ_SetPosition(0, %d, %d, %d, %d)\r\n", m_nImagePositionLeft, m_nImagePositionTop, m_nImagePositionWidth, m_nImagePositionHeight);
-
 			m_nImagePositionLeft -= 4;
 			m_nImagePositionTop -= 3;
 			m_nImagePositionWidth += 8;
@@ -338,7 +342,7 @@ void CKSJSCZDemoMainWindow::paintEvent(QPaintEvent *)
 
 void CKSJSCZDemoMainWindow::mousePressEvent(QMouseEvent *e)
 {
-
+	m_ptLastMouse = e->pos();
 }
 
 int CKSJSCZDemoMainWindow::StartCaptureThread()
@@ -795,7 +799,7 @@ void CKSJSCZDemoMainWindow::ParseZbar(unsigned char *pData, int nWidth, int nHei
 	zbar_symbol_type_t      SymbolType;
 	const zbar_symbol_t     *pSymbolCur   = pSymbolFirst;
 
-	QString strZbar = "";
+	QString strZbars = "";
 
 	if (pSymbolCur != NULL)
 	{
@@ -803,11 +807,11 @@ void CKSJSCZDemoMainWindow::ParseZbar(unsigned char *pData, int nWidth, int nHei
 		{
 			SymbolType = zbar_symbol_get_type(pSymbolCur);
 			std::string strTypeName = zbar_get_symbol_name(SymbolType);
-			std::string strData(zbar_symbol_get_data(pSymbolCur), zbar_symbol_get_data_length(pSymbolCur));;
+			std::string strData(zbar_symbol_get_data(pSymbolCur), zbar_symbol_get_data_length(pSymbolCur));
 
-			strZbar = QString::fromLocal8Bit(strData.c_str());
+			QString strZbar = QString::fromLocal8Bit(strData.c_str()) + " ";
 
-			if (strZbar != "") break;
+			strZbars += strZbar;
 
 			pSymbolCur = zbar_symbol_next(pSymbolCur);
 		}
@@ -816,18 +820,23 @@ void CKSJSCZDemoMainWindow::ParseZbar(unsigned char *pData, int nWidth, int nHei
 	zbar_image_scanner_destroy(pImageScanner);
 	zbar_image_free_data(pImage);
 
-	if (strZbar != "")
+	if (strZbars != "")
 	{
 		++m_nParseZbarCount;
-
-		strZbar = QString::number(m_nParseZbarCount) + "-[F:" + QString::number(m_nParseZbarFailedCount) + "]: " + strZbar;
+		strZbars = QString::number(m_nParseZbarCount) + "-[F:" + QString::number(m_nParseZbarFailedCount) + "]: " + strZbars;
 	}
 	else
 	{
 		++m_nParseZbarFailedCount;
 	}
 
-	ui->StaticText_Zbar->setText(strZbar);
+	//char szFileName[260] = { 0 };
+
+	//sprintf(szFileName, "/picture/data/%03d.bmp", m_nParseZbarFailedCount % 20);
+
+	//KSJSCZ_HelperSaveToBmp(pData, nWidth, nHeight, 8, szFileName);
+
+	ui->StaticText_Zbar->setText(strZbars);
 }
 
 void CKSJSCZDemoMainWindow::OnTimerFrameRate()
@@ -985,8 +994,8 @@ void CKSJSCZDemoMainWindow::ResetShowPositions()
 {
 	m_nVideoWidgetLeft = 4;
 	m_nVideoWidgetTop = 4;
-	m_nVideoWidgetWidth = (DEFAULT_WND_WIDTH - 2 * 4) & 0xfffffffc;
-	m_nVideoWidgetHeight = (DEFAULT_WND_HEIGHT - 2 * 4) & 0xfffffffc;
+	m_nVideoWidgetWidth = (DEFAULT_WND_WIDTH - 2 * 4) & 0xfffffff8;
+	m_nVideoWidgetHeight = (DEFAULT_WND_HEIGHT - 2 * 4) & 0xfffffffe;
 
 	if (m_nCaptureColSize <= 0) m_nCaptureColSize = 640;
 	if (m_nCaptureRowSize <= 0) m_nCaptureRowSize = 480;
@@ -994,16 +1003,14 @@ void CKSJSCZDemoMainWindow::ResetShowPositions()
 	float fw = (float)m_nVideoWidgetWidth / m_nCaptureColSize;
 	float fh = (float)m_nVideoWidgetHeight / m_nCaptureRowSize;
 
-	printf("VideoWidgetPos: %f - %f - %d - %d\r\n", fw, fh, m_nCaptureColSize, m_nCaptureRowSize);
-
 	if (fw < fh)
 	{
-		m_nVideoWidgetHeight = ((int)(fw*m_nCaptureRowSize + 0.5)) & 0xfffffffc;
+		m_nVideoWidgetHeight = ((int)(fw*m_nCaptureRowSize + 0.5)) & 0xfffffffe;
 		m_nVideoWidgetTop = (DEFAULT_WND_HEIGHT - m_nVideoWidgetHeight) / 2;
 	}
 	else
 	{
-		m_nVideoWidgetWidth = ((int)(fh*m_nCaptureColSize + 0.5)) & 0xfffffffc;
+		m_nVideoWidgetWidth = ((int)(fh*m_nCaptureColSize + 0.5)) & 0xfffffff8;
 		m_nVideoWidgetLeft = (DEFAULT_WND_WIDTH - m_nVideoWidgetWidth) / 2;
 	}
 

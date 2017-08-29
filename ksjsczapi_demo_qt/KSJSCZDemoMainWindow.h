@@ -71,6 +71,8 @@ private:
 	int  m_nTimeTick;
 	int  m_nCaptureCountPre;
 	int  m_nLastShowTick;
+
+	QPoint m_ptLastMouse;
 protected:
 	int StartCaptureThread();
 	int KillCaptureThread();
