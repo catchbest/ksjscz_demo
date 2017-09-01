@@ -37,7 +37,7 @@ protected slots:
 	void OnReadGpio();
 	void OnSetFov();
 	void OnTriggerDelayChanged(int);
-	void OnProcessDataChkBoxStateChanged(int);
+	void OnParseBarcodeChkBoxStateChanged(int);
 	void OnMirrorChkBoxStateChanged(int);
 	void OnFlipChkBoxStateChanged(int);
 	void OnStartCapture();

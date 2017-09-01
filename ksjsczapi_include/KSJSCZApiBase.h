@@ -84,12 +84,12 @@ KSJSCZ_API KSJSCZ_GetMirror(int nSensorIndex, bool *pbMirror);
 KSJSCZ_API KSJSCZ_SetFlip(int nSensorIndex, bool bFlip);
 KSJSCZ_API KSJSCZ_GetFlip(int nSensorIndex, bool *pbFlip);
 
+KSJSCZ_API KSJSCZ_SetSensorInterruptCode(int nSensorIndex, char* sczInterruptCode);
+
 KSJSCZ_API KSJSCZ_HelperSaveToBmp( unsigned char *pData, int nWidth, int nHeight, int nBitCount, const char *pszFileName );
 
 KSJSCZ_API  KSJSCZ_LogSet(bool bEnable, const char *pszFolder);
 KSJSCZ_API  KSJSCZ_LogGet(bool *pbEnable, char *pszFolder);
-
-
 
 #ifdef __cplusplus
 }

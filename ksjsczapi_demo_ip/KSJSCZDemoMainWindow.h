@@ -26,6 +26,8 @@ protected slots:
 	void OnStartCapture();
 	void OnStopCapture();
 	void OnThresholdChkBoxStateChanged(int);
+	void OnExpLinesChanged(int);
+	void OnScobelInFpga();
 
 protected:
 	virtual void paintEvent(QPaintEvent *);

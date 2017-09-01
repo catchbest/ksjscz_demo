@@ -64,6 +64,8 @@ extern "C" {
 	// 显示一帧图像，此图像为用户加载到DataBuffer (由 KSJSCZ_Malloc 分配)中的图像数据
 	KSJSCZ_API KSJSCZ_ShowUserLoadData(int nSensorIndex, unsigned char *pDataBuffer, unsigned int unRawWidth, unsigned int unRawHeight, unsigned int unBitCount);
 
+	KSJSCZ_API KSJSCZ_SetUsingMultiShowBuffer(int nSensorIndex, bool bUsingMultiBuffer);
+
 #ifdef __cplusplus
 }
 #endif

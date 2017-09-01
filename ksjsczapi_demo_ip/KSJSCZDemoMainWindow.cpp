@@ -76,6 +76,8 @@ QDialog(parent)
 	connect(ui->StartCapturePushButton, SIGNAL(clicked()), this, SLOT(OnStartCapture()));
 	connect(ui->StopCapturePushButton, SIGNAL(clicked()), this, SLOT(OnStopCapture()));
 	connect(ui->ThresholdCheckBox, SIGNAL(stateChanged(int)), this, SLOT(OnThresholdChkBoxStateChanged(int)));
+	connect(ui->ExpLinesSpinBox, SIGNAL(valueChanged(int)), this, SLOT(OnExpLinesChanged(int)));
+	connect(ui->ScobelPushButton, SIGNAL(clicked()), this, SLOT(OnScobelInFpga()));
 
 	ui->ThresholdCheckBox->setCheckState(m_bThresholdImage ? Qt::Checked : Qt::Unchecked);
 
@@ -93,12 +95,24 @@ QDialog(parent)
 	}
 
 	nRet = KSJSCZ_SetGain(0, 128);
-	nRet = KSJSCZ_SetExposureLines(0, 500);
+	//nRet = KSJSCZ_SetExposureLines(0, 500);
 
 	nRet = KSJSCZ_SetVideoWidgetPos(0, 0, 0, DEFAULT_WND_WIDTH, DEFAULT_WND_HEIGHT);
 	nRet = KSJSCZ_SetPosition(0, 0, 0, DEFAULT_WND_WIDTH, DEFAULT_WND_HEIGHT);
 	nRet = KSJSCZ_SetCaptureFieldOfView(0, 0, 0, 1280, 1024);
 
+	unsigned long ulValue, ulValueMin, ulValueMax;
+
+	KSJSCZ_GetExposureLines(0, &ulValue);
+	KSJSCZ_GetExposureLinesRange(0, &ulValueMin, &ulValueMax);
+	ui->ExpLinesSpinBox->blockSignals(true);
+	ui->ExpLinesSpinBox->setRange(ulValueMin > 2 ? ulValueMin : 2, ulValueMax);
+	if (ulValue > 2000) ulValue = 2;
+	ui->ExpLinesSpinBox->setValue(ulValue);
+	KSJSCZ_SetExposureLines(0, ulValue);
+	ui->ExpLinesSpinBox->blockSignals(false);
+
+	KSJSCZ_SetUsingMultiShowBuffer(0, false);
 	KSJSCZ_SetTriggerMode(0, KSJSCZ_TM_CMD_CONTINUE);
 
 	StartCaptureThread();
@@ -165,6 +179,11 @@ void CKSJSCZDemoMainWindow::OnStartCapture()
 
 	ui->StartCapturePushButton->setEnabled(!m_bIsCapturing);
 	ui->StopCapturePushButton->setEnabled(m_bIsCapturing);
+}
+
+void CKSJSCZDemoMainWindow::OnScobelInFpga()
+{
+	KSJSCZ_WrRegFPGA(0, 0x94, 0x00100000);
 }
 
 void CKSJSCZDemoMainWindow::OnStopCapture()
@@ -243,4 +262,9 @@ void CKSJSCZDemoMainWindow::wheelEvent(QWheelEvent * event)
 void CKSJSCZDemoMainWindow::OnThresholdChkBoxStateChanged(int value)
 {
 	m_bThresholdImage = (value == Qt::Checked);
+}
+
+void CKSJSCZDemoMainWindow::OnExpLinesChanged(int value)
+{
+	KSJSCZ_SetExposureLines(0, value);
 }

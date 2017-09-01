@@ -151,7 +151,7 @@ QDialog(parent)
 	connect(ui->StartCapturePushButton, SIGNAL(clicked()), this, SLOT(OnStartCapture()));
 	connect(ui->SetFovPushButton, SIGNAL(clicked()), this, SLOT(OnSetFov()));
 	connect(ui->TriggerDelaySpinBox, SIGNAL(valueChanged(int)), this, SLOT(OnTriggerDelayChanged(int)));
-	connect(ui->ProcessDataCheckBox, SIGNAL(stateChanged(int)), this, SLOT(OnProcessDataChkBoxStateChanged(int)));
+	connect(ui->BarcodeParsingCheckBox, SIGNAL(stateChanged(int)), this, SLOT(OnParseBarcodeChkBoxStateChanged(int)));
 	connect(ui->MirrorCheckBox, SIGNAL(stateChanged(int)), this, SLOT(OnMirrorChkBoxStateChanged(int)));
 	connect(ui->FlipCheckBox, SIGNAL(stateChanged(int)), this, SLOT(OnFlipChkBoxStateChanged(int)));
 
@@ -179,7 +179,9 @@ QDialog(parent)
 	LoadUserParams();
 
 	ui->StartCapturePushButton->setText(m_bIsCapturing ? "Stop" : "Start");
-	ui->ProcessDataCheckBox->setCheckState(m_bParseZbarDemo ? Qt::Checked : Qt::Unchecked);
+	ui->BarcodeParsingCheckBox->blockSignals(true);
+	ui->BarcodeParsingCheckBox->setCheckState(m_bParseZbarDemo ? Qt::Checked : Qt::Unchecked);
+	ui->BarcodeParsingCheckBox->blockSignals(false);
 
 	ui->TriggerModeComBox->blockSignals(true);
 	ui->TriggerModeComBox->addItem("Software Command Continue");
@@ -230,7 +232,7 @@ QDialog(parent)
 
 	int nMaj1, nMaj2, nMin1, nMin2;
 	nRet = KSJSCZ_GetLibVersion(&nMaj1, &nMaj2, &nMin1, &nMin2);
-	ui->StaticText_Version->setText(QString("V1.1 (Lib: %1.%2.%3.%4 FPGA: %5.%6)").arg(nMaj1).arg(nMaj2).arg(nMin1).arg(nMin2).arg(ulRegValue >> 8 & 0x00FF).arg(ulRegValue & 0x00FF));
+	ui->StaticText_Version->setText(QString("V2.0 (Lib: %1.%2.%3.%4 FPGA: %5.%6)").arg(nMaj1).arg(nMaj2).arg(nMin1).arg(nMin2).arg(ulRegValue >> 8 & 0x00FF).arg(ulRegValue & 0x00FF));
 
 	nRet = KSJSCZ_SetCaptureFieldOfView(0, m_nCaptureColStart, m_nCaptureRowStart, m_nCaptureColSize, m_nCaptureRowSize);
 
@@ -510,7 +512,7 @@ void CKSJSCZDemoMainWindow::OnTriggerDelayChanged(int value)
 	SaveUserParams();
 }
 
-void CKSJSCZDemoMainWindow::OnProcessDataChkBoxStateChanged(int value)
+void CKSJSCZDemoMainWindow::OnParseBarcodeChkBoxStateChanged(int value)
 {
 	m_bParseZbarDemo = (value == Qt::Checked);
 }

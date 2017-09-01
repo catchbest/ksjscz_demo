@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'KSJSCZDemoMainWindow.h'
 **
-** Created: Thu Aug 24 17:04:20 2017
+** Created: Fri Sep 1 16:40:49 2017
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.3)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -41,27 +41,27 @@ static const uint qt_meta_data_CKSJSCZDemoMainWindow[] = {
      155,   22,   22,   22, 0x09,
      166,   22,   22,   22, 0x09,
      193,   22,   22,   22, 0x09,
-     230,   22,   22,   22, 0x09,
-     262,   22,   22,   22, 0x09,
-     292,   22,   22,   22, 0x09,
-     309,   22,   22,   22, 0x09,
-     340,   22,   22,   22, 0x09,
-     370,   22,   22,   22, 0x09,
-     400,   22,   22,   22, 0x09,
-     430,   22,   22,   22, 0x09,
-     462,   22,   22,   22, 0x09,
-     494,   22,   22,   22, 0x09,
-     523,   22,   22,   22, 0x09,
-     555,   22,   22,   22, 0x09,
-     588,   22,   22,   22, 0x09,
-     620,   22,   22,   22, 0x09,
-     652,   22,   22,   22, 0x09,
-     681,   22,   22,   22, 0x09,
-     708,   22,   22,   22, 0x09,
-     735,   22,   22,   22, 0x09,
-     761,   22,   22,   22, 0x09,
-     787,   22,   22,   22, 0x09,
-     813,   22,   22,   22, 0x09,
+     231,   22,   22,   22, 0x09,
+     263,   22,   22,   22, 0x09,
+     293,   22,   22,   22, 0x09,
+     310,   22,   22,   22, 0x09,
+     341,   22,   22,   22, 0x09,
+     371,   22,   22,   22, 0x09,
+     401,   22,   22,   22, 0x09,
+     431,   22,   22,   22, 0x09,
+     463,   22,   22,   22, 0x09,
+     495,   22,   22,   22, 0x09,
+     524,   22,   22,   22, 0x09,
+     556,   22,   22,   22, 0x09,
+     589,   22,   22,   22, 0x09,
+     621,   22,   22,   22, 0x09,
+     653,   22,   22,   22, 0x09,
+     682,   22,   22,   22, 0x09,
+     709,   22,   22,   22, 0x09,
+     736,   22,   22,   22, 0x09,
+     762,   22,   22,   22, 0x09,
+     788,   22,   22,   22, 0x09,
+     814,   22,   22,   22, 0x09,
 
        0        // eod
 };
@@ -72,7 +72,7 @@ static const char qt_meta_stringdata_CKSJSCZDemoMainWindow[] = {
     "OnExpLinesChanged(int)\0OnGainChanged(int)\0"
     "OnReadReg()\0OnWriteReg()\0OnReadGpio()\0"
     "OnSetFov()\0OnTriggerDelayChanged(int)\0"
-    "OnProcessDataChkBoxStateChanged(int)\0"
+    "OnParseBarcodeChkBoxStateChanged(int)\0"
     "OnMirrorChkBoxStateChanged(int)\0"
     "OnFlipChkBoxStateChanged(int)\0"
     "OnStartCapture()\0OnEan13ChkBoxStateChanged(int)\0"
@@ -109,7 +109,7 @@ void CKSJSCZDemoMainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c
         case 6: _t->OnReadGpio(); break;
         case 7: _t->OnSetFov(); break;
         case 8: _t->OnTriggerDelayChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 9: _t->OnProcessDataChkBoxStateChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 9: _t->OnParseBarcodeChkBoxStateChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 10: _t->OnMirrorChkBoxStateChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 11: _t->OnFlipChkBoxStateChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 12: _t->OnStartCapture(); break;

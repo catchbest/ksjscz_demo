@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'KSJSCZDemoMainWindow.ui'
 **
-** Created: Thu Aug 24 17:04:20 2017
+** Created: Fri Sep 1 16:40:49 2017
 **      by: Qt User Interface Compiler version 4.8.3
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -77,7 +77,6 @@ public:
     QSpinBox *DensitySpinBox;
     QLabel *StaticText_14;
     QLabel *StaticText_Zbar;
-    QCheckBox *ProcessDataCheckBox;
     QCheckBox *MirrorCheckBox;
     QLabel *StaticText_FPS;
     QGroupBox *RegisterGroupBox;
@@ -99,6 +98,7 @@ public:
     QCheckBox *IOIN3CheckBox;
     QCheckBox *FlipCheckBox;
     QLabel *StaticText_Main;
+    QCheckBox *BarcodeParsingCheckBox;
 
     void setupUi(QDialog *KSJSCZDemoMainWindow)
     {
@@ -228,7 +228,7 @@ public:
         StaticText_Count->setFrameShape(QFrame::StyledPanel);
         groupBox = new QGroupBox(UserInputGroupBox);
         groupBox->setObjectName(QString::fromUtf8("groupBox"));
-        groupBox->setGeometry(QRect(12, 328, 403, 145));
+        groupBox->setGeometry(QRect(12, 350, 403, 145));
         ParseQRCODECheckBox = new QCheckBox(groupBox);
         ParseQRCODECheckBox->setObjectName(QString::fromUtf8("ParseQRCODECheckBox"));
         ParseQRCODECheckBox->setGeometry(QRect(208, 92, 75, 16));
@@ -275,9 +275,6 @@ public:
         StaticText_Zbar->setObjectName(QString::fromUtf8("StaticText_Zbar"));
         StaticText_Zbar->setGeometry(QRect(8, 118, 385, 16));
         StaticText_Zbar->setFrameShape(QFrame::StyledPanel);
-        ProcessDataCheckBox = new QCheckBox(groupBox);
-        ProcessDataCheckBox->setObjectName(QString::fromUtf8("ProcessDataCheckBox"));
-        ProcessDataCheckBox->setGeometry(QRect(30, 20, 113, 16));
         MirrorCheckBox = new QCheckBox(UserInputGroupBox);
         MirrorCheckBox->setObjectName(QString::fromUtf8("MirrorCheckBox"));
         MirrorCheckBox->setGeometry(QRect(14, 296, 81, 16));
@@ -287,7 +284,7 @@ public:
         StaticText_FPS->setFrameShape(QFrame::StyledPanel);
         RegisterGroupBox = new QGroupBox(UserInputGroupBox);
         RegisterGroupBox->setObjectName(QString::fromUtf8("RegisterGroupBox"));
-        RegisterGroupBox->setGeometry(QRect(8, 562, 407, 65));
+        RegisterGroupBox->setGeometry(QRect(8, 570, 407, 65));
         StaticText_16 = new QLabel(RegisterGroupBox);
         StaticText_16->setObjectName(QString::fromUtf8("StaticText_16"));
         StaticText_16->setGeometry(QRect(10, 26, 57, 16));
@@ -310,7 +307,7 @@ public:
         LineEdit_RegAddress->setGeometry(QRect(74, 24, 65, 20));
         GPIO = new QGroupBox(UserInputGroupBox);
         GPIO->setObjectName(QString::fromUtf8("GPIO"));
-        GPIO->setGeometry(QRect(10, 478, 407, 69));
+        GPIO->setGeometry(QRect(10, 500, 407, 69));
         ALedCheckBox = new QCheckBox(GPIO);
         ALedCheckBox->setObjectName(QString::fromUtf8("ALedCheckBox"));
         ALedCheckBox->setGeometry(QRect(214, 20, 95, 16));
@@ -345,6 +342,9 @@ public:
         StaticText_Main->setObjectName(QString::fromUtf8("StaticText_Main"));
         StaticText_Main->setGeometry(QRect(230, 690, 187, 16));
         StaticText_Main->setFrameShape(QFrame::StyledPanel);
+        BarcodeParsingCheckBox = new QCheckBox(UserInputGroupBox);
+        BarcodeParsingCheckBox->setObjectName(QString::fromUtf8("BarcodeParsingCheckBox"));
+        BarcodeParsingCheckBox->setGeometry(QRect(16, 330, 121, 16));
 
         retranslateUi(KSJSCZDemoMainWindow);
 
@@ -391,7 +391,6 @@ public:
         ParseI25CheckBox->setText(QApplication::translate("KSJSCZDemoMainWindow", "I25", 0, QApplication::UnicodeUTF8));
         StaticText_14->setText(QApplication::translate("KSJSCZDemoMainWindow", "Sample Density:", 0, QApplication::UnicodeUTF8));
         StaticText_Zbar->setText(QString());
-        ProcessDataCheckBox->setText(QApplication::translate("KSJSCZDemoMainWindow", "Process Image", 0, QApplication::UnicodeUTF8));
         MirrorCheckBox->setText(QApplication::translate("KSJSCZDemoMainWindow", "Mirror ", 0, QApplication::UnicodeUTF8));
         StaticText_FPS->setText(QApplication::translate("KSJSCZDemoMainWindow", "0fps", 0, QApplication::UnicodeUTF8));
         RegisterGroupBox->setTitle(QApplication::translate("KSJSCZDemoMainWindow", "Register", 0, QApplication::UnicodeUTF8));
@@ -411,6 +410,7 @@ public:
         IOIN3CheckBox->setText(QApplication::translate("KSJSCZDemoMainWindow", "G_IN0", 0, QApplication::UnicodeUTF8));
         FlipCheckBox->setText(QApplication::translate("KSJSCZDemoMainWindow", "Flip", 0, QApplication::UnicodeUTF8));
         StaticText_Main->setText(QString());
+        BarcodeParsingCheckBox->setText(QApplication::translate("KSJSCZDemoMainWindow", "Barcode Parsing", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };
