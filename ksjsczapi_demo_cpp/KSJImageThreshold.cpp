@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * KSJImageThreshold.c
  *
  *  Created on: 2016-10-24
@@ -8,7 +8,7 @@
 #include "KSJVisionDef.h"
 #include "KSJImageThreshold.h"
 
-// Í¼Ïñ¶şÖµ»¯´¦Àí
+// å›¾åƒäºŒå€¼åŒ–å¤„ç†
 int KSJIMAGE_Y8_ThresholdSingle(unsigned char *pData, int nWidth, int nHeight, int nThreshold, int nMode)
 {
 	int  nWidthBytes = MAKEWIDTHBYTES(nWidth, 8);

@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'KSJSCZDemoMainWindow.ui'
 **
-** Created: Fri Sep 1 16:40:49 2017
+** Created: Fri Sep 8 10:11:51 2017
 **      by: Qt User Interface Compiler version 4.8.3
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -99,6 +99,7 @@ public:
     QCheckBox *FlipCheckBox;
     QLabel *StaticText_Main;
     QCheckBox *BarcodeParsingCheckBox;
+    QCheckBox *SaveImageCheckBox;
 
     void setupUi(QDialog *KSJSCZDemoMainWindow)
     {
@@ -345,6 +346,9 @@ public:
         BarcodeParsingCheckBox = new QCheckBox(UserInputGroupBox);
         BarcodeParsingCheckBox->setObjectName(QString::fromUtf8("BarcodeParsingCheckBox"));
         BarcodeParsingCheckBox->setGeometry(QRect(16, 330, 121, 16));
+        SaveImageCheckBox = new QCheckBox(UserInputGroupBox);
+        SaveImageCheckBox->setObjectName(QString::fromUtf8("SaveImageCheckBox"));
+        SaveImageCheckBox->setGeometry(QRect(276, 324, 121, 16));
 
         retranslateUi(KSJSCZDemoMainWindow);
 
@@ -411,6 +415,7 @@ public:
         FlipCheckBox->setText(QApplication::translate("KSJSCZDemoMainWindow", "Flip", 0, QApplication::UnicodeUTF8));
         StaticText_Main->setText(QString());
         BarcodeParsingCheckBox->setText(QApplication::translate("KSJSCZDemoMainWindow", "Barcode Parsing", 0, QApplication::UnicodeUTF8));
+        SaveImageCheckBox->setText(QApplication::translate("KSJSCZDemoMainWindow", "Save at /picture.", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

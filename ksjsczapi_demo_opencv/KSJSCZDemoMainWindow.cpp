@@ -1,4 +1,4 @@
-
+﻿
 
 #include <QtGui/QPainter>
 #include <QtGui/QResizeEvent>

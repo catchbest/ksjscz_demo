@@ -28,6 +28,7 @@ protected slots:
 	void OnThresholdChkBoxStateChanged(int);
 	void OnExpLinesChanged(int);
 	void OnScobelInFpga();
+	void OnThresholdValueChanged(int nValue);
 
 protected:
 	virtual void paintEvent(QPaintEvent *);
@@ -43,11 +44,13 @@ protected:
 
 protected:
 	bool m_bIsCapturing;
-	bool m_bThresholdImage;
+	bool m_bFastXImage;
+	int  m_nThresholdValue;
 	bool m_bStopCaptureThread;
 	unsigned long m_nCaptureInterruptThreadId;
 
 	int  m_nVideoMemorySize;
+	unsigned char* m_pTempMemory;
 	unsigned char* m_pVideoMemory;
 
 	int m_nImageWidth;

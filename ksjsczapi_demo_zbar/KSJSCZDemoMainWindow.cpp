@@ -1,4 +1,4 @@
-
+ï»¿
 
 #include <QtGui/QPainter>
 #include <QtGui/QResizeEvent>
@@ -20,6 +20,7 @@
 #include "../ksjsczapi_include/KSJSCZApiIo.h"
 #include "../ksjsczapi_include/KSJSczApiCode.h"
 #include "../ksjsczapi_include/KSJSczApiInternal.h"
+#include "../ksjsczapi_include/KSJSczCom.h"
 
 #include "../zbar.inc/zbar.h"
 
@@ -47,203 +48,6 @@ using namespace zbar;
 
 #define  DEFAULT_WND_WIDTH   960
 #define  DEFAULT_WND_HEIGHT  720
-
-
-//¶Ë¿ÚĞÅÏ¢¶¨Òå   
-typedef struct _Port_Info
-{
-	int baud_rate;
-	int port_fd;
-	char parity;
-	char stop_bit;
-	char flow_ctrl;
-	char data_bits;
-}*Port_Info;
-
-
-int Fd_Com = -1;
-
-#define COM "/dev/ttyPS1"   
-
-char buffer_com[1024 + 10];
-char buffer_read_com[1024];
-int send_index;
-
-//´ò¿ª´®¿Ú   
-int open_port(char *port)
-{
-	int fd;
-	if ((fd = open(port, O_RDWR | O_NOCTTY | O_NONBLOCK)) == -1)
-	{
-		perror("can not open com port!");
-		return -1;
-	}
-}
-
-//¹Ø±ÕÖ¸¶¨´®¿Ú   
-void close_port(int fd)
-{
-	close(fd);
-}
-
-//¸ù¾İ²¨ÌØÂÊ»ñµÃÏìÓ¦µÄ²¨ÌØÂÊÉèÖÃ²ÎÊı   
-int get_baud_rate(unsigned long baud_rate)
-{
-	switch (baud_rate)
-	{
-	case 2400:
-		return B2400;
-	case 4800:
-		return B4800;
-	case 9600:
-		return B9600;
-	case 19200:
-		return B19200;
-	case 38400:
-		return B38400;
-	case 57600:
-		return B57600;
-	case 115200:
-		return B115200;
-	case 230400:
-		return B230400;
-	default:
-		return -1;
-	}
-}
-
-//ÉèÖÃ¶Ë¿Ú   
-int set_port(Port_Info p_info)
-{
-	struct termios old_opt, new_opt;
-	int baud_rate, parity;
-
-	memset(&old_opt, 0, sizeof(old_opt));
-	memset(&new_opt, 0, sizeof(new_opt));
-
-	cfmakeraw(&new_opt);
-	tcgetattr(p_info->port_fd, &old_opt);
-
-	//ÉèÖÃ´®¿Ú²¨ÌØÂÊ   
-	baud_rate = get_baud_rate(p_info->baud_rate);
-	//ĞŞ¸Änew_opt½á¹¹ÖĞµÄ´®¿ÚÊäÈë/Êä³ö²¨ÌØÂÊ²Û²ÎÊı   
-	cfsetispeed(&new_opt, baud_rate);
-	cfsetospeed(&new_opt, baud_rate);
-
-	//ĞŞ¸Ä¿ØÖÆÄ£Ê½£¬±£Ö¤³ÌĞò²»»áÕ¼ÓÃ´®¿Ú   
-	new_opt.c_cflag |= CLOCAL;
-	//ĞŞ¸Ä¿ØÖÆÄ£Ê½£¬Ê¹µÃÄÜ¹»´Ó´®¿Ú¶ÁÈ¡ÊäÈëÊı¾İ   
-	new_opt.c_cflag |= CREAD;
-
-	//ÉèÖÃÊı¾İÁ÷¿ØÖÆ   
-	switch (p_info->flow_ctrl)
-	{
-	case '0':
-	{
-				//²»Ê¹ÓÃÁ÷¿ØÖÆ   
-				new_opt.c_cflag &= ~CRTSCTS;
-				break;
-	}
-	case '1':
-	{
-				//Ê¹ÓÃÓ²¼ş½øĞĞÁ÷¿ØÖÆ   
-				new_opt.c_cflag |= CRTSCTS;
-				break;
-	}
-	case '2':
-	{
-				new_opt.c_cflag |= IXON | IXOFF | IXANY;
-				break;
-	}
-	}
-
-	//ÉèÖÃÊı¾İÎ»   
-	new_opt.c_cflag &= ~CSIZE;
-	switch (p_info->data_bits)
-	{
-	case '5':
-	{
-				new_opt.c_cflag |= CS5;
-				break;
-	}
-	case '6':
-	{
-				new_opt.c_cflag |= CS6;
-				break;
-	}
-	case '7':
-	{
-				new_opt.c_cflag |= CS7;
-				break;
-	}
-	case '8':
-	{
-				new_opt.c_cflag |= CS8;
-				break;
-	}
-	default:
-	{
-			   new_opt.c_cflag |= CS8;
-			   break;
-	}
-	}
-
-	//ÉèÖÃÆæÅ¼Ğ£ÑéÎ»   
-	switch (p_info->parity)
-	{
-	case '0':
-	{
-				//²»Ê¹ÓÃÆæÅ¼Ğ£Ñé   
-				new_opt.c_cflag &= ~PARENB;
-				break;
-	}
-	case '1':
-	{
-				//Ê¹ÓÃÅ¼Ğ£Ñé   
-				new_opt.c_cflag |= PARENB;
-				new_opt.c_cflag &= ~PARODD;
-				break;
-	}
-	case '2':
-	{
-				//Ê¹ÓÃÆæĞ£Ñé   
-				new_opt.c_cflag |= PARENB;
-				new_opt.c_cflag |= PARODD;
-				break;
-	}
-	}
-
-	//ÉèÖÃÍ£Ö¹Î»   
-	if (p_info->stop_bit == '2')
-	{
-		new_opt.c_cflag |= CSTOPB;
-	}
-	else
-	{
-		new_opt.c_cflag &= ~CSTOPB;
-	}
-
-	//ĞŞ¸ÄÊä³öÄ£Ê½£¬Ô­Ê¼Êı¾İÊä³ö   
-	new_opt.c_oflag *= ~OPOST;
-	//ĞŞ¸Ä¿ØÖÆ×Ö·û£¬¶ÁÈ¡×Ö·û×îĞ¡¸öÊıÎª1   
-	new_opt.c_cc[VMIN] = 1;
-	//ĞŞ¸Ä¿ØÖÆ×Ö·û£¬¶ÁÈ¡µÚÒ»¸ö×Ö·ûµÈ´ıµÈ´ı1 *(1/10)s   
-	new_opt.c_cc[VTIME] = 1;
-
-	//Èç¹û·¢ÉúÊı¾İÒç³ö£¬½ÓÊÕÊı¾İ£¬µ«ÊÇ²»ÔÙ¶ÁÈ¡   
-	tcflush(p_info->port_fd, TCIFLUSH);
-
-	int result;
-	result = tcsetattr(p_info->port_fd, TCSANOW, &new_opt);
-	if (result == -1)
-	{
-		perror("cannot set the serial port parameters");
-		return -1;
-	}
-
-	tcgetattr(p_info->port_fd, &old_opt);
-	return result;
-}
 
 
 void* ThreadForCaptureData(void *arg)
@@ -410,6 +214,8 @@ QDialog(parent)
 
 	ui->StartCapturePushButton->setText(m_bIsCapturing ? "Stop" : "Start");
 
+	KSJCOM_Init();
+
 	int nRet = KSJSCZ_ERR_SUCCESS;
 
 	nRet = KSJSCZ_LogSet(1, NULL);
@@ -436,31 +242,16 @@ QDialog(parent)
 
 	KSJSCZ_WrRegFPGA(0, 0x9C, 0);
 
-	Fd_Com = open_port(COM);
-
-	struct _Port_Info info;
-	info.baud_rate = 115200;
-	info.data_bits = 8;
-	info.flow_ctrl = 0;
-	info.port_fd = Fd_Com;
-	info.stop_bit = 1;
-	info.parity = 0;
-
-	if (set_port(&info) == -1)
+	if (KSJCOM_Open(1, 115200, 8, 1) != KSJCOM_RET_SUCCESS)
 	{
-		printf("=== Set com para wrong! === \r\n");
+		printf("=== open the com port failed! === \r\n");
 	}
 
 	char *data = "Com is conneted!\r\n";
 
-	int len = write(Fd_Com, data, 18);
-
-	if (len != 18)
+	if (KSJCOM_SendData(1, (unsigned char*)data, 18) != KSJCOM_RET_SUCCESS)
 	{
-		//Èç¹û³öÏÖÒç³öÇé¿ö   
 		printf("=== Com write wrong! === \r\n");
-
-		tcflush(Fd_Com, TCOFLUSH);
 	}
 	else
 	{
@@ -476,14 +267,12 @@ QDialog(parent)
 
 CKSJSCZDemoMainWindow::~CKSJSCZDemoMainWindow()
 {
-	close_port(Fd_Com);
-	Fd_Com = NULL;
-
 	if (m_pTimerFrameRate->isActive()) m_pTimerFrameRate->stop();
 
 	KillCaptureThread();
 
 	KSJSCZ_UnInit();
+	KSJCOM_UnInit();
 
 	delete ui;
 }
@@ -500,7 +289,7 @@ void CKSJSCZDemoMainWindow::mouseMoveEvent(QMouseEvent *e)
 
 void CKSJSCZDemoMainWindow::mouseDoubleClickEvent(QMouseEvent * e)
 {
-	if (e->button() == Qt::RightButton)   //×ó¼üË«»÷
+	if (e->button() == Qt::RightButton)   //å·¦é”®åŒå‡»
 	{
 		m_nImagePositionLeft = -480;
 		m_nImagePositionTop = -360;
@@ -882,7 +671,7 @@ void CKSJSCZDemoMainWindow::ParseZbar(unsigned char *pData, int nWidth, int nHei
 
 	if (pSymbolCur == NULL)
 	{
-		write(Fd_Com, "{NG}\r\n", 6);
+		KSJCOM_SendData(1, (unsigned char*)"{NG}\r\n", 6);
 	}
 	else
 	{
@@ -894,12 +683,9 @@ void CKSJSCZDemoMainWindow::ParseZbar(unsigned char *pData, int nWidth, int nHei
 
 			strZbar = QString::fromLocal8Bit(strData.c_str());
 
-			if (Fd_Com != -1)
-			{
-				write(Fd_Com, "{OK[", 4);
-				write(Fd_Com, strData.c_str(), strData.length());
-				write(Fd_Com, "]}\r\n", 4);
-			}
+			KSJCOM_SendData(1, (unsigned char*)"{OK[", 4);
+			KSJCOM_SendData(1, (unsigned char*)strData.c_str(), strData.length());
+			KSJCOM_SendData(1, (unsigned char*)"]}\r\n", 4);
 
 			if (strZbar != "") break;
 
@@ -946,7 +732,7 @@ void CKSJSCZDemoMainWindow::OnTimerFrameRate()
 		m_ucLedShineValue += 1;
 		if (m_ucLedShineValue >= 4) m_ucLedShineValue = 0;
 
-		// ÕâÁ½¸öµÆµÄºìÂÌË³ĞòÏà·´
+		// è¿™ä¸¤ä¸ªç¯çš„çº¢ç»¿é¡ºåºç›¸å
 		if (m_bALedShine)
 		{
 			KSJSCZ_GpioSet(6, m_ucLedShineValue & 0x2);

@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'KSJSCZDemoMainWindow.h'
 **
-** Created: Fri Sep 1 16:40:35 2017
+** Created: Thu Sep 7 18:11:13 2017
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.3)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_CKSJSCZDemoMainWindow[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-       5,   14, // methods
+       6,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -36,6 +36,7 @@ static const uint qt_meta_data_CKSJSCZDemoMainWindow[] = {
       56,   22,   22,   22, 0x09,
       91,   22,   22,   22, 0x09,
      114,   22,   22,   22, 0x09,
+     138,  131,   22,   22, 0x09,
 
        0        // eod
 };
@@ -44,6 +45,7 @@ static const char qt_meta_stringdata_CKSJSCZDemoMainWindow[] = {
     "CKSJSCZDemoMainWindow\0\0OnStartCapture()\0"
     "OnStopCapture()\0OnThresholdChkBoxStateChanged(int)\0"
     "OnExpLinesChanged(int)\0OnScobelInFpga()\0"
+    "nValue\0OnThresholdValueChanged(int)\0"
 };
 
 void CKSJSCZDemoMainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -57,6 +59,7 @@ void CKSJSCZDemoMainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c
         case 2: _t->OnThresholdChkBoxStateChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 3: _t->OnExpLinesChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 4: _t->OnScobelInFpga(); break;
+        case 5: _t->OnThresholdValueChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
         default: ;
         }
     }
@@ -94,9 +97,9 @@ int CKSJSCZDemoMainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 5)
+        if (_id < 6)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 5;
+        _id -= 6;
     }
     return _id;
 }

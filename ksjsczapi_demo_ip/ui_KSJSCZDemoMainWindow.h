@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'KSJSCZDemoMainWindow.ui'
 **
-** Created: Fri Sep 1 16:40:35 2017
+** Created: Thu Sep 7 18:11:13 2017
 **      by: Qt User Interface Compiler version 4.8.3
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -19,6 +19,7 @@
 #include <QtGui/QHeaderView>
 #include <QtGui/QLabel>
 #include <QtGui/QPushButton>
+#include <QtGui/QSlider>
 #include <QtGui/QSpinBox>
 
 QT_BEGIN_NAMESPACE
@@ -33,6 +34,7 @@ public:
     QLabel *StaticText_4;
     QSpinBox *ExpLinesSpinBox;
     QPushButton *ScobelPushButton;
+    QSlider *FastXThreshold;
 
     void setupUi(QDialog *KSJSCZDemoMainWindow)
     {
@@ -50,7 +52,7 @@ public:
         InfoLabel->setGeometry(QRect(1070, 330, 131, 20));
         ThresholdCheckBox = new QCheckBox(KSJSCZDemoMainWindow);
         ThresholdCheckBox->setObjectName(QString::fromUtf8("ThresholdCheckBox"));
-        ThresholdCheckBox->setGeometry(QRect(1060, 120, 91, 20));
+        ThresholdCheckBox->setGeometry(QRect(1060, 120, 61, 20));
         StaticText_4 = new QLabel(KSJSCZDemoMainWindow);
         StaticText_4->setObjectName(QString::fromUtf8("StaticText_4"));
         StaticText_4->setGeometry(QRect(1060, 80, 101, 16));
@@ -63,7 +65,12 @@ public:
         ExpLinesSpinBox->setMaximum(99999);
         ScobelPushButton = new QPushButton(KSJSCZDemoMainWindow);
         ScobelPushButton->setObjectName(QString::fromUtf8("ScobelPushButton"));
-        ScobelPushButton->setGeometry(QRect(1060, 180, 79, 31));
+        ScobelPushButton->setGeometry(QRect(1060, 296, 133, 31));
+        FastXThreshold = new QSlider(KSJSCZDemoMainWindow);
+        FastXThreshold->setObjectName(QString::fromUtf8("FastXThreshold"));
+        FastXThreshold->setGeometry(QRect(1136, 122, 119, 20));
+        FastXThreshold->setMaximum(255);
+        FastXThreshold->setOrientation(Qt::Horizontal);
 
         retranslateUi(KSJSCZDemoMainWindow);
 
@@ -76,9 +83,9 @@ public:
         StartCapturePushButton->setText(QApplication::translate("KSJSCZDemoMainWindow", "Start", 0, QApplication::UnicodeUTF8));
         StopCapturePushButton->setText(QApplication::translate("KSJSCZDemoMainWindow", "Stop", 0, QApplication::UnicodeUTF8));
         InfoLabel->setText(QApplication::translate("KSJSCZDemoMainWindow", "....", 0, QApplication::UnicodeUTF8));
-        ThresholdCheckBox->setText(QApplication::translate("KSJSCZDemoMainWindow", "Threshold", 0, QApplication::UnicodeUTF8));
+        ThresholdCheckBox->setText(QApplication::translate("KSJSCZDemoMainWindow", "FastX", 0, QApplication::UnicodeUTF8));
         StaticText_4->setText(QApplication::translate("KSJSCZDemoMainWindow", "Exposure Lines:", 0, QApplication::UnicodeUTF8));
-        ScobelPushButton->setText(QApplication::translate("KSJSCZDemoMainWindow", "Scobel", 0, QApplication::UnicodeUTF8));
+        ScobelPushButton->setText(QApplication::translate("KSJSCZDemoMainWindow", "Scobel Before Show", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

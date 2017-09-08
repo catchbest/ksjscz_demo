@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * KSJImageHistgram.c
  *
  *  Created on: 2016-10-24
@@ -8,19 +8,19 @@
 #include "KSJVisionDef.h"
 #include <string.h>
 
-// nAlphaÔ½´ó£¬±³¾°Ô½Ã÷ÏÔ£¬HistgramÔ½µ­
+// nAlphaè¶Šå¤§ï¼ŒèƒŒæ™¯è¶Šæ˜æ˜¾ï¼ŒHistgramè¶Šæ·¡
 void Y8_ShowHistgram(unsigned char *pData, int nWidth, int nHeight, int nAoiX, int nAoiY, int nAoiW, int nAoiH, int nHistgram[256], int nAlpha)
 {
 	int  nWidthBytes = MAKEWIDTHBYTES(nWidth, 8);
 
-	float fRatioHInAoi = 0.25;    // Ö±·½Í¼Õ¼nAoiHµÄ¸ß¶È¶È 0.25 * nAoiH = 1/4
+	float fRatioHInAoi = 0.25;    // ç›´æ–¹å›¾å nAoiHçš„é«˜åº¦åº¦ 0.25 * nAoiH = 1/4
 
-	float fRatioWInAoi = 1.0f;    // Ö±·½Í¼Õ¼AOIÇøÓòµÄ¿í¶È
+	float fRatioWInAoi = 1.0f;    // ç›´æ–¹å›¾å AOIåŒºåŸŸçš„å®½åº¦
 
-	int   nHistgramPixelsW = nAoiW * fRatioWInAoi;    // Ö±·½Í¼ºáÏòÏñËØ¿í¶È
-	int   nHistgramPixelsH = nAoiH * fRatioHInAoi;    // Ö±·½Í¼×İÏòÏñËØ¸ß¶È
+	int   nHistgramPixelsW = nAoiW * fRatioWInAoi;    // ç›´æ–¹å›¾æ¨ªå‘åƒç´ å®½åº¦
+	int   nHistgramPixelsH = nAoiH * fRatioHInAoi;    // ç›´æ–¹å›¾çºµå‘åƒç´ é«˜åº¦
 
-	// Çó³öÖ±·½Í¼ÖĞ×î´óµÄÖµ
+	// æ±‚å‡ºç›´æ–¹å›¾ä¸­æœ€å¤§çš„å€¼
 	int   nHistgramMax = 0;
 	int   i;
 	for (i = 0; i < 256; i++)
@@ -29,21 +29,21 @@ void Y8_ShowHistgram(unsigned char *pData, int nWidth, int nHeight, int nAoiX, i
 			nHistgramMax = nHistgram[i];
 	}
 
-	// ¼ÆËãÖµºÍÏñËØµÄ¶ÔÓ¦±ÈÀı
+	// è®¡ç®—å€¼å’Œåƒç´ çš„å¯¹åº”æ¯”ä¾‹
 	float fRatioHistgramY = (float)nHistgramPixelsH / (float)nHistgramMax;
 
 	int   nHistgramPixelNum[256] = {0};
-	// Öµ×ªÏñËØÖµ
+	// å€¼è½¬åƒç´ å€¼
 	for (i = 0; i < 256; i++)
 	{
 		nHistgramPixelNum[i] = nHistgram[i] * fRatioHistgramY;
 	}
 
-	// ¼ÆËãºáÖáËõ·Å±ÈÀı
+	// è®¡ç®—æ¨ªè½´ç¼©æ”¾æ¯”ä¾‹
 	// float fRatioHistgramX = (float)nHistgramPixelsW / 256.0f;
 
-	// OK, »­³önHistgramPixelNum[i]
-	// pDataAoiColÖ¸ÏòÓëpDataAoiRowÏàÍ¬ÁĞµÄ´¹Ö±·½ÏòµÄÏñËØ£¬´ËÏñËØ´¹Ö±µÄ¸ß¶È´ú±íÍ¶Ó°Öµ
+	// OK, ç”»å‡ºnHistgramPixelNum[i]
+	// pDataAoiColæŒ‡å‘ä¸pDataAoiRowç›¸åŒåˆ—çš„å‚ç›´æ–¹å‘çš„åƒç´ ï¼Œæ­¤åƒç´ å‚ç›´çš„é«˜åº¦ä»£è¡¨æŠ•å½±å€¼
 
 #ifdef MEM_FLIP
 	unsigned char *pDataAoiCol = pData + nAoiY * nWidthBytes + nAoiX;

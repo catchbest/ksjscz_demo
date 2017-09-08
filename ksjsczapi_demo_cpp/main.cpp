@@ -1,4 +1,4 @@
-/*
+﻿/*
  * main.cpp
  *
  *  Created on: 2016-10-24
@@ -64,8 +64,10 @@ int main(int argc, char **argv)
 	if (argc > 7) ulColSize      = atoi(argv[7]);
 	if (argc > 8) ulRowSize      = atoi(argv[8]);
 
+	// 1、初始化KSJSCZ库
 	nRet = KSJSCZ_Init();
 
+	// 2、设置触发模式
 	enum KSJSCZ_TRIGGER_MODE  TriggerMode = KSJSCZ_TM_CMD_CONTINUE;
 	KSJSCZ_SetTriggerMode(0, TriggerMode );
 
@@ -74,14 +76,20 @@ int main(int argc, char **argv)
 
 	//KSJSCZ_SetFrameBufNum(0, 1);
 
+	// 3A、设置显示位置
 	nRet = KSJSCZ_SetVideoWidgetPos(0, nXPosition, nYPosition, nDisplayWidth, nDisplayHeight);
 	nRet = KSJSCZ_SetPosition(0, 0, 0, nDisplayWidth, nDisplayHeight);
+
+	// 3、设置图像采集区域
 	nRet = KSJSCZ_SetCaptureFieldOfView(0, (1280 - ulColSize) / 2, (1024 - ulRowSize) / 2, ulColSize, ulRowSize);
+
+	// 4A、设置增益和曝光参数
 	nRet = KSJSCZ_SetGain(0, nGain);
 	nRet = KSJSCZ_SetExposureLines(0, nExposureLines);
 
 	int  nCaptureWidth, nCaptureHeight, nCaptureBitCount;
 
+	// 5、取得采集图像的大小参数，与KSJSCZ_SetCaptureFieldOfView设置有关
 	nRet = KSJSCZ_GetCaptureSize(0, &nCaptureWidth, &nCaptureHeight, &nCaptureBitCount);
 
 	unsigned char* pDataBuffer = NULL;
@@ -92,15 +100,21 @@ int main(int argc, char **argv)
 	while (1)
 	{
 		++nCount;
+
+		// 6、采集图像
 		nRet = KSJSCZ_CaptureData(0, &pDataBuffer);
 
 		if (nRet == KSJSCZ_ERR_SUCCESS)
 		{
+			// 7、对采集到的图像进行处理
 			MyProcessData(pDataBuffer, nCaptureWidth, nCaptureHeight, nCaptureBitCount);
-			nRet = KSJSCZ_ShowCaptureData(0, pDataBuffer);
-		}
 
-		nRet = KSJSCZ_ReleaseBuffer(0);
+			// 8、显示
+			nRet = KSJSCZ_ShowCaptureData(0, pDataBuffer);
+
+			// 9、释放采集存储区，只有放空采集存储区以后，采集存储区有空区域，才能进行下一次图像采集。
+			nRet = KSJSCZ_ReleaseBuffer(0);
+		}
 	}
 
 	KSJSCZ_UnInit();

@@ -1,4 +1,4 @@
-
+﻿
 
 #include <QtGui/QPainter>
 #include <QtGui/QResizeEvent>
@@ -36,13 +36,17 @@ void* ThreadForCaptureData(void *arg)
 		{
 			int nWidth, nHeight, nBitCount;
 
+			// 得到图像参数
 			KSJSCZ_GetCaptureSize(0, &nWidth, &nHeight, &nBitCount);
 
 			unsigned char *pImageData = NULL;
 
+			// 采集图像
 			if (KSJSCZ_ERR_SUCCESS == KSJSCZ_CaptureData(0, &pImageData))
 			{
+				// 显示图像
 				KSJSCZ_ShowCaptureData(0, pImageData);
+				// 释放采集图像内存
 				KSJSCZ_ReleaseBuffer(0);
 			}
 		}
@@ -74,17 +78,24 @@ QDialog(parent)
 	ui->StartCapturePushButton->setEnabled(!m_bIsCapturing);
 	ui->StopCapturePushButton->setEnabled(m_bIsCapturing);
 
+	// 初始化KSJSCZ库
 	int nRet = KSJSCZ_Init();
 
+	// 设置采集增益和曝光
 	nRet = KSJSCZ_SetGain(0, 128);
 	nRet = KSJSCZ_SetExposureLines(0, 500);
 
+	// 设置图像显示位置
 	nRet = KSJSCZ_SetVideoWidgetPos(0, 0, 0, DEFAULT_WND_WIDTH, DEFAULT_WND_HEIGHT);
 	nRet = KSJSCZ_SetPosition(0, 0, 0, DEFAULT_WND_WIDTH, DEFAULT_WND_HEIGHT);
+
+	// 设置图像采集范围
 	nRet = KSJSCZ_SetCaptureFieldOfView(0, 0, 0, 1280, 1024);
 
+	// 设置触发模式
 	KSJSCZ_SetTriggerMode(0, KSJSCZ_TM_CMD_CONTINUE);
 
+	// 启动采集线程
 	StartCaptureThread();
 }
 

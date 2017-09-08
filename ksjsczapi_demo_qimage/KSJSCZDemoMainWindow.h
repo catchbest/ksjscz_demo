@@ -1,4 +1,4 @@
-#ifndef __KSJSCZDEMO_MAINWINDOW_H_
+ï»¿#ifndef __KSJSCZDEMO_MAINWINDOW_H_
 #define __KSJSCZDEMO_MAINWINDOW_H_
 
 #include "QtCore/QTimer"
@@ -62,19 +62,19 @@ public:
 	virtual void SetZoomMode(KSJ_ZOOM_MODE mode);
 
 protected:
-	// ²É¼¯µ½µÄÍ¼Ïñ
+	// é‡‡é›†åˆ°çš„å›¾åƒ
 	QImage* m_pImage;
 
-	// ±£ÁôÍ¼ÏñÏÔÊ¾Î»ÖÃµÄĞÅÏ¢
+	// ä¿ç•™å›¾åƒæ˜¾ç¤ºä½ç½®çš„ä¿¡æ¯
 	QRect  m_rcClient;
-	// Êó±êÉÏÒ»´ÎµÄÎ»ÖÃ
+	// é¼ æ ‡ä¸Šä¸€æ¬¡çš„ä½ç½®
 	QPoint m_ptLastMouse;
 
-	// Ô­À´Í¼ÏñµÄ´óĞ¡
+	// åŸæ¥å›¾åƒçš„å¤§å°
 	int m_nImageLastWidth;
 	int m_nImageLastHeight;
 
-	//Õâ¸öÊÇÓÃÀ´¼ÆËã·Å´óËõĞ¡Î»ÖÃµÄÀà
+	//è¿™ä¸ªæ˜¯ç”¨æ¥è®¡ç®—æ”¾å¤§ç¼©å°ä½ç½®çš„ç±»
 	CKSJVBImageZoom* m_pImageZoomer;
 };
 

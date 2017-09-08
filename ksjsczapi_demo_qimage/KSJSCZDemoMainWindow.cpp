@@ -1,4 +1,4 @@
-
+ï»¿
 
 #include <QtGui/QPainter>
 #include <QtGui/QResizeEvent>
@@ -37,17 +37,17 @@ void* ThreadForCaptureData(void *arg)
 		{
 			int nWidth, nHeight, nBitCount;
 
-			// µÃµ½Í¼ÏñµÄ´óÐ¡ÐÅÏ¢£¬ºÍ³õÊ¼»¯µÄÊ±ºòKSJSCZ_SetCaptureFieldOfViewº¯ÊýÉèÖÃÓÐ¹Ø
+			// å¾—åˆ°å›¾åƒçš„å¤§å°ä¿¡æ¯ï¼Œå’Œåˆå§‹åŒ–çš„æ—¶å€™KSJSCZ_SetCaptureFieldOfViewå‡½æ•°è®¾ç½®æœ‰å…³
 			KSJSCZ_GetCaptureSize(0, &nWidth, &nHeight, &nBitCount);
 
 			unsigned char *pImageData = NULL;
 
-			// ²É¼¯Í¼Ïñ
+			// é‡‡é›†å›¾åƒ
 			if (KSJSCZ_ERR_SUCCESS == KSJSCZ_CaptureData(0, &pImageData))
 			{
-				// ²É¼¯Í¼ÏñÒÔºó£¬½«ÄÚ´æÊý¾Ý×ª»»³ÉQImageÊý¾Ý,ÕâÑùpImageDataµÄÊý¾Ý¾Í±»×ªÒÆµ½QImageÀïÃæ£¬ÒÔºó¿ÉÒÔ×Ô¼º½øÐÐËã·¨²Ù×÷
+				// é‡‡é›†å›¾åƒä»¥åŽï¼Œå°†å†…å­˜æ•°æ®è½¬æ¢æˆQImageæ•°æ®,è¿™æ ·pImageDataçš„æ•°æ®å°±è¢«è½¬ç§»åˆ°QImageé‡Œé¢ï¼Œä»¥åŽå¯ä»¥è‡ªå·±è¿›è¡Œç®—æ³•æ“ä½œ
 				pMainWindow->ConvertToQImage(pImageData, nWidth, nHeight);
-				// ¶ÁÈ¡Í¼ÏñÒÔºó£¬Ò»¶¨ÒªKSJSCZ_ReleaseBuffer£¬ÕâÑùFPGA¾Í°ÑÕâ¸öÄÚ´æÇå¿Õ£¬¿ÉÒÔÖØÐÂ½«Í¼Ïñ²É¼¯µ½Õâ¸öÄÚ´æÇø
+				// è¯»å–å›¾åƒä»¥åŽï¼Œä¸€å®šè¦KSJSCZ_ReleaseBufferï¼Œè¿™æ ·FPGAå°±æŠŠè¿™ä¸ªå†…å­˜æ¸…ç©ºï¼Œå¯ä»¥é‡æ–°å°†å›¾åƒé‡‡é›†åˆ°è¿™ä¸ªå†…å­˜åŒº
 				KSJSCZ_ReleaseBuffer(0);
 			}
 		}
@@ -79,7 +79,7 @@ QDialog(parent)
 
 	m_pImageZoomer = new CKSJVBImageZoom();
 
-	// ½¨Á¢ÐÅºÅºÍ²ÛµÄ¹ØÁª
+	// å»ºç«‹ä¿¡å·å’Œæ§½çš„å…³è”
 	connect(ui->StartCapturePushButton, SIGNAL(clicked()), this, SLOT(OnStartCapture()));
 	connect(ui->StopCapturePushButton, SIGNAL(clicked()), this, SLOT(OnStopCapture()));
 	connect(ui->HorizontalScrollBar, SIGNAL(valueChanged(int)), this, SLOT(OnHorScrollbar(int)));
@@ -88,11 +88,11 @@ QDialog(parent)
 	ui->StartCapturePushButton->setEnabled(!m_bIsCapturing);
 	ui->StopCapturePushButton->setEnabled(m_bIsCapturing);
 
-	// ÉèÖÃÍ¼ÏñÏÔÊ¾µÄÇøÓò
+	// è®¾ç½®å›¾åƒæ˜¾ç¤ºçš„åŒºåŸŸ
 	m_rcClient.setRect(0, 0, DEFAULT_WND_WIDTH - 16, DEFAULT_WND_HEIGHT - 16);
-	// ¸æËßZoomer¼ÆËãÆ÷£¬Í¼ÏñÏÔÊ¾ÇøÓòµÄ´óÐ¡
+	// å‘Šè¯‰Zoomerè®¡ç®—å™¨ï¼Œå›¾åƒæ˜¾ç¤ºåŒºåŸŸçš„å¤§å°
 	m_pImageZoomer->SetClientSize(DEFAULT_WND_WIDTH - 16, DEFAULT_WND_HEIGHT - 16);
-	// ÉèÖÃ¹ö¶¯ÌõµÄÎ»ÖÃ
+	// è®¾ç½®æ»šåŠ¨æ¡çš„ä½ç½®
 	ui->VerticalScrollBar->setGeometry(DEFAULT_WND_WIDTH - 16, 0, 16, DEFAULT_WND_HEIGHT - 16);
 	ui->HorizontalScrollBar->setGeometry(0, DEFAULT_WND_HEIGHT - 16, DEFAULT_WND_WIDTH - 16, 16);
 
@@ -101,20 +101,20 @@ QDialog(parent)
 	//ui->VerticalScrollBar->setVisible(false);
 	//ui->HorizontalScrollBar->setVisible(false);
 
-	// ³õÊ¼»¯
+	// åˆå§‹åŒ–
 	int nRet = KSJSCZ_Init();
 
-	// ÉèÖÃÔöÒæºÍÆØ¹â,Õâ¸ö¸ù¾ÝÊµ¼ÊÇé¿öÉèÖÃ
+	// è®¾ç½®å¢žç›Šå’Œæ›å…‰,è¿™ä¸ªæ ¹æ®å®žé™…æƒ…å†µè®¾ç½®
 	nRet = KSJSCZ_SetGain(0, 128);
 	nRet = KSJSCZ_SetExposureLines(0, 500);
 
-	// ²»Ê¹ÓÃÓ²¼þµÄPLÏÔÊ¾·½Ê½£¬Õâ¸öµØ·½²»ÓÃÉèÖÃ
+	// ä¸ä½¿ç”¨ç¡¬ä»¶çš„PLæ˜¾ç¤ºæ–¹å¼ï¼Œè¿™ä¸ªåœ°æ–¹ä¸ç”¨è®¾ç½®
 	//nRet = KSJSCZ_SetVideoWidgetPos(0, 0, 0, DEFAULT_WND_WIDTH, DEFAULT_WND_HEIGHT);
 	//nRet = KSJSCZ_SetPosition(0, 0, 0, DEFAULT_WND_WIDTH, DEFAULT_WND_HEIGHT);
-	// ÉèÖÃ²É¼¯µÄÊÓ³¡·¶Î§£¬×î´ó¾ÍÊÇ1280X1024
+	// è®¾ç½®é‡‡é›†çš„è§†åœºèŒƒå›´ï¼Œæœ€å¤§å°±æ˜¯1280X1024
 	nRet = KSJSCZ_SetCaptureFieldOfView(0, 0, 0, 1280, 1024);
 
-	// ÉèÖÃ´¥·¢Ä£Ê½
+	// è®¾ç½®è§¦å‘æ¨¡å¼
 	KSJSCZ_SetTriggerMode(0, KSJSCZ_TM_CMD_CONTINUE);
 
 	StartCaptureThread();
@@ -140,10 +140,10 @@ CKSJSCZDemoMainWindow::~CKSJSCZDemoMainWindow()
 
 void CKSJSCZDemoMainWindow::paintEvent(QPaintEvent *)
 {
-	// Í¼Ïñ²»Îª¿Õ£¬Ôò¿ªÊ¼ÏÔÊ¾
+	// å›¾åƒä¸ä¸ºç©ºï¼Œåˆ™å¼€å§‹æ˜¾ç¤º
 	if (m_pImage != NULL)
 	{
-		// Í¼Ïñ´óÐ¡¸Ä±ä»òÕß³õÊ¼×´Ì¬£¬ÐèÒª°ÑÍ¼Ïñ´óÐ¡¸øZommer
+		// å›¾åƒå¤§å°æ”¹å˜æˆ–è€…åˆå§‹çŠ¶æ€ï¼Œéœ€è¦æŠŠå›¾åƒå¤§å°ç»™Zommer
 		if (m_nImageLastWidth != m_pImage->width() || m_nImageLastHeight != m_pImage->height())
 		{
 			m_pImageZoomer->SetImageSize(m_pImage->width(), m_pImage->height());
@@ -156,7 +156,7 @@ void CKSJSCZDemoMainWindow::paintEvent(QPaintEvent *)
 
 		int sx, sy, sw, sh, dx, dy, dw, dh;
 
-		// È¡µÃÍ¼ÏñµÄÏÔÊ¾Î»ÖÃÐÅÏ¢£¬Zoomer»á¼ÆËã³öÍ¼ÏñµÄÄÄÐ©²¿·Ö(sx, sy, sw, sh)Ó¦¸ÃÏÔÊ¾µ½ÏÔÊ¾ÆÁÉÏµÄÄÄ¸öÎ»ÖÃ(dx, dy, dw, dh)
+		// å–å¾—å›¾åƒçš„æ˜¾ç¤ºä½ç½®ä¿¡æ¯ï¼ŒZoomerä¼šè®¡ç®—å‡ºå›¾åƒçš„å“ªäº›éƒ¨åˆ†(sx, sy, sw, sh)åº”è¯¥æ˜¾ç¤ºåˆ°æ˜¾ç¤ºå±ä¸Šçš„å“ªä¸ªä½ç½®(dx, dy, dw, dh)
 		m_pImageZoomer->GetValidShowPosition(sx, sy, sw, sh, dx, dy, dw, dh);
 
 		painter.drawImage(QRect(dx, dy, dw, dh), *m_pImage, QRect(sx, sy, sw, sh));
@@ -195,7 +195,7 @@ int CKSJSCZDemoMainWindow::KillCaptureThread()
 
 void CKSJSCZDemoMainWindow::OnStartCapture()
 {
-	// ¿ªÊ¼²É¼¯
+	// å¼€å§‹é‡‡é›†
 	m_bIsCapturing = true;
 
 	ui->StartCapturePushButton->setEnabled(!m_bIsCapturing);
@@ -204,7 +204,7 @@ void CKSJSCZDemoMainWindow::OnStartCapture()
 
 void CKSJSCZDemoMainWindow::OnStopCapture()
 {
-	// Í£Ö¹²É¼¯
+	// åœæ­¢é‡‡é›†
 	m_bIsCapturing = false;
 
 	ui->StartCapturePushButton->setEnabled(!m_bIsCapturing);
@@ -215,7 +215,7 @@ static QVector<QRgb> grayTable;
 
 void CKSJSCZDemoMainWindow::ConvertToQImage(unsigned char* pImageData, int w, int h)
 {
-	// Èç¹ûÍ¼Ïñ´óÐ¡ÓÐ¸Ä±ä£¬°ÑÀÏµÄm_pImageÉ¾³ýµô
+	// å¦‚æžœå›¾åƒå¤§å°æœ‰æ”¹å˜ï¼ŒæŠŠè€çš„m_pImageåˆ é™¤æŽ‰
 	if (m_pImage != NULL && (m_pImage->width() != w || m_pImage->height() != h))
 	{
 		delete m_pImage;
@@ -253,9 +253,9 @@ void CKSJSCZDemoMainWindow::ZoomIn(int nClientX, int nClientY)
 {
 	if (m_pImageZoomer != NULL)
 	{
-		// Zoomer½øÐÐÒ»´ÎZoomIn²Ù×÷
+		// Zoomerè¿›è¡Œä¸€æ¬¡ZoomInæ“ä½œ
 		m_pImageZoomer->ZoomIn(nClientX, nClientY);
-		// ¸üÐÂÏÔÊ¾£¬¸üÐÂÏÔÊ¾µÄÊ±ºò»á´ÓZoomerµÃµ½ÔËËãÒÔºóµÄÏÔÊ¾Êý¾Ý
+		// æ›´æ–°æ˜¾ç¤ºï¼Œæ›´æ–°æ˜¾ç¤ºçš„æ—¶å€™ä¼šä»ŽZoomerå¾—åˆ°è¿ç®—ä»¥åŽçš„æ˜¾ç¤ºæ•°æ®
 		this->update();
 	}
 }
@@ -264,9 +264,9 @@ void CKSJSCZDemoMainWindow::ZoomOut(int nClientX, int nClientY)
 {
 	if (m_pImageZoomer != NULL)
 	{
-		// Zoomer½øÐÐÒ»´ÎZoomOut²Ù×÷
+		// Zoomerè¿›è¡Œä¸€æ¬¡ZoomOutæ“ä½œ
 		m_pImageZoomer->ZoomOut(nClientX, nClientY);
-		// ¸üÐÂÏÔÊ¾£¬¸üÐÂÏÔÊ¾µÄÊ±ºò»á´ÓZoomerµÃµ½ÔËËãÒÔºóµÄÏÔÊ¾Êý¾Ý
+		// æ›´æ–°æ˜¾ç¤ºï¼Œæ›´æ–°æ˜¾ç¤ºçš„æ—¶å€™ä¼šä»ŽZoomerå¾—åˆ°è¿ç®—ä»¥åŽçš„æ˜¾ç¤ºæ•°æ®
 		this->update();
 	}
 }
@@ -275,9 +275,9 @@ void CKSJSCZDemoMainWindow::SetZoomMode(KSJ_ZOOM_MODE mode)
 {
 	if (m_pImageZoomer != NULL)
 	{
-		// Zoomer½øÐÐÄ£Ê½¸Ä±ä
+		// Zoomerè¿›è¡Œæ¨¡å¼æ”¹å˜
 		m_pImageZoomer->SetZoomMode(mode);
-		// ¸üÐÂÏÔÊ¾£¬¸üÐÂÏÔÊ¾µÄÊ±ºò»á´ÓZoomerµÃµ½ÔËËãÒÔºóµÄÏÔÊ¾Êý¾Ý
+		// æ›´æ–°æ˜¾ç¤ºï¼Œæ›´æ–°æ˜¾ç¤ºçš„æ—¶å€™ä¼šä»ŽZoomerå¾—åˆ°è¿ç®—ä»¥åŽçš„æ˜¾ç¤ºæ•°æ®
 		this->update();
 	}
 }
@@ -286,7 +286,7 @@ void CKSJSCZDemoMainWindow::mousePressEvent(QMouseEvent * e)
 {
 	if (e->button() == Qt::LeftButton)
 	{
-		// ×ó¼ü°´ÏÂ£¬¼ÇÂ¼Î»ÖÃ
+		// å·¦é”®æŒ‰ä¸‹ï¼Œè®°å½•ä½ç½®
 		m_ptLastMouse = e->pos();
 	}
 }
@@ -300,16 +300,16 @@ void CKSJSCZDemoMainWindow::mouseReleaseEvent(QMouseEvent * e)
 
 void CKSJSCZDemoMainWindow::mouseMoveEvent(QMouseEvent * e)
 {
-	// Êó±ê×ó¼üÒÆ¶¯
+	// é¼ æ ‡å·¦é”®ç§»åŠ¨
 	if (!(e->buttons()&Qt::RightButton) && (e->buttons() == Qt::LeftButton))
 	{
 		if (m_pImageZoomer != NULL)
 		{
-			// ¸æËßZoomer½øÐÐÒÆ¶¯ÔËËã
+			// å‘Šè¯‰Zoomerè¿›è¡Œç§»åŠ¨è¿ç®—
 			m_pImageZoomer->Move(e->pos().x() - m_ptLastMouse.x(), e->pos().y() - m_ptLastMouse.y());
-			// ¸üÐÂ¹ö¶¯Ìõ
+			// æ›´æ–°æ»šåŠ¨æ¡
 			ResetScrollerInfo();
-			// ¸üÐÂÏÔÊ¾£¬¸üÐÂÏÔÊ¾µÄÊ±ºò»á´ÓZoomerµÃµ½ÔËËãÒÔºóµÄÏÔÊ¾Êý¾Ý
+			// æ›´æ–°æ˜¾ç¤ºï¼Œæ›´æ–°æ˜¾ç¤ºçš„æ—¶å€™ä¼šä»ŽZoomerå¾—åˆ°è¿ç®—ä»¥åŽçš„æ˜¾ç¤ºæ•°æ®
 			update();
 		}
 	}
@@ -324,14 +324,14 @@ void CKSJSCZDemoMainWindow::mouseMoveEvent(QMouseEvent * e)
 
 void CKSJSCZDemoMainWindow::mouseDoubleClickEvent(QMouseEvent * e)
 {
-	// ÓÒ¼üË«»÷£¬°ÑÄ£Ê½¸ÄÎª×ÔÊÊÓ¦
-	if (e->button() == Qt::RightButton)   //ÓÒ¼üË«»÷
+	// å³é”®åŒå‡»ï¼ŒæŠŠæ¨¡å¼æ”¹ä¸ºè‡ªé€‚åº”
+	if (e->button() == Qt::RightButton)   //å³é”®åŒå‡»
 	{
-		// Ä£Ê½¸ÄÎª×ÔÊÊÓ¦
+		// æ¨¡å¼æ”¹ä¸ºè‡ªé€‚åº”
 		m_pImageZoomer->SetZoomMode(ZM_FITIMG);
-		// ¸üÐÂ¹ö¶¯Ìõ
+		// æ›´æ–°æ»šåŠ¨æ¡
 		ResetScrollerInfo();
-		// ¸üÐÂÏÔÊ¾£¬¸üÐÂÏÔÊ¾µÄÊ±ºò»á´ÓZoomerµÃµ½ÔËËãÒÔºóµÄÏÔÊ¾Êý¾Ý
+		// æ›´æ–°æ˜¾ç¤ºï¼Œæ›´æ–°æ˜¾ç¤ºçš„æ—¶å€™ä¼šä»ŽZoomerå¾—åˆ°è¿ç®—ä»¥åŽçš„æ˜¾ç¤ºæ•°æ®
 		update();
 	}
 }
@@ -340,14 +340,14 @@ void CKSJSCZDemoMainWindow::wheelEvent(QWheelEvent * event)
 {
 	if (event->delta() > 0)
 	{
-		// ÏòÉÏ¹ö¶¯½øÐÐÒ»´ÎZoomIn²Ù×÷
+		// å‘ä¸Šæ»šåŠ¨è¿›è¡Œä¸€æ¬¡ZoomInæ“ä½œ
 		ZoomIn(event->x(), event->y());
 		ResetScrollerInfo();
 		update();
 	}
 	else
 	{
-		// ÏòÏÂ¹ö¶¯½øÐÐÒ»´ÎZoomOut²Ù×÷
+		// å‘ä¸‹æ»šåŠ¨è¿›è¡Œä¸€æ¬¡ZoomOutæ“ä½œ
 		ZoomOut(event->x(), event->y());
 		ResetScrollerInfo();
 		update();
@@ -356,17 +356,17 @@ void CKSJSCZDemoMainWindow::wheelEvent(QWheelEvent * event)
 
 void CKSJSCZDemoMainWindow::ResetScrollerInfo()
 {
-	// ÉèÖÃ¹ö¶¯Ìõ
+	// è®¾ç½®æ»šåŠ¨æ¡
 	if (m_pImageZoomer != NULL)
 	{
 		int x, y, w, h, dx, dy;
 
-		// µÃµ½µ±Ç°Í¼ÏñÒÆ¶¯µÄÁãµãÎ»ÖÃ
+		// å¾—åˆ°å½“å‰å›¾åƒç§»åŠ¨çš„é›¶ç‚¹ä½ç½®
 		m_pImageZoomer->GetOffset(dx, dy);
-		// µÃµ½Ëõ·ÅÒÔºóÍ¼ÏñµÄÎ»ÖÃÐÅÏ¢ 
+		// å¾—åˆ°ç¼©æ”¾ä»¥åŽå›¾åƒçš„ä½ç½®ä¿¡æ¯ 
 		m_pImageZoomer->GetImageShowPosition(x, y, w, h);
 
-		// ÉèÖÃ¹ö¶¯Ìõ£¬¹ö¶¯ÌõµÄ·¶Î§¾ÍÊÇ0µ½£¬Í¼Ïñ´óÐ¡¼õÈ¥ÏÔÊ¾ÇøÓòµÄ´óÐ¡
+		// è®¾ç½®æ»šåŠ¨æ¡ï¼Œæ»šåŠ¨æ¡çš„èŒƒå›´å°±æ˜¯0åˆ°ï¼Œå›¾åƒå¤§å°å‡åŽ»æ˜¾ç¤ºåŒºåŸŸçš„å¤§å°
 		if (w > m_rcClient.width()) ui->HorizontalScrollBar->setRange(0, w - m_rcClient.width());
 		else ui->HorizontalScrollBar->setRange(0, 0);
 
@@ -386,7 +386,7 @@ void CKSJSCZDemoMainWindow::ResetScrollerInfo()
 
 void CKSJSCZDemoMainWindow::OnVerScrollbar(int value)
 {
-	// ´¹Ö±¹ö¶¯ÌõÒÆ¶¯£¬ËùÒÔÖ»¸Ä±äy·½ÏòµÄ£¬¹ö¶¯ÌõµÄÖµ¾ÍÊÇÍ¼ÏñµÄÎ»ÒÆÁ¿value
+	// åž‚ç›´æ»šåŠ¨æ¡ç§»åŠ¨ï¼Œæ‰€ä»¥åªæ”¹å˜yæ–¹å‘çš„ï¼Œæ»šåŠ¨æ¡çš„å€¼å°±æ˜¯å›¾åƒçš„ä½ç§»é‡value
 	int x, y;
 	m_pImageZoomer->GetOffset(x,y);
 	m_pImageZoomer->SetOffset(x, -value);

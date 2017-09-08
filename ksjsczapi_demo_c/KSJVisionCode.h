@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * KSJVisionCode.h
  *
  *  Created on: 2016-10-24
@@ -9,11 +9,11 @@
 #define KSJVISIONCODE_H_
 
 
-// º¯Êý·µ»ØÖµ¶¨Òå
-#define KSJVISION_SUCCESS     0				// º¯ÊýÖ´ÐÐ³É¹¦
-#define KSJVISION_FAIL        -1			// º¯ÊýÖ´ÐÐÊ§°Ü
-#define KSJVISION_PARAM_ERROR -2            // ²ÎÊý´íÎó
-#define KSJVISION_OVER_RANGE  -3            // ³¬³ö·¶Î§
+// å‡½æ•°è¿”å›žå€¼å®šä¹‰
+#define KSJVISION_SUCCESS     0				// å‡½æ•°æ‰§è¡ŒæˆåŠŸ
+#define KSJVISION_FAIL        -1			// å‡½æ•°æ‰§è¡Œå¤±è´¥
+#define KSJVISION_PARAM_ERROR -2            // å‚æ•°é”™è¯¯
+#define KSJVISION_OVER_RANGE  -3            // è¶…å‡ºèŒƒå›´
 
 
 #endif /* KSJVISIONCODE_H_ */

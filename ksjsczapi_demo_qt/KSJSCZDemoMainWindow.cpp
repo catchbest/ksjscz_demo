@@ -1,4 +1,4 @@
-
+ï»¿
 
 #include <QtGui/QPainter>
 #include <QtGui/QResizeEvent>
@@ -83,6 +83,15 @@ void* ThreadForCaptureData(void *arg)
 
 				KSJSCZ_ShowCaptureData(0, pImageData);
 
+				if (pMainWindow->m_bSaveImages)
+				{
+					char szFileName[260] = { 0 };
+
+					sprintf(szFileName, "/picture/data/%03d.bmp", pMainWindow->m_nCaptureCount % 20);
+
+					KSJSCZ_HelperSaveToBmp(pImageData, nWidth, nHeight, 8, szFileName);
+				}
+
 				KSJSCZ_ReleaseBuffer(0);
 			}
 
@@ -134,6 +143,7 @@ QDialog(parent)
 , m_nGain(128)
 , m_nDelay(0)
 , m_nLastShowTick(-1)
+, m_bSaveImages(false)
 {
 	ui->setupUi(this);
 	setWindowFlags(Qt::FramelessWindowHint);
@@ -152,6 +162,7 @@ QDialog(parent)
 	connect(ui->SetFovPushButton, SIGNAL(clicked()), this, SLOT(OnSetFov()));
 	connect(ui->TriggerDelaySpinBox, SIGNAL(valueChanged(int)), this, SLOT(OnTriggerDelayChanged(int)));
 	connect(ui->BarcodeParsingCheckBox, SIGNAL(stateChanged(int)), this, SLOT(OnParseBarcodeChkBoxStateChanged(int)));
+	connect(ui->SaveImageCheckBox, SIGNAL(stateChanged(int)), this, SLOT(OnSaveChkBoxStateChanged(int)));
 	connect(ui->MirrorCheckBox, SIGNAL(stateChanged(int)), this, SLOT(OnMirrorChkBoxStateChanged(int)));
 	connect(ui->FlipCheckBox, SIGNAL(stateChanged(int)), this, SLOT(OnFlipChkBoxStateChanged(int)));
 
@@ -182,6 +193,10 @@ QDialog(parent)
 	ui->BarcodeParsingCheckBox->blockSignals(true);
 	ui->BarcodeParsingCheckBox->setCheckState(m_bParseZbarDemo ? Qt::Checked : Qt::Unchecked);
 	ui->BarcodeParsingCheckBox->blockSignals(false);
+
+	ui->SaveImageCheckBox->blockSignals(true);
+	ui->SaveImageCheckBox->setCheckState(m_bSaveImages ? Qt::Checked : Qt::Unchecked);
+	ui->SaveImageCheckBox->blockSignals(false);
 
 	ui->TriggerModeComBox->blockSignals(true);
 	ui->TriggerModeComBox->addItem("Software Command Continue");
@@ -517,6 +532,12 @@ void CKSJSCZDemoMainWindow::OnParseBarcodeChkBoxStateChanged(int value)
 	m_bParseZbarDemo = (value == Qt::Checked);
 }
 
+
+void CKSJSCZDemoMainWindow::OnSaveChkBoxStateChanged(int value)
+{
+	m_bSaveImages = (value == Qt::Checked);
+}
+
 void CKSJSCZDemoMainWindow::OnExpLinesChanged(int value)
 {
 	m_nExpLines = value;
@@ -832,12 +853,6 @@ void CKSJSCZDemoMainWindow::ParseZbar(unsigned char *pData, int nWidth, int nHei
 		++m_nParseZbarFailedCount;
 	}
 
-	//char szFileName[260] = { 0 };
-
-	//sprintf(szFileName, "/picture/data/%03d.bmp", m_nParseZbarFailedCount % 20);
-
-	//KSJSCZ_HelperSaveToBmp(pData, nWidth, nHeight, 8, szFileName);
-
 	ui->StaticText_Zbar->setText(strZbars);
 }
 
@@ -860,7 +875,7 @@ void CKSJSCZDemoMainWindow::OnTimerFrameRate()
 		m_ucLedShineValue += 1;
 		if (m_ucLedShineValue >= 4) m_ucLedShineValue = 0;
 
-		// ÕâÁ½¸öµÆµÄºìÂÌË³ĞòÏà·´
+		// è¿™ä¸¤ä¸ªç¯çš„çº¢ç»¿é¡ºåºç›¸å
 		if (m_bALedShine)
 		{
 			KSJSCZ_GpioSet(6, m_ucLedShineValue & 0x2);

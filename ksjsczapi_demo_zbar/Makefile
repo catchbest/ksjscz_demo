@@ -44,7 +44,7 @@ LIBS          = $(SUBLIBS)  -L../ksjsczapi_lib \
 -lopencv_features2d  -lopencv_objdetect  -lopencv_video \
 -lopencv_flann  -lopencv_photo  -lopencv_videostab \
 -lopencv_highgui  -lopencv_shape \
--lopencv_imgcodecs  -lopencv_stitching -lksjscz -lzbar -ljpeg -ldl \
+-lopencv_imgcodecs  -lopencv_stitching -lksjscz -lzbar -ljpeg -lksjcom -ldl \
 
 
 AR            = arm-linux-gnueabihf-ar cqs

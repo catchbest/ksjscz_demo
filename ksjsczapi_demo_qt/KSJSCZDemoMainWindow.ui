@@ -972,6 +972,19 @@
      <string>Barcode Parsing</string>
     </property>
    </widget>
+   <widget class="QCheckBox" name="SaveImageCheckBox">
+    <property name="geometry">
+     <rect>
+      <x>276</x>
+      <y>324</y>
+      <width>121</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Save at /picture.</string>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources/>

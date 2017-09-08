@@ -1,4 +1,4 @@
-#ifndef __KSJSCZDEMO_MAINWINDOW_H_
+﻿#ifndef __KSJSCZDEMO_MAINWINDOW_H_
 #define __KSJSCZDEMO_MAINWINDOW_H_
 
 #include "QtCore/QTimer"

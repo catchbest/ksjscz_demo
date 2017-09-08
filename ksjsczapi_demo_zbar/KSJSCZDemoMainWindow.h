@@ -1,4 +1,4 @@
-#ifndef __KSJSCZDEMO_MAINWINDOW_H_
+ï»¿#ifndef __KSJSCZDEMO_MAINWINDOW_H_
 #define __KSJSCZDEMO_MAINWINDOW_H_
 
 #include "QtCore/QTimer"
@@ -104,12 +104,12 @@ protected:
 	unsigned long m_nCaptureInterruptThreadId;
 
 protected:
-	int m_nVideoWidgetLeft;      // Í¼ÏñÏÔÊ¾µÄWidgetÎ»ÖÃ
+	int m_nVideoWidgetLeft;      // å›¾åƒæ˜¾ç¤ºçš„Widgetä½ç½®
 	int m_nVideoWidgetTop;
 	int m_nVideoWidgetWidth;
 	int m_nVideoWidgetHeight;
 
-	int m_nImagePositionLeft;      // Í¼ÏñÏà¶ÔVideoWidgetµÄÎ»ÖÃ
+	int m_nImagePositionLeft;      // å›¾åƒç›¸å¯¹VideoWidgetçš„ä½ç½®
 	int m_nImagePositionTop;
 	int m_nImagePositionWidth;
 	int m_nImagePositionHeight;

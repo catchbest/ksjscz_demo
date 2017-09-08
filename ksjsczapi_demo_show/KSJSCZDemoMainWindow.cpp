@@ -1,4 +1,4 @@
-
+﻿
 
 #include <QtGui/QPainter>
 #include <QtGui/QResizeEvent>
@@ -36,13 +36,17 @@ void* ThreadForCaptureData(void *arg)
 		{
 			int nWidth, nHeight, nBitCount;
 
+			// 得到图像的大小信息，和初始化的时候KSJSCZ_SetCaptureFieldOfView函数设置有关
 			KSJSCZ_GetCaptureSize(0, &nWidth, &nHeight, &nBitCount);
 
 			unsigned char *pImageData = NULL;
 
+			// 采集图像
 			if (KSJSCZ_ERR_SUCCESS == KSJSCZ_CaptureData(0, &pImageData))
 			{
+				// 采集图像以后，将内存数据转换成QImage数据,这样pImageData的数据就被转移到QImage里面，以后可以自己进行算法操作
 				pMainWindow->CaptureData(pImageData, nWidth, nHeight, nBitCount);
+				// 读取图像以后，一定要KSJSCZ_ReleaseBuffer，这样FPGA就把这个内存清空，可以重新将图像采集到这个内存区
 				KSJSCZ_ReleaseBuffer(0);
 			}
 		}
@@ -76,17 +80,22 @@ QDialog(parent)
 
 	m_pImageZoomer = new CKSJVBImageZoom();
 
+	// 建立信号和槽的关联
 	connect(ui->StartCapturePushButton, SIGNAL(clicked()), this, SLOT(OnStartCapture()));
 	connect(ui->StopCapturePushButton, SIGNAL(clicked()), this, SLOT(OnStopCapture()));
 
 	ui->StartCapturePushButton->setEnabled(!m_bIsCapturing);
 	ui->StopCapturePushButton->setEnabled(m_bIsCapturing);
 
+	// 设置图像显示的区域
 	m_rcClient.setRect(0, 0, DEFAULT_WND_WIDTH, DEFAULT_WND_HEIGHT);
+	// 告诉Zoomer计算器，图像显示区域的大小
 	m_pImageZoomer->SetClientSize(DEFAULT_WND_WIDTH, DEFAULT_WND_HEIGHT);
 
+	// 初始化
 	int nRet = KSJSCZ_Init();
 	
+	// 申请一块显示内存
 	m_nVideoMemorySize = 1280 * 1024 * 3;
 
 	if (KSJSCZ_Malloc(m_nVideoMemorySize, &m_pVideoMemory) != KSJSCZ_ERR_SUCCESS)
@@ -94,10 +103,11 @@ QDialog(parent)
 		m_pVideoMemory = NULL;
 		m_nVideoMemorySize = 0;
 	}
-
+	// 设置增益和曝光,这个根据实际情况设置
 	nRet = KSJSCZ_SetGain(0, 128);
 	nRet = KSJSCZ_SetExposureLines(0, 500);
 
+    // 设置显示位置
 	nRet = KSJSCZ_SetVideoWidgetPos(0, 0, 0, DEFAULT_WND_WIDTH, DEFAULT_WND_HEIGHT);
 	nRet = KSJSCZ_SetPosition(0, 0, 0, DEFAULT_WND_WIDTH, DEFAULT_WND_HEIGHT);
 	nRet = KSJSCZ_SetCaptureFieldOfView(0, 0, 0, 1280, 1024);
@@ -136,6 +146,7 @@ void CKSJSCZDemoMainWindow::paintEvent(QPaintEvent *)
 
 	if (m_pVideoMemory != NULL && m_nImageWidth > 0 && m_nImageHeight > 0 && m_nImageBitCount > 0)
 	{
+		// 图像大小改变或者初始状态，需要把图像大小给Zommer
 		if (m_nImageLastWidth != m_nImageWidth || m_nImageLastHeight != m_nImageHeight)
 		{
 			m_pImageZoomer->SetImageSize(m_nImageWidth, m_nImageHeight);
@@ -144,6 +155,7 @@ void CKSJSCZDemoMainWindow::paintEvent(QPaintEvent *)
 			m_nImageLastHeight = m_nImageHeight;
 		}
 
+		// 取得图像的显示位置信息
 		int nX, nY, nW, nH;
 		m_pImageZoomer->GetImageShowPosition(nX, nY, nW, nH);
 
@@ -187,6 +199,7 @@ int CKSJSCZDemoMainWindow::KillCaptureThread()
 
 void CKSJSCZDemoMainWindow::OnStartCapture()
 {
+	// 开始采集
 	m_bIsCapturing = true;
 
 	ui->StartCapturePushButton->setEnabled(!m_bIsCapturing);
@@ -195,6 +208,7 @@ void CKSJSCZDemoMainWindow::OnStartCapture()
 
 void CKSJSCZDemoMainWindow::OnStopCapture()
 {
+	// 停止采集
 	m_bIsCapturing = false;
 
 	ui->StartCapturePushButton->setEnabled(!m_bIsCapturing);
@@ -245,8 +259,9 @@ void CKSJSCZDemoMainWindow::ZoomIn(int nClientX, int nClientY)
 {
 	if (m_pImageZoomer != NULL)
 	{
+		// Zoomer进行一次ZoomIn操作
 		m_pImageZoomer->ZoomIn(nClientX, nClientY);
-
+		// 更新显示，更新显示的时候会从Zoomer得到运算以后的显示数据
 		this->update();
 	}
 }
@@ -255,8 +270,9 @@ void CKSJSCZDemoMainWindow::ZoomOut(int nClientX, int nClientY)
 {
 	if (m_pImageZoomer != NULL)
 	{
+		// Zoomer进行一次ZoomOut操作
 		m_pImageZoomer->ZoomOut(nClientX, nClientY);
-
+		// 更新显示，更新显示的时候会从Zoomer得到运算以后的显示数据
 		this->update();
 	}
 }
@@ -265,8 +281,9 @@ void CKSJSCZDemoMainWindow::SetZoomMode(KSJ_ZOOM_MODE mode)
 {
 	if (m_pImageZoomer != NULL)
 	{
+		// Zoomer进行模式改变
 		m_pImageZoomer->SetZoomMode(mode);
-
+		// 更新显示，更新显示的时候会从Zoomer得到运算以后的显示数据
 		this->update();
 	}
 }
@@ -275,6 +292,7 @@ void CKSJSCZDemoMainWindow::mousePressEvent(QMouseEvent * e)
 {
 	if (e->button() == Qt::LeftButton)
 	{
+		// 左键按下，记录位置
 		m_ptLastMouse = e->pos();
 	}
 }
@@ -288,12 +306,15 @@ void CKSJSCZDemoMainWindow::mouseReleaseEvent(QMouseEvent * e)
 
 void CKSJSCZDemoMainWindow::mouseMoveEvent(QMouseEvent * e)
 {
+	// 鼠标左键移动
 	if (!(e->buttons()&Qt::RightButton) && (e->buttons() == Qt::LeftButton))
 	{
 		if (m_pImageZoomer != NULL)
 		{
+			// 告诉Zoomer进行移动运算
 			m_pImageZoomer->Move(e->pos().x() - m_ptLastMouse.x(), e->pos().y() - m_ptLastMouse.y());
 
+			// 更新显示，更新显示的时候会从Zoomer得到运算以后的显示数据
 			update();
 		}
 	}
@@ -308,10 +329,13 @@ void CKSJSCZDemoMainWindow::mouseMoveEvent(QMouseEvent * e)
 
 void CKSJSCZDemoMainWindow::mouseDoubleClickEvent(QMouseEvent * e)
 {
-	if (e->button() == Qt::RightButton)   //�Ҽ�˫��
+	// 右键双击，把模式改为自适应
+	if (e->button() == Qt::RightButton)   //右键双击
 	{
+		// 模式改为自适应
 		m_pImageZoomer->SetZoomMode(ZM_FITIMG);
 
+		// 更新显示，更新显示的时候会从Zoomer得到运算以后的显示数据
 		update();
 	}
 }
@@ -320,11 +344,13 @@ void CKSJSCZDemoMainWindow::wheelEvent(QWheelEvent * event)
 {
 	if (event->delta() > 0)
 	{
+		// 向上滚动进行一次ZoomIn操作
 		ZoomIn(event->x(), event->y());
 		update();
 	}
 	else
 	{
+		// 向下滚动进行一次ZoomOut操作
 		ZoomOut(event->x(), event->y());
 		update();
 	}

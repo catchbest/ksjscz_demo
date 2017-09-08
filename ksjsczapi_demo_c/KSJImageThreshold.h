@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * KSJImageThreshold.h
  *
  *  Created on: 2016-10-24
@@ -9,18 +9,18 @@
 #define KSJIMAGETHRESHOLD_H_
 
 
-// ¶şÖµ»¯Í¼Ïñ
-// nMode = 0Ê±£¬ >= nThresholdµÄÏñËØÎª255£¬ < nThresholdµÄÏñËØÎª0
-// nMode = 1Ê±£¬ >= nThresholdµÄÏñËØÎª0£¬   < nThresholdµÄÏñËØÎª255
-// ½«¸Ä±äpData
+// äºŒå€¼åŒ–å›¾åƒ
+// nMode = 0æ—¶ï¼Œ >= nThresholdçš„åƒç´ ä¸º255ï¼Œ < nThresholdçš„åƒç´ ä¸º0
+// nMode = 1æ—¶ï¼Œ >= nThresholdçš„åƒç´ ä¸º0ï¼Œ   < nThresholdçš„åƒç´ ä¸º255
+// å°†æ”¹å˜pData
 int KSJIMAGE_Y8_ThresholdSingle(unsigned char *pData, int nWidth, int nHeight, int nThreshold, int nMode);
-// Ö»Õë¶ÔAOI½øĞĞ¶şÖµ»¯
+// åªé’ˆå¯¹AOIè¿›è¡ŒäºŒå€¼åŒ–
 int KSJIMAGE_Y8_ThresholdSingle_AOI(unsigned char *pData, int nWidth, int nHeight, int nThreshold, int nMode, int nAoiX, int nAoiY, int nAoiW, int nAoiH);
 
 
-// nMode = 0Ê±£¬ >= nThresholdLow && <= nThresholdHigµÄÏñËØÎª255£¬ÆäËûÎª0
-// nMode = 1Ê±£¬ >= nThresholdLow && <= nThresholdHigµÄÏñËØÎª0£¬ÆäËûÎª255
-// ½«¸Ä±äpData
+// nMode = 0æ—¶ï¼Œ >= nThresholdLow && <= nThresholdHigçš„åƒç´ ä¸º255ï¼Œå…¶ä»–ä¸º0
+// nMode = 1æ—¶ï¼Œ >= nThresholdLow && <= nThresholdHigçš„åƒç´ ä¸º0ï¼Œå…¶ä»–ä¸º255
+// å°†æ”¹å˜pData
 int KSJIMAGE_Y8_ThresholdDouble(unsigned char *pData, int nWidth, int nHeight, int nThresholdLow, int nThresholdHig, int nMode);
 int KSJIMAGE_Y8_ThresholdDouble_AOI(unsigned char *pData, int nWidth, int nHeight, int nThresholdLow, int nThresholdHig, int nMode, int nAoiX, int nAoiY, int nAoiW, int nAoiH);
 
