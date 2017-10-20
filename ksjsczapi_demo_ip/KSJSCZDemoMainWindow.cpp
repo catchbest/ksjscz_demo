@@ -37,7 +37,7 @@
 
 
 // 中断驱动文件 系统预留给用户的中断
-#define DEVICE_INTERRUPT_FILE "ksj_feedback_0"
+#define DEVICE_INTERRUPT_FILE "/dev/ksj_feedback_0"
 
 
 
@@ -67,7 +67,7 @@ bool WaitIpInterrupt(unsigned int nTimeoutMS)
 	if ((nSelRet > 0) && FD_ISSET(nFdInterrupt, &fsRead))
 	{
 		// 如果等到中断，可以读取文件查看返回中断的内容
-		/*
+		
 		char szBuffer[9] = { 0 };
 		int nLen = read(nFdInterrupt, szBuffer, 8);
 
@@ -75,7 +75,7 @@ bool WaitIpInterrupt(unsigned int nTimeoutMS)
 		{
 			// 用szBuffer分别与， "33" "34" "35" "36" "37" "38" 作比较，可以知道返回中断的序号
 		}
-		*/
+		
 		bInterrupted = true;
 	}
 
@@ -281,8 +281,6 @@ void CKSJSCZDemoMainWindow::OnStopCapture()
 
 void CKSJSCZDemoMainWindow::CaptureData(unsigned char* pImage, int w, int h, int bitcount)
 {
-	m_nImageWidth = w;
-	m_nImageHeight = h;
 	m_nImageBitCount = bitcount;
 
 	if (m_nVideoMemorySize < (w*h*bitcount/8))
@@ -315,23 +313,31 @@ void CKSJSCZDemoMainWindow::CaptureData(unsigned char* pImage, int w, int h, int
 			KSJSCZ_WrRegUserVDMA(0, 0, 4);
 			KSJSCZ_WrRegUserVDMA(0, 0, 8);
 			KSJSCZ_WrRegUserVDMADataAddr(0, 0x5c, m_pTempMemory);
-			KSJSCZ_WrRegUserVDMA(0, 0x54, m_nImageWidth);
-			KSJSCZ_WrRegUserVDMA(0, 0x58, m_nImageWidth);
+			KSJSCZ_WrRegUserVDMA(0, 0x54, w);
+			KSJSCZ_WrRegUserVDMA(0, 0x58, w);
 			KSJSCZ_WrRegUserVDMA(0, 0, 0x0b);
-			KSJSCZ_WrRegUserVDMA(0, 0x50, m_nImageHeight);
-			// 设置输出参数
-			KSJSCZ_WrRegUserVDMA(0, 0x30, 4);
-			KSJSCZ_WrRegUserVDMA(0, 0x30, 8);
-			KSJSCZ_WrRegUserVDMADataAddr(0, 0xac, m_pVideoMemory);
-			KSJSCZ_WrRegUserVDMA(0, 0xa4, m_nImageWidth);
-			KSJSCZ_WrRegUserVDMA(0, 0xa8, m_nImageWidth);
-			KSJSCZ_WrRegUserVDMA(0, 0x30, 0x1017003);        // 设置成中断模式
-			KSJSCZ_WrRegUserVDMA(0, 0xa0, m_nImageHeight);
-			// 设置FastX参数
-			KSJSCZ_WrUserRegFPGA(0xB4, m_nThresholdValue);
+			KSJSCZ_WrRegUserVDMA(0, 0x50, h);
+
+			if (m_nImageWidth != w || m_nImageHeight != h)
+			{
+				m_nImageWidth = w;
+				m_nImageHeight = h;
+				// 设置输出参数
+				KSJSCZ_WrRegUserVDMA(0, 0x30, 4);
+				KSJSCZ_WrRegUserVDMA(0, 0x30, 8);
+				KSJSCZ_WrRegUserVDMADataAddr(0, 0xac, m_pVideoMemory);
+				KSJSCZ_WrRegUserVDMA(0, 0xa4, w);
+				KSJSCZ_WrRegUserVDMA(0, 0xa8, w);
+				KSJSCZ_WrRegUserVDMA(0, 0x30, 0x1017003);        // 设置成中断模式
+				KSJSCZ_WrRegUserVDMA(0, 0xa0, h);
+			}
 
 			//* 消中断标志
 			KSJSCZ_WrRegUserVDMA(0, 0x34, 0x1000);
+			// 设置FastX参数
+			KSJSCZ_WrUserRegFPGA(0xB4, m_nThresholdValue);
+			usleep(2);
+
 
 			// 触发运算
 			KSJSCZ_WrUserRegFPGA(0x94,0x00010000);
@@ -340,17 +346,14 @@ void CKSJSCZDemoMainWindow::CaptureData(unsigned char* pImage, int w, int h, int
 			{
 				printf(" ==== OK ====\r\n");
 			}
-			else
-			{
-				printf(" ==== Time out ====\r\n");
-			}
+			else printf(" ==== Time out ====\r\n");
 		}
 		else
 		{
 			memcpy(m_pVideoMemory, pImage, w*h);
 		}	
 
-		KSJSCZ_ShowUserLoadData(0, m_pVideoMemory, m_nImageWidth, m_nImageHeight, m_nImageBitCount);
+		KSJSCZ_ShowUserLoadData(0, m_pVideoMemory, w, h, m_nImageBitCount);
 	}
 }
 
