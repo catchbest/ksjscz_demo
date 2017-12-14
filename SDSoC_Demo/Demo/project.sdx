@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="ASCII"?>
+<sdsproject:SDSProject xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:sdsproject="http://www.xilinx.com/sdsproject" name="Demo" location="E:/Work/013/SDSoCworkspace/Demo" platform="xilinx.com:zc7015:zc7015:1.0" sysConfig="config0_a9" runtime="C/C++" cpu="a9_0" os="linux" ConfigType="Debug">
+  <configuration name="Debug" id="com.xilinx.sdsoc.managedbuild.project.debug.485740550">
+    <configBuildOptions xsi:type="sdsproject:Option" insertapm="false" genbitstream="true" gensdcard="true" dmclkid="1" enableHwSwTrace="false" traceApplication="false" genEmulationModel="false">
+      <accelerator name="otsuthreshold_accel" filepath="src/xf_AutoThreshold_accel.cpp" clkid="0" location="E:/Work/013/SDSoCworkspace/Demo/src/xf_AutoThreshold_accel.cpp"/>
+      <accelerator name="threshold_accel" filepath="src/xf_AutoThreshold_accel.cpp" clkid="1" location="E:/Work/013/SDSoCworkspace/Demo/src/xf_AutoThreshold_accel.cpp"/>
+    </configBuildOptions>
+    <lastBuildOptions xsi:type="sdsproject:Option" insertapm="false" genbitstream="true" gensdcard="true" dmclkid="1" enableHwSwTrace="false" traceApplication="false" genEmulationModel="false">
+      <accelerator name="otsuthreshold_accel" filepath="src/xf_AutoThreshold_accel.cpp" clkid="0" location="E:/Work/013/SDSoCworkspace/Demo/src/xf_AutoThreshold_accel.cpp"/>
+      <accelerator name="threshold_accel" filepath="src/xf_AutoThreshold_accel.cpp" clkid="1" location="E:/Work/013/SDSoCworkspace/Demo/src/xf_AutoThreshold_accel.cpp"/>
+    </lastBuildOptions>
+  </configuration>
+  <configuration name="Release" id="com.xilinx.sdsoc.managedbuild.project.release.1886680620">
+    <configBuildOptions xsi:type="sdsproject:Option" insertapm="false" genbitstream="true" gensdcard="true" dmclkid="1" enableHwSwTrace="false" traceApplication="false" genEmulationModel="false"/>
+    <lastBuildOptions xsi:type="sdsproject:Option" insertapm="false" genbitstream="true" gensdcard="true" dmclkid="1" enableHwSwTrace="false" traceApplication="false" genEmulationModel="false"/>
+  </configuration>
+</sdsproject:SDSProject>

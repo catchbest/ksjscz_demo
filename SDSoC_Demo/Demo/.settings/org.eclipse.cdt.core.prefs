@@ -1,0 +1,13 @@
+//showInclude\:D\:/Software/opencv/build/include=false
+//showInclude\:D\:/Xilinx/SDx/2017.2/SDK/gnu/aarch32/nt/gcc-arm-linux-gnueabi/arm-linux-gnueabihf/include=false
+//showInclude\:D\:/Xilinx/SDx/2017.2/SDK/gnu/aarch32/nt/gcc-arm-linux-gnueabi/arm-linux-gnueabihf/include/c++/6.2.1=false
+//showInclude\:D\:/Xilinx/SDx/2017.2/SDK/gnu/aarch32/nt/gcc-arm-linux-gnueabi/arm-linux-gnueabihf/include/c++/6.2.1/arm-linux-gnueabihf=false
+//showInclude\:D\:/Xilinx/SDx/2017.2/SDK/gnu/aarch32/nt/gcc-arm-linux-gnueabi/arm-linux-gnueabihf/include/c++/6.2.1/backward=false
+//showInclude\:D\:/Xilinx/SDx/2017.2/SDK/gnu/aarch32/nt/gcc-arm-linux-gnueabi/arm-linux-gnueabihf/libc/usr/include=false
+//showInclude\:D\:/Xilinx/SDx/2017.2/SDK/gnu/aarch32/nt/gcc-arm-linux-gnueabi/lib/gcc/arm-linux-gnueabihf/6.2.1/include=false
+//showInclude\:D\:/Xilinx/SDx/2017.2/SDK/gnu/aarch32/nt/gcc-arm-linux-gnueabi/lib/gcc/arm-linux-gnueabihf/6.2.1/include-fixed=false
+//showInclude\:D\:/Xilinx/SDx/2017.2/Vivado_HLS/include=false
+//showInclude\:D\:/Xilinx/SDx/2017.2/target/aarch32-linux/include=false
+//showInclude\:E\:/Work/013/xfopencv/include=false
+//showInclude\:E\:/Work/101/git.ksjscz_demo/ksjsczapi_include=false
+eclipse.preferences.version=1
