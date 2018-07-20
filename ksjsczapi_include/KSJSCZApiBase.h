@@ -57,24 +57,24 @@ KSJSCZ_API KSJSCZ_UnInit( );
 
 KSJSCZ_API KSJSCZ_GetSensorNum( int *pnSensorNum );
 KSJSCZ_API KSJSCZ_GetSensorType(int nSensorIndex, enum KSJSCZ_SENSOR_TYPE *pSensorType);
-KSJSCZ_API KSJSCZ_GetDeviceInformation(int nSensorIndex, enum KSJSCZ_DEVICE_TYPE *pDeviceType, unsigned long *pulPLVersion);
+KSJSCZ_API KSJSCZ_GetDeviceInformation(int nSensorIndex, enum KSJSCZ_DEVICE_TYPE *pDeviceType, unsigned int *pulPLVersion);
 
-KSJSCZ_API KSJSCZ_GetCaptureFieldOfViewRange( int nSensorIndex, unsigned long *pulColSizeMin, unsigned long *pulRowSizeMin, unsigned long *pulColSizeMax, unsigned long *pulRowSizeMax);
-KSJSCZ_API KSJSCZ_SetCaptureFieldOfView(int nSensorIndex, unsigned long ulColStart, unsigned long ulRowStart, unsigned long ulColSize, unsigned long ulRowSize);
-KSJSCZ_API KSJSCZ_GetCaptureFieldOfView(int nSensorIndex, unsigned long *pulColStart, unsigned long *pulRowStart, unsigned long *pulColSize, unsigned long *pulRowSize);
+KSJSCZ_API KSJSCZ_GetCaptureFieldOfViewRange( int nSensorIndex, unsigned int *pulColSizeMin, unsigned int *pulRowSizeMin, unsigned int *pulColSizeMax, unsigned int *pulRowSizeMax);
+KSJSCZ_API KSJSCZ_SetCaptureFieldOfView(int nSensorIndex, unsigned int ulColStart, unsigned int ulRowStart, unsigned int ulColSize, unsigned int ulRowSize);
+KSJSCZ_API KSJSCZ_GetCaptureFieldOfView(int nSensorIndex, unsigned int *pulColStart, unsigned int *pulRowStart, unsigned int *pulColSize, unsigned int *pulRowSize);
 KSJSCZ_API KSJSCZ_SetAddressMode(int nSensorIndex, enum KSJ_ADDRESSMODE AddressMode);
 KSJSCZ_API KSJSCZ_GetAddressMode(int nSensorIndex, enum KSJ_ADDRESSMODE *pAddressMode);
 KSJSCZ_API KSJSCZ_GetCaptureSize(int nSensorIndex, int *pnWidth, int *pnHeight, int *pnBitCount);
-KSJSCZ_API KSJSCZ_CaptureSetTimeOut(int nSensorIndex, unsigned long ulTimeOut); // unit is second
+KSJSCZ_API KSJSCZ_CaptureSetTimeOut(int nSensorIndex, unsigned int ulTimeOut); // unit is second
 KSJSCZ_API KSJSCZ_CaptureData(int nSensorIndex, unsigned char **pDataBuffer);
 KSJSCZ_API KSJSCZ_ReleaseBuffer(int nSensorIndex);
 
-KSJSCZ_API KSJSCZ_GetGainRange(int nSensorIndex, unsigned long *pulValueMin, unsigned long *pulValueMax);
-KSJSCZ_API KSJSCZ_SetGain(int nSensorIndex, unsigned long ulValue);
-KSJSCZ_API KSJSCZ_GetGain(int nSensorIndex, unsigned long *pulValue);
-KSJSCZ_API KSJSCZ_GetExposureLinesRange(int nSensorIndex, unsigned long *pulExposureLinesMin, unsigned long *pulExposureLinesMax);
-KSJSCZ_API KSJSCZ_SetExposureLines(int nSensorIndex, unsigned long ulExposureLines);
-KSJSCZ_API KSJSCZ_GetExposureLines(int nSensorIndex, unsigned long *pulExposureLines);
+KSJSCZ_API KSJSCZ_GetGainRange(int nSensorIndex, unsigned int *pulValueMin, unsigned int *pulValueMax);
+KSJSCZ_API KSJSCZ_SetGain(int nSensorIndex, unsigned int ulValue);
+KSJSCZ_API KSJSCZ_GetGain(int nSensorIndex, unsigned int *pulValue);
+KSJSCZ_API KSJSCZ_GetExposureLinesRange(int nSensorIndex, unsigned int *pulExposureLinesMin, unsigned int *pulExposureLinesMax);
+KSJSCZ_API KSJSCZ_SetExposureLines(int nSensorIndex, unsigned int ulExposureLines);
+KSJSCZ_API KSJSCZ_GetExposureLines(int nSensorIndex, unsigned int *pulExposureLines);
 KSJSCZ_API KSJSCZ_GetExposureTimeRange(int nSensorIndex, float *pfExposureTimeMin, float *pfExposureTimeMax);
 KSJSCZ_API KSJSCZ_SetExposureTime(int nSensorIndex, float fExposureTime);
 KSJSCZ_API KSJSCZ_GetExposureTime(int nSensorIndex, float *pfExposureTime);
@@ -84,12 +84,17 @@ KSJSCZ_API KSJSCZ_GetMirror(int nSensorIndex, bool *pbMirror);
 KSJSCZ_API KSJSCZ_SetFlip(int nSensorIndex, bool bFlip);
 KSJSCZ_API KSJSCZ_GetFlip(int nSensorIndex, bool *pbFlip);
 
+KSJSCZ_API KSJSCZ_SetFlicker(int nSensorIndex, unsigned char ucFlicker);
+KSJSCZ_API KSJSCZ_AutoExposure(int nSensorIndex);
+
 KSJSCZ_API KSJSCZ_SetSensorInterruptCode(int nSensorIndex, char* sczInterruptCode);
 
 KSJSCZ_API KSJSCZ_HelperSaveToBmp( unsigned char *pData, int nWidth, int nHeight, int nBitCount, const char *pszFileName );
 
 KSJSCZ_API  KSJSCZ_LogSet(bool bEnable, const char *pszFolder);
 KSJSCZ_API  KSJSCZ_LogGet(bool *pbEnable, char *pszFolder);
+
+
 
 #ifdef __cplusplus
 }

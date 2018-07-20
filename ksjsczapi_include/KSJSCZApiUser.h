@@ -40,17 +40,21 @@
 extern "C" {
 #endif
 
-#include "KSJSczApiDataType.h"
+#include "../../../101/git.KSJSczApi/KSJSczApi.Inc/KSJSczApiDataType.h"
 
 // 读写用户的寄存器
-// 只能操作0x94的bit[16:23]，0xB4,0xB8三个位置的FPGA寄存器
-KSJSCZ_API KSJSCZ_RdUserRegFPGA(unsigned short usRegAddress, unsigned long *pulRegValue);
-KSJSCZ_API KSJSCZ_WrUserRegFPGA(unsigned short usRegAddress, unsigned long ulRegValue);
+// 只能操作0x94的bit[16:23]，0xB4，0xB8，0xBC，0xC0，0xC4，0xC8，0xCC，0xD0，0xD4的FPGA寄存器
+KSJSCZ_API KSJSCZ_RdUserRegFPGA(unsigned short usRegAddress, unsigned int *pulRegValue);
+KSJSCZ_API KSJSCZ_WrUserRegFPGA(unsigned short usRegAddress, unsigned int ulRegValue);
 
-KSJSCZ_API KSJSCZ_RdRegUserVDMA(int nVdmaIndex, unsigned short usRegAddress, unsigned long *pulRegValue);
-KSJSCZ_API KSJSCZ_WrRegUserVDMA(int nVdmaIndex, unsigned short usRegAddress, unsigned long ulRegValue);
+KSJSCZ_API KSJSCZ_RdRegUserVDMA(int nVdmaIndex, unsigned short usRegAddress, unsigned int *pulRegValue);
+KSJSCZ_API KSJSCZ_WrRegUserVDMA(int nVdmaIndex, unsigned short usRegAddress, unsigned int ulRegValue);
 
-KSJSCZ_API KSJSCZ_WrRegUserVDMADataAddr(int nVdmaIndex, unsigned short usRegAddress, unsigned char* pUseDataBuffer);
+KSJSCZ_API KSJSCZ_WrRegUserVDMADataAddr(int nVdmaIndex, unsigned short usRegAddress, unsigned char* pUseDataBuffer);   // will flush user data
+
+KSJSCZ_API KSJSCZ_FlushUserData(unsigned char* pUseDataBuffer, unsigned int len);
+KSJSCZ_API KSJSCZ_WrtieDataAddrToVDMAReg(int nVdmaIndex, unsigned short usRegAddress, unsigned char* pUseDataBuffer);                     // will not flush user data
+KSJSCZ_API KSJSCZ_WrtieFrameAddrToVDMAReg(int nVdmaIndex, unsigned short usRegAddress, int nSensorIndex, unsigned char* pFrameBuffer);    // will not flush frame data
 
 #ifdef __cplusplus
 }

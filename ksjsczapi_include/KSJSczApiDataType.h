@@ -1,6 +1,8 @@
 #ifndef _KSJ_SCZ_API_DATA_TYPE_H__
 #define _KSJ_SCZ_API_DATA_TYPE_H__
 
+#include "../../../101/git.KSJSczApi/KSJApi.inc/KSJApi.h"
+
 #ifndef HANDLE
     typedef void* HANDLE;
 #endif
@@ -24,16 +26,6 @@ enum KSJSCZ_SENSOR_TYPE
 	KSJSCZ_ST_X1200C = 0,
 	KSJSCZ_ST_E130M,
 	KSJSCZ_ST_UNKNOWN = -1
-};
-
-// Skip Mode (Address Mode)
-enum KSJ_ADDRESSMODE
-{
-	KSJ_SKIPNONE = 0,
-	KSJ_SKIP2,
-	KSJ_SKIP3,
-	KSJ_SKIP4,
-	KSJ_SKIP8
 };
 
 // Trigger Mode

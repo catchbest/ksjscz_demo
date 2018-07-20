@@ -47,26 +47,24 @@ KSJSCZ_API  KSJSCZ_EmptyFrameBuffer(int nSensorIndex);
 KSJSCZ_API  KSJSCZ_SetTriggerMode(int nSensorIndex, enum KSJSCZ_TRIGGER_MODE TriggerMode);
 KSJSCZ_API  KSJSCZ_GetTriggerMode(int nSensorIndex, enum KSJSCZ_TRIGGER_MODE *pTriggerMode);
 
-KSJSCZ_API KSJSCZ_SetTriggerCallback(int nSensorIndex, KSJSCZ_TRIGGER_CALLBACK pfTriggerCallback);
+KSJSCZ_API  KSJSCZ_GetTriggerDelayRange(int nSensorIndex, unsigned int *pwMin, unsigned int *pwMax);
+KSJSCZ_API  KSJSCZ_SetTriggerDelay(int nSensorIndex, unsigned int ulDelay);
+KSJSCZ_API  KSJSCZ_GetTriggerDelay(int nSensorIndex, unsigned int *pulDelay);
 
-KSJSCZ_API  KSJSCZ_GetTriggerDelayRange(int nSensorIndex, unsigned long *pwMin, unsigned long *pwMax);
-KSJSCZ_API  KSJSCZ_SetTriggerDelay(int nSensorIndex, unsigned long ulDelay);
-KSJSCZ_API  KSJSCZ_GetTriggerDelay(int nSensorIndex, unsigned long *pulDelay);
+KSJSCZ_API  KSJSCZ_GetFixFrameRate(int nSensorIndex, unsigned int *pulRate);
+KSJSCZ_API  KSJSCZ_SetFixFrameRate(int nSensorIndex, unsigned int ulRate);
 
-KSJSCZ_API  KSJSCZ_GetFixFrameRate(int nSensorIndex, unsigned long *pulRate);
-KSJSCZ_API  KSJSCZ_SetFixFrameRate(int nSensorIndex, unsigned long ulRate);
-
-KSJSCZ_API  KSJSCZ_GetMultiFrameRange(int nSensorIndex, unsigned long *pulMin, unsigned long *pulMax);
-KSJSCZ_API  KSJSCZ_GetMultiFrame(int nSensorIndex, unsigned long *pulValue);
-KSJSCZ_API  KSJSCZ_SetMultiFrame(int nSensorIndex, unsigned long ulValue);
+KSJSCZ_API  KSJSCZ_GetMultiFrameRange(int nSensorIndex, unsigned int *pulMin, unsigned int *pulMax);
+KSJSCZ_API  KSJSCZ_GetMultiFrame(int nSensorIndex, unsigned int *pulValue);
+KSJSCZ_API  KSJSCZ_SetMultiFrame(int nSensorIndex, unsigned int ulValue);
 
 
 KSJSCZ_API  KSJSCZ_GetTriggerFilterRange(int nSensorIndex, unsigned short *pwMin, unsigned short *pwMax);
 KSJSCZ_API  KSJSCZ_GetTriggerFilter(int nSensorIndex, unsigned short *pwFilter); // 配置过滤外触发信号噪声的时间参数
 KSJSCZ_API  KSJSCZ_SetTriggerFilter(int nSensorIndex, unsigned short wFilter);
 
-KSJSCZ_API  KSJSCZ_GetFrameBufNum(int nSensorIndex, unsigned long *pulNumber);
-KSJSCZ_API  KSJSCZ_SetFrameBufNum(int nSensorIndex, unsigned long ulNumber);
+KSJSCZ_API  KSJSCZ_GetFrameBufNum(int nSensorIndex, unsigned int *pulNumber);
+KSJSCZ_API  KSJSCZ_SetFrameBufNum(int nSensorIndex, unsigned int ulNumber);
 
 
 #ifdef __cplusplus

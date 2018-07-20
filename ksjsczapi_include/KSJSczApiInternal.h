@@ -40,8 +40,8 @@ extern "C" {
 
 
 // Internal
-KSJSCZ_API KSJSCZ_RdRegFPGA(int nSensorIndex, unsigned short usRegAddress, unsigned long *pulRegValue);
-KSJSCZ_API KSJSCZ_WrRegFPGA(int nSensorIndex, unsigned short usRegAddress, unsigned long ulRegValue);
+KSJSCZ_API KSJSCZ_RdRegFPGA(int nSensorIndex, unsigned short usRegAddress, unsigned int *pulRegValue);
+KSJSCZ_API KSJSCZ_WrRegFPGA(int nSensorIndex, unsigned short usRegAddress, unsigned int ulRegValue);
 
 
 #ifdef __cplusplus
