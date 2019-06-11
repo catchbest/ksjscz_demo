@@ -1,8 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'KSJSCZDemoMainWindow.ui'
 **
-** Created: Thu Sep 7 18:12:48 2017
-**      by: Qt User Interface Compiler version 4.8.3
+** Created by: Qt User Interface Compiler version 5.7.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -11,14 +10,14 @@
 #define UI_KSJSCZDEMOMAINWINDOW_H
 
 #include <QtCore/QVariant>
-#include <QtGui/QAction>
-#include <QtGui/QApplication>
-#include <QtGui/QButtonGroup>
-#include <QtGui/QDialog>
-#include <QtGui/QHeaderView>
-#include <QtGui/QLabel>
-#include <QtGui/QPushButton>
-#include <QtGui/QScrollBar>
+#include <QtWidgets/QAction>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QDialog>
+#include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QScrollBar>
 
 QT_BEGIN_NAMESPACE
 
@@ -34,23 +33,23 @@ public:
     void setupUi(QDialog *KSJSCZDemoMainWindow)
     {
         if (KSJSCZDemoMainWindow->objectName().isEmpty())
-            KSJSCZDemoMainWindow->setObjectName(QString::fromUtf8("KSJSCZDemoMainWindow"));
+            KSJSCZDemoMainWindow->setObjectName(QStringLiteral("KSJSCZDemoMainWindow"));
         KSJSCZDemoMainWindow->resize(1266, 795);
         StartCapturePushButton = new QPushButton(KSJSCZDemoMainWindow);
-        StartCapturePushButton->setObjectName(QString::fromUtf8("StartCapturePushButton"));
+        StartCapturePushButton->setObjectName(QStringLiteral("StartCapturePushButton"));
         StartCapturePushButton->setGeometry(QRect(1170, 10, 79, 31));
         StopCapturePushButton = new QPushButton(KSJSCZDemoMainWindow);
-        StopCapturePushButton->setObjectName(QString::fromUtf8("StopCapturePushButton"));
+        StopCapturePushButton->setObjectName(QStringLiteral("StopCapturePushButton"));
         StopCapturePushButton->setGeometry(QRect(1170, 60, 79, 31));
         InfoLabel = new QLabel(KSJSCZDemoMainWindow);
-        InfoLabel->setObjectName(QString::fromUtf8("InfoLabel"));
+        InfoLabel->setObjectName(QStringLiteral("InfoLabel"));
         InfoLabel->setGeometry(QRect(1120, 150, 131, 20));
         HorizontalScrollBar = new QScrollBar(KSJSCZDemoMainWindow);
-        HorizontalScrollBar->setObjectName(QString::fromUtf8("HorizontalScrollBar"));
+        HorizontalScrollBar->setObjectName(QStringLiteral("HorizontalScrollBar"));
         HorizontalScrollBar->setGeometry(QRect(1080, 760, 160, 16));
         HorizontalScrollBar->setOrientation(Qt::Horizontal);
         VerticalScrollBar = new QScrollBar(KSJSCZDemoMainWindow);
-        VerticalScrollBar->setObjectName(QString::fromUtf8("VerticalScrollBar"));
+        VerticalScrollBar->setObjectName(QStringLiteral("VerticalScrollBar"));
         VerticalScrollBar->setGeometry(QRect(1140, 460, 16, 160));
         VerticalScrollBar->setOrientation(Qt::Vertical);
 
@@ -61,10 +60,10 @@ public:
 
     void retranslateUi(QDialog *KSJSCZDemoMainWindow)
     {
-        KSJSCZDemoMainWindow->setWindowTitle(QApplication::translate("KSJSCZDemoMainWindow", "Dialog", 0, QApplication::UnicodeUTF8));
-        StartCapturePushButton->setText(QApplication::translate("KSJSCZDemoMainWindow", "Start", 0, QApplication::UnicodeUTF8));
-        StopCapturePushButton->setText(QApplication::translate("KSJSCZDemoMainWindow", "Stop", 0, QApplication::UnicodeUTF8));
-        InfoLabel->setText(QApplication::translate("KSJSCZDemoMainWindow", "....", 0, QApplication::UnicodeUTF8));
+        KSJSCZDemoMainWindow->setWindowTitle(QApplication::translate("KSJSCZDemoMainWindow", "Dialog", Q_NULLPTR));
+        StartCapturePushButton->setText(QApplication::translate("KSJSCZDemoMainWindow", "Start", Q_NULLPTR));
+        StopCapturePushButton->setText(QApplication::translate("KSJSCZDemoMainWindow", "Stop", Q_NULLPTR));
+        InfoLabel->setText(QApplication::translate("KSJSCZDemoMainWindow", "....", Q_NULLPTR));
     } // retranslateUi
 
 };

@@ -1,9 +1,9 @@
 ﻿
 
-#include <QtGui/QPainter>
-#include <QtGui/QResizeEvent>
-#include <QtGui/QScrollBar>
-#include <QtCore/QSettings>
+#include <QPainter>
+#include <QResizeEvent>
+#include <QScrollBar>
+#include <QSettings>
 
 #include "KSJSCZDemoMainWindow.h"
 #include <unistd.h>

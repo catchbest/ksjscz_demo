@@ -1,0 +1,17 @@
+QMAKE_DEFAULT_INCDIRS = \
+    /opt/armgcc/ext-toolchain/arm-linux-gnueabihf/include/c++/4.9.2 \
+    /opt/armgcc/ext-toolchain/arm-linux-gnueabihf/include/c++/4.9.2/arm-linux-gnueabihf \
+    /opt/armgcc/ext-toolchain/arm-linux-gnueabihf/include/c++/4.9.2/backward \
+    /opt/armgcc/ext-toolchain/lib/gcc/arm-linux-gnueabihf/4.9.2/include \
+    /opt/armgcc/ext-toolchain/lib/gcc/arm-linux-gnueabihf/4.9.2/include-fixed \
+    /opt/armgcc/ext-toolchain/arm-linux-gnueabihf/include \
+    /opt/armgcc/ext-toolchain/arm-linux-gnueabihf/libc/usr/include
+QMAKE_DEFAULT_LIBDIRS = \
+    /opt/armgcc/ext-toolchain/lib/gcc/arm-linux-gnueabihf/4.9.2 \
+    /opt/armgcc/ext-toolchain/lib/gcc/arm-linux-gnueabihf \
+    /opt/armgcc/ext-toolchain/lib/gcc \
+    /opt/armgcc/ext-toolchain/arm-linux-gnueabihf/lib \
+    /opt/armgcc/ext-toolchain/arm-linux-gnueabihf/libc/lib/arm-linux-gnueabihf \
+    /opt/armgcc/ext-toolchain/arm-linux-gnueabihf/libc/lib \
+    /opt/armgcc/ext-toolchain/arm-linux-gnueabihf/libc/usr/lib/arm-linux-gnueabihf \
+    /opt/armgcc/ext-toolchain/arm-linux-gnueabihf/libc/usr/lib

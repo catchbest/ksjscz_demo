@@ -8,7 +8,14 @@ WINNAME1    = KSJSCZDemoMainWindow
 
 
 
+#############################################################################
+# Makefile for building: AppName
+#############################################################################
 
+#将所有AppName替换成实际项目名称
+KSJ_SO_NAME = monitor
+
+GENFILE_DIR   = LinuxGenFiles/
 
 
 ####### Compiler, tools and options
@@ -16,30 +23,22 @@ WINNAME1    = KSJSCZDemoMainWindow
 CC            = arm-linux-gnueabihf-gcc 
 CXX           = arm-linux-gnueabihf-g++ 
 DEFINES       = -D$(KSJ_SO_NAME)_LIBRARY -DQT_WIDGETS_LIB -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_SHARED
-INCPATH       = -I/opt/Qt4.8/mkspecs/qws/linux-arm-gnueabi-g++ -I. -I/opt/Qt4.8/include/QtCore -I/opt/Qt4.8/include/QtNetwork \
--I/opt/Qt4.8/include/QtGui -I/opt/Qt4.8/include -I/opt/Qt4.8/include \
--I/usr/local/include \
- -I../ksjsczapi_include
+INCPATH       = -I/usr/local/include -I$(GENFILE_DIR)\
  
 LINK          = arm-linux-gnueabihf-g++ 
 
 #下面的这三项可以生成动态库
 #CFLAGS        = -pipe -O2 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 #CXXFLAGS      = -pipe -O2 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-#LFLAGS        = -Wl,-O1 -Wl,-rpath,/opt/Qt4.8/lib -shared -Wl,-soname,lib$(KSJ_SO_NAME).so
+#LFLAGS        = -Wl,-O1 -Wl,-rpath,-soname,lib$(KSJ_SO_NAME).so
 
 #下面的这三项可以生成app
 CFLAGS        = -pipe -O2 -Wall -W -D_REENTRANT  $(DEFINES)
 CXXFLAGS      = -pipe -O2 -Wall -W -D_REENTRANT  $(DEFINES)
-LFLAGS        = -Wl,-O1 -Wl,-rpath,/opt/Qt4.8/lib
+LFLAGS        = -Wl,-O1 -Wl,-rpath,
 
 #下面的加载的动态库及库目录，可根据需要增删
-LIBS          = $(SUBLIBS)  -L../ksjsczapi_lib \
--L../zbar.lib/ \
- -L/opt/Qt4.8/lib -L. -L/usr/local/lib -lpthread -ltinyxml2 \
--lQtCore -lQtGui -lQtNetwork  -lQt3Support  -lQtScript  -lQtSvg  -lQtMultimedia  \
--lQtScriptTools  -lQtTest  -lQtDeclarative  -lQtSql  -lQtXml \
--lksjscz -lzbar -ljpeg -ldl \
+LIBS          = $(SUBLIBS) -L. -L/usr/local/lib -lpthread -ldl \
 
 
 AR            = arm-linux-gnueabihf-ar cqs
@@ -60,67 +59,12 @@ DEL_DIR       = rm -rf
 MOVE          = mv -f
 CHK_DIR_EXISTS= test -d
 MKDIR         = mkdir -p
-MOC          = /opt/Qt4.8/bin/moc
-UIH          = /opt/Qt4.8/bin/uic
 
-OPENCV_INCLUDE_FILES = /usr/local/include/opencv2/opencv.hpp /usr/local/include/opencv2/core.hpp \
-/usr/local/include/opencv2/highgui.hpp \
-/usr/local/include/opencv2/imgcodecs.hpp \
-/usr/local/include/opencv2/ml.hpp \
-/usr/local/include/opencv2/cvconfig.h \
-/usr/local/include/opencv2/features2d.hpp \
-/usr/local/include/opencv2/flann.hpp \
-/usr/local/include/opencv2/imgproc.hpp \
-/usr/local/include/opencv2/objdetect.hpp \
-/usr/local/include/opencv2/opencv_modules.hpp \
-/usr/local/include/opencv2/photo.hpp \
-/usr/local/include/opencv2/shape.hpp \
-/usr/local/include/opencv2/stitching.hpp \
-/usr/local/include/opencv2/superres.hpp \
-/usr/local/include/opencv2/video.hpp \
-/usr/local/include/opencv2/videoio.hpp \
-/usr/local/include/opencv2/videostab.hpp \
-/usr/local/include/opencv2/calib3d.hpp \
-/usr/local/include/tinyxml2.h
 
 ####### Output directory
 
 
 
-####### Files
-
-		
-		
-DIST_CONFS    = /opt/Qt4.8/mkspecs/common/unix.conf \
-		/opt/Qt4.8/mkspecs/common/linux.conf \
-		/opt/Qt4.8/mkspecs/common/gcc-base.conf \
-		/opt/Qt4.8/mkspecs/common/gcc-base-unix.conf \
-		/opt/Qt4.8/mkspecs/common/g++-base.conf \
-		/opt/Qt4.8/mkspecs/common/g++-unix.conf \
-		/opt/Qt4.8/mkspecs/common/qws.conf 
-
-		
-DIST_PRFS     =	/opt/Qt4.8/mkspecs/qconfig.pri \
-		/opt/Qt4.8/mkspecs/features/qt_functions.prf \
-		/opt/Qt4.8/mkspecs/features/qt_config.prf \
-		/opt/Qt4.8/mkspecs/features/exclusive_builds.prf \
-		/opt/Qt4.8/mkspecs/features/default_pre.prf \
-		/opt/Qt4.8/mkspecs/features/release.prf \
-		/opt/Qt4.8/mkspecs/features/default_post.prf \
-		/opt/Qt4.8/mkspecs/features/warn_on.prf \
-		/opt/Qt4.8/mkspecs/features/qt.prf \
-		/opt/Qt4.8/mkspecs/features/unix/thread.prf \
-		/opt/Qt4.8/mkspecs/features/moc.prf \
-		/opt/Qt4.8/mkspecs/features/resources.prf \
-		/opt/Qt4.8/mkspecs/features/uic.prf \
-		/opt/Qt4.8/mkspecs/features/yacc.prf \
-		/opt/Qt4.8/mkspecs/features/lex.prf 	
-		
-DIST_PRLS    = /opt/Qt4.8/lib/libQtGui.prl \
-		/opt/Qt4.8/lib/libQtNetwork.prl \
-		/opt/Qt4.8/lib/libQtCore.prl
-		
-DIST          = $(DIST_CONFS) $(DIST_PRFS)
 
 OBJECTS_DIR   = obj/armlinux/
 OBJECTS_PARENT_DIR   = $(shell dirname $(OBJECTS_DIR))
@@ -128,7 +72,7 @@ OBJECTS_PARENT_DIR   = $(shell dirname $(OBJECTS_DIR))
 QMAKE_TARGET  = $(KSJ_SO_NAME)
 pes_parent_dir:=$(shell pwd)/$(lastword $(MAKEFILE_LIST))
 pes_parent_dir:=$(shell dirname $(pes_parent_dir))
-DESTPARENTDIR:=../ksjsczapi_demo_bin
+DESTPARENTDIR:=./bin
 DESTDIR       = $(DESTPARENTDIR)/
 
 #app
@@ -186,7 +130,7 @@ first: all
 ####### Build rules
 
 #在此处修改目标位置路径delautofile
-all:   genuih genmoc gensource genobjNames genobj $(DESTDIR)/$(TARGET)
+all:  gensource genobjNames genobj $(DESTDIR)/$(TARGET)
 
 $(DESTDIR)/$(TARGET):  $(OBJECTS) $(SUBLIBS) $(OBJCOMP)  
 	-$(DEL_FILE) $(TARGET) 
@@ -195,25 +139,17 @@ $(DESTDIR)/$(TARGET):  $(OBJECTS) $(SUBLIBS) $(OBJCOMP)
 	-$(MOVE) $(TARGET)  $(DESTDIR) 
 
 delautofile:
+	-$(DEL_FILE) $(GENFILE_DIR)/*
 	
 
 genTmpDir:
+	@$(CHK_DIR_EXISTS) $(GENFILE_DIR) || $(MKDIR) $(GENFILE_DIR)
 	@$(CHK_DIR_EXISTS) $(OBJECTS_PARENT_DIR) || $(MKDIR) $(OBJECTS_PARENT_DIR)
 	@$(CHK_DIR_EXISTS) $(OBJECTS_DIR) || $(MKDIR) $(OBJECTS_DIR)
+	@$(CHK_DIR_EXISTS) $(OBJECTS_DIR)$(GENFILE_DIR) || $(MKDIR) $(OBJECTS_DIR)$(GENFILE_DIR)
 	@$(CHK_DIR_EXISTS) $(DESTPARENTDIR) || $(MKDIR) $(DESTPARENTDIR)
 	@$(CHK_DIR_EXISTS) $(DESTDIR) || $(MKDIR)  $(DESTDIR)  
 	
-
-
-
-genuih:
-	-$(UIH) $(WINNAME1).ui -o ui_$(WINNAME1).h
-
-genmoc:
-	-$(MOC) $(DEFINES) $(INCPATH) $(WINNAME1).h -o moc_$(WINNAME1).cpp
-	
-####### Compile
-
 
 
 #depends:gensource
@@ -221,8 +157,10 @@ genmoc:
 #	 $(CXX)  $(CXXFLAGS) $(INCPATH) -M  $(SOURCE) > depends.mak
 
 #在此处添加.cpp文件
-gensource:genTmpDir genuih genmoc
+gensource:genTmpDir
 SOURCE += $(wildcard *.cpp) 
+SOURCE += $(wildcard $(GENFILE_DIR)*.cpp) 
+#SOURCE += $(GENFILE_DIR)moc_$(WINNAME1).cpp
 		
 #在此处添加.o文件, 一般每个.cpp添加一个.o文件
 
@@ -248,7 +186,7 @@ $(TARGETA):  $(OBJECTS) $(OBJCOMP)
 
 #在此处修改目标位置路径，清理上次生成的结果
 
-clean: cleanuih cleanmoc
+clean:
 	-$(DEL_FILE) $(DESTDIR)/$(TARGET)
 	-$(DEL_FILE) $(OBJECTS_DIR)*.o
 	-$(DEL_FILE) $(OBJECTS_DIR)*/*.o
@@ -273,13 +211,6 @@ distclean: clean
 
 check: first
 
-
-
-
-
-cleanuih:
-
-cleanmoc:	
 
 ####### Install
 

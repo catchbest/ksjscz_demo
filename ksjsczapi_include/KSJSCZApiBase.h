@@ -66,7 +66,9 @@ KSJSCZ_API KSJSCZ_SetAddressMode(int nSensorIndex, enum KSJ_ADDRESSMODE AddressM
 KSJSCZ_API KSJSCZ_GetAddressMode(int nSensorIndex, enum KSJ_ADDRESSMODE *pAddressMode);
 KSJSCZ_API KSJSCZ_GetCaptureSize(int nSensorIndex, int *pnWidth, int *pnHeight, int *pnBitCount);
 KSJSCZ_API KSJSCZ_CaptureSetTimeOut(int nSensorIndex, unsigned int ulTimeOut); // unit is second
-KSJSCZ_API KSJSCZ_CaptureData(int nSensorIndex, unsigned char **pDataBuffer);
+KSJSCZ_API KSJSCZ_CaptureData(int nSensorIndex, unsigned char **ppDataBuffer);
+KSJSCZ_API KSJSCZ_CaptureDataEx(int nSensorIndex, unsigned char **ppDataBuffer, unsigned char **ppPhysicalAddress);
+KSJSCZ_API KSJSCZ_CaptureDataEn(int nSensorIndex, unsigned char **ppDataBuffer, unsigned char **ppPhysicalAddress, unsigned int* pnFrameCount, bool* pbCompleted);
 KSJSCZ_API KSJSCZ_ReleaseBuffer(int nSensorIndex);
 
 KSJSCZ_API KSJSCZ_GetGainRange(int nSensorIndex, unsigned int *pulValueMin, unsigned int *pulValueMax);

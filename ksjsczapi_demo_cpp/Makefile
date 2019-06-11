@@ -26,11 +26,11 @@ LINK          = arm-linux-gnueabihf-g++
 #下面的这三项可以生成app
 CFLAGS        = -pipe -O2 -Wall -W -D_REENTRANT  $(DEFINES)
 CXXFLAGS      = -pipe -O2 -Wall -W -D_REENTRANT  $(DEFINES)
-LFLAGS        = -Wl,-O1 -Wl,-rpath,/opt/Qt4.8/lib
+LFLAGS        = -Wl,-O1 -Wl,-rpath,
 
 #下面的加载的动态库及库目录，可根据需要增删
 LIBS          = $(SUBLIBS)  -L../ksjsczapi_lib \
- -L. -L/usr/local/lib -lpthread -ltinyxml2 \
+ -L. -L/usr/local/lib -lpthread \
  -lksjscz -ldl \
 
 
@@ -52,65 +52,11 @@ DEL_DIR       = rm -rf
 MOVE          = mv -f
 CHK_DIR_EXISTS= test -d
 MKDIR         = mkdir -p
-MOC          = /opt/Qt4.8/bin/moc
-UIH          = /opt/Qt4.8/bin/uic
 
-OPENCV_INCLUDE_FILES = /usr/local/include/opencv2/opencv.hpp /usr/local/include/opencv2/core.hpp \
-/usr/local/include/opencv2/highgui.hpp \
-/usr/local/include/opencv2/imgcodecs.hpp \
-/usr/local/include/opencv2/ml.hpp \
-/usr/local/include/opencv2/cvconfig.h \
-/usr/local/include/opencv2/features2d.hpp \
-/usr/local/include/opencv2/flann.hpp \
-/usr/local/include/opencv2/imgproc.hpp \
-/usr/local/include/opencv2/objdetect.hpp \
-/usr/local/include/opencv2/opencv_modules.hpp \
-/usr/local/include/opencv2/photo.hpp \
-/usr/local/include/opencv2/shape.hpp \
-/usr/local/include/opencv2/stitching.hpp \
-/usr/local/include/opencv2/superres.hpp \
-/usr/local/include/opencv2/video.hpp \
-/usr/local/include/opencv2/videoio.hpp \
-/usr/local/include/opencv2/videostab.hpp \
-/usr/local/include/opencv2/calib3d.hpp \
-/usr/local/include/tinyxml2.h
+
 
 ####### Output directory
 
-
-
-####### Files
-
-		
-		
-DIST_CONFS    = /opt/Qt4.8/mkspecs/common/unix.conf \
-		/opt/Qt4.8/mkspecs/common/linux.conf \
-		/opt/Qt4.8/mkspecs/common/gcc-base.conf \
-		/opt/Qt4.8/mkspecs/common/gcc-base-unix.conf \
-		/opt/Qt4.8/mkspecs/common/g++-base.conf \
-		/opt/Qt4.8/mkspecs/common/g++-unix.conf \
-		/opt/Qt4.8/mkspecs/common/qws.conf 
-
-		
-DIST_PRFS     =	/opt/Qt4.8/mkspecs/qconfig.pri \
-		/opt/Qt4.8/mkspecs/features/qt_functions.prf \
-		/opt/Qt4.8/mkspecs/features/qt_config.prf \
-		/opt/Qt4.8/mkspecs/features/exclusive_builds.prf \
-		/opt/Qt4.8/mkspecs/features/default_pre.prf \
-		/opt/Qt4.8/mkspecs/features/release.prf \
-		/opt/Qt4.8/mkspecs/features/default_post.prf \
-		/opt/Qt4.8/mkspecs/features/warn_on.prf \
-		/opt/Qt4.8/mkspecs/features/qt.prf \
-		/opt/Qt4.8/mkspecs/features/unix/thread.prf \
-		/opt/Qt4.8/mkspecs/features/moc.prf \
-		/opt/Qt4.8/mkspecs/features/resources.prf \
-		/opt/Qt4.8/mkspecs/features/uic.prf \
-		/opt/Qt4.8/mkspecs/features/yacc.prf \
-		/opt/Qt4.8/mkspecs/features/lex.prf 	
-		
-DIST_PRLS    = /opt/Qt4.8/lib/libQtGui.prl \
-		/opt/Qt4.8/lib/libQtNetwork.prl \
-		/opt/Qt4.8/lib/libQtCore.prl
 		
 DIST          = $(DIST_CONFS) $(DIST_PRFS)
 

@@ -57,12 +57,23 @@ extern "C" {
 
 	// 需要显示时，由固定物理内存池申请内存
 	KSJSCZ_API KSJSCZ_Malloc(unsigned int unBufferSize, unsigned char **ppDataBuffer);
+	KSJSCZ_API KSJSCZ_MallocEx(unsigned int unBufferSize, unsigned char **ppDataBuffer, unsigned char **ppPhysicalAddress);
 
 	// 释放物理内存池中的一块内存
 	KSJSCZ_API KSJSCZ_Free(unsigned char **ppDataBuffer);
 
 	// 显示一帧图像，此图像为用户加载到DataBuffer (由 KSJSCZ_Malloc 分配)中的图像数据
 	KSJSCZ_API KSJSCZ_ShowUserLoadData(int nSensorIndex, unsigned char *pDataBuffer, unsigned int unRawWidth, unsigned int unRawHeight, unsigned int unBitCount);
+
+	KSJSCZ_API KSJSCZ_ShowMemoryData(int nSensorIndex, unsigned char *pPhysicalAddress, unsigned int unRawWidth, unsigned int unRawHeight, unsigned int unBitCount);
+
+	KSJSCZ_API KSJSCZ_SetOnScreenDisplay(int nSensorIndex, bool bOSD);
+	KSJSCZ_API KSJSCZ_GetOnScreenDisplay(int nSensorIndex, bool* pbOSD);
+
+	KSJSCZ_API KSJSCZ_SetCutoutColor(int nSensorIndex, unsigned char r, unsigned char g, unsigned char b);
+
+	// 仅4K起作用
+	KSJSCZ_API KSJSCZ_SetDisplayScaler(int nSensorIndex, int nX, int nY, int nW, int nH, bool bCutEdge, bool bIsMirror);
 
 #ifdef __cplusplus
 }

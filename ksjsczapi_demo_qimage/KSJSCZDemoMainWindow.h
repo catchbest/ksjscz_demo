@@ -1,11 +1,11 @@
 ﻿#ifndef __KSJSCZDEMO_MAINWINDOW_H_
 #define __KSJSCZDEMO_MAINWINDOW_H_
 
-#include "QtCore/QTimer"
-#include "QtGui/QDialog"
-#include "QtGui/QLabel"
-#include "QtGui/QScrollArea"
-#include "QtGui/QMatrix"
+#include "QTimer"
+#include "QDialog"
+#include "QLabel"
+#include "QScrollArea"
+#include "QMatrix"
 #include "KSJVBImageZoom.h"
 #include "../ksjsczapi_include/KSJSCZApiTriggerMode.h"
 

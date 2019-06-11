@@ -1,26 +1,53 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'KSJSCZDemoMainWindow.h'
 **
-** Created: Thu Sep 7 18:12:48 2017
-**      by: The Qt Meta Object Compiler version 63 (Qt 4.8.3)
+** Created by: The Qt Meta Object Compiler version 67 (Qt 5.7.1)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
 #include "KSJSCZDemoMainWindow.h"
+#include <QtCore/qbytearray.h>
+#include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'KSJSCZDemoMainWindow.h' doesn't include <QObject>."
-#elif Q_MOC_OUTPUT_REVISION != 63
-#error "This file was generated using the moc from 4.8.3. It"
+#elif Q_MOC_OUTPUT_REVISION != 67
+#error "This file was generated using the moc from 5.7.1. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
 
 QT_BEGIN_MOC_NAMESPACE
+struct qt_meta_stringdata_CKSJSCZDemoMainWindow_t {
+    QByteArrayData data[7];
+    char stringdata0[88];
+};
+#define QT_MOC_LITERAL(idx, ofs, len) \
+    Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
+    qptrdiff(offsetof(qt_meta_stringdata_CKSJSCZDemoMainWindow_t, stringdata0) + ofs \
+        - idx * sizeof(QByteArrayData)) \
+    )
+static const qt_meta_stringdata_CKSJSCZDemoMainWindow_t qt_meta_stringdata_CKSJSCZDemoMainWindow = {
+    {
+QT_MOC_LITERAL(0, 0, 21), // "CKSJSCZDemoMainWindow"
+QT_MOC_LITERAL(1, 22, 14), // "OnStartCapture"
+QT_MOC_LITERAL(2, 37, 0), // ""
+QT_MOC_LITERAL(3, 38, 13), // "OnStopCapture"
+QT_MOC_LITERAL(4, 52, 14), // "OnHorScrollbar"
+QT_MOC_LITERAL(5, 67, 5), // "value"
+QT_MOC_LITERAL(6, 73, 14) // "OnVerScrollbar"
+
+    },
+    "CKSJSCZDemoMainWindow\0OnStartCapture\0"
+    "\0OnStopCapture\0OnHorScrollbar\0value\0"
+    "OnVerScrollbar"
+};
+#undef QT_MOC_LITERAL
+
 static const uint qt_meta_data_CKSJSCZDemoMainWindow[] = {
 
  // content:
-       6,       // revision
+       7,       // revision
        0,       // classname
        0,    0, // classinfo
        4,   14, // methods
@@ -30,26 +57,26 @@ static const uint qt_meta_data_CKSJSCZDemoMainWindow[] = {
        0,       // flags
        0,       // signalCount
 
- // slots: signature, parameters, type, tag, flags
-      23,   22,   22,   22, 0x09,
-      40,   22,   22,   22, 0x09,
-      62,   56,   22,   22, 0x09,
-      82,   56,   22,   22, 0x09,
+ // slots: name, argc, parameters, tag, flags
+       1,    0,   34,    2, 0x09 /* Protected */,
+       3,    0,   35,    2, 0x09 /* Protected */,
+       4,    1,   36,    2, 0x09 /* Protected */,
+       6,    1,   39,    2, 0x09 /* Protected */,
+
+ // slots: parameters
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::Int,    5,
+    QMetaType::Void, QMetaType::Int,    5,
 
        0        // eod
-};
-
-static const char qt_meta_stringdata_CKSJSCZDemoMainWindow[] = {
-    "CKSJSCZDemoMainWindow\0\0OnStartCapture()\0"
-    "OnStopCapture()\0value\0OnHorScrollbar(int)\0"
-    "OnVerScrollbar(int)\0"
 };
 
 void CKSJSCZDemoMainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
-        Q_ASSERT(staticMetaObject.cast(_o));
         CKSJSCZDemoMainWindow *_t = static_cast<CKSJSCZDemoMainWindow *>(_o);
+        Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->OnStartCapture(); break;
         case 1: _t->OnStopCapture(); break;
@@ -60,28 +87,21 @@ void CKSJSCZDemoMainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c
     }
 }
 
-const QMetaObjectExtraData CKSJSCZDemoMainWindow::staticMetaObjectExtraData = {
-    0,  qt_static_metacall 
-};
-
 const QMetaObject CKSJSCZDemoMainWindow::staticMetaObject = {
-    { &QDialog::staticMetaObject, qt_meta_stringdata_CKSJSCZDemoMainWindow,
-      qt_meta_data_CKSJSCZDemoMainWindow, &staticMetaObjectExtraData }
+    { &QDialog::staticMetaObject, qt_meta_stringdata_CKSJSCZDemoMainWindow.data,
+      qt_meta_data_CKSJSCZDemoMainWindow,  qt_static_metacall, Q_NULLPTR, Q_NULLPTR}
 };
 
-#ifdef Q_NO_DATA_RELOCATION
-const QMetaObject &CKSJSCZDemoMainWindow::getStaticMetaObject() { return staticMetaObject; }
-#endif //Q_NO_DATA_RELOCATION
 
 const QMetaObject *CKSJSCZDemoMainWindow::metaObject() const
 {
-    return QObject::d_ptr->metaObject ? QObject::d_ptr->metaObject : &staticMetaObject;
+    return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
 }
 
 void *CKSJSCZDemoMainWindow::qt_metacast(const char *_clname)
 {
-    if (!_clname) return 0;
-    if (!strcmp(_clname, qt_meta_stringdata_CKSJSCZDemoMainWindow))
+    if (!_clname) return Q_NULLPTR;
+    if (!strcmp(_clname, qt_meta_stringdata_CKSJSCZDemoMainWindow.stringdata0))
         return static_cast<void*>(const_cast< CKSJSCZDemoMainWindow*>(this));
     return QDialog::qt_metacast(_clname);
 }
@@ -94,6 +114,10 @@ int CKSJSCZDemoMainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_c == QMetaObject::InvokeMetaMethod) {
         if (_id < 4)
             qt_static_metacall(this, _c, _id, _a);
+        _id -= 4;
+    } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
+        if (_id < 4)
+            *reinterpret_cast<int*>(_a[0]) = -1;
         _id -= 4;
     }
     return _id;

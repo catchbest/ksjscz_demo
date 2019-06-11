@@ -32,30 +32,63 @@ enum KSJSCZ_ERROR_LIST
 	KSJSCZ_ERR_SENSOR_INVALID       = -1025,
 	KSJSCZ_ERR_PL_INVALID           = -1026,
 	KSJSCZ_ERR_CAPTURESTOP          = -1027,
+	KSJSCZ_ERR_MALLOCFAIL           = -1028,
+	KSJSCZ_ERR_NOTSUPPORT           = -1029,
+	KSJSCZ_ERR_DEVICENOTEXIST       = -1030,
+	KSJSCZ_ERR_VIOLATION            = -1031,
+	KSJSCZ_ERR_NOPRIVILEGE          = -1032,
+	KSJSCZ_ERR_FAIL                 = -1033,
+	KSJSCZ_ERR_WRONG                = -1034,
+	KSJSCZ_ERR_NULLPOINTER          = -1035,
+
 
 	KSJSCZ_ERR_CUSTOM_ID            = -10000
 };
 
-#define		RET_SUCCESS			     0     // Function Return Successfully.
-#define		RET_PARAMERROR			-1     // User's Parameter Passed to API Error.
-#define		RET_MALLOCFAIL			-2     // Memory Allocated Fail.
-#define		RET_NOTSUPPORT			-3     // Function not supported by such type camera.
-#define		RET_DEVICENOTEXIST		-4     // Device doesn't be detected.
-#define		RET_DEVICENOTINIT		-5     // Device haven't be initialized
-#define		RET_VIOLATION			-6     // This operation is conflict to other operation.
-#define		RET_NOPRIVILEGE			-7     // User no privilege
-#define		RET_FAIL			    -8     // Function Return Failed.( Normal Error, no Detail )
-#define		RET_WRONG			    -9     // Same to RET_FAIL.
-#define     RET_RECOVERY_SUCCESS    -10    // Device is recovered successfully.
-#define     RET_RECOVERY_FAIL       -11    // Device recovered, but fail.
-#define     RET_BADFRAME            -12    // Bad Frame comes from sensor, should be skipped. 
-#define     RET_INVALIDFRAME        -13    // Invalid Frame, Transmission Error, this frame should re-get.
-#define     RET_ZEROFRAME           -14    // 帧存相机会返回此值，表示采集图像数据0字节，错误的帧
-#define     RET_VERSION_ERROR       -15    // 版本错误
-#define     RET_TIMEOUT             -16    // 当设置读取超时之后不进行恢复时，采集函数会返回此数值，而不会返回恢复的状态
-#define     RET_DEVICECLOSED        -17
-#define     RET_BUSNOTINIT          -18    // 总线没有初始化
-#define     RET_CAM_NOT_CREATED     -19
-#define     RET_INVALID_HANDLE      -20
+
+// KSJSCZAPI函数返回代码
+enum KSJ_ERROR_LIST
+{
+	RET_SUCCESS = 0,
+	RET_ERROR = -1001,
+	RET_NOT_INITIALIZED = -1002,
+	RET_NOT_IMPLEMENTED = -1003,
+	RET_RESOURCE_IN_USE = -1004,
+	RET_ACCESS_DENIED = -1005,
+	RET_INVALID_HANDLE = -1006,
+	RET_INVALID_ID = -1007,
+	RET_NO_DATA = -1008,
+	RET_INVALID_PARAMETER = -1009,
+	RET_IO = -1010,
+	RET_TIMEOUT = -1011,
+	RET_ABORT = -1012,
+	RET_INVALID_BUFFER = -1013,
+	RET_NOT_AVAILABLE = -1014,
+	RET_INVALID_ADDRESS = -1015,
+	RET_BUFFER_TOO_SMALL = -1016,
+	RET_INVALID_INDEX = -1017,
+	RET_PARSING_CHUNK_DATA = -1018,
+	RET_INVALID_VALUE = -1019,
+	RET_RESOURCE_EXHAUSTED = -1020,
+	RET_OUT_OF_MEMORY = -1021,
+	RET_BUSY = -1022,
+	RET_PL_FAIL = -1023,
+	RET_BUS_INVALID = -1024,
+	RET_SENSOR_INVALID = -1025,
+	RET_PL_INVALID = -1026,
+	RET_CAPTURESTOP = -1027,
+	RET_MALLOCFAIL = -1028,
+	RET_NOTSUPPORT = -1029,
+	RET_DEVICENOTEXIST = -1030,
+	RET_VIOLATION = -1031,
+	RET_NOPRIVILEGE = -1032,
+	RET_FAIL = -1033,
+	RET_WRONG = -1034,
+	RET_NULLPOINTER = -1035,
+	RET_PARAMERROR = -1036,
+
+
+	ERR_CUSTOM_ID = -10000
+};
 
 #endif

@@ -61,6 +61,9 @@ KSJSCZ_API KSJSCZ_GetMotorMoveStepNumber(int nSensorIndex, unsigned short *pusSt
 KSJSCZ_API KSJSCZ_MotorControlExecute(int nSensorIndex, bool bRun, bool bForward, unsigned int ulSpeed);        // 执行操作，bRun=1执行刚才设置的步数，bRun=0，清空已经执行的步数，ulSpeed不要超过100Hz？
 KSJSCZ_API KSJSCZ_MotorExecute(int nSensorIndex, unsigned short usStep, bool bForward, unsigned int ulSpeed, unsigned int nTimeOutMS);   // 控制电机执行行usStep
 
+// 闪光灯控制
+KSJSCZ_API KSJSCZ_SetFlashEnbale(int nSensorIndex, bool bEnable, unsigned int unFlashRate);     // 闪光灯使能
+
 
 #ifdef __cplusplus
 }
